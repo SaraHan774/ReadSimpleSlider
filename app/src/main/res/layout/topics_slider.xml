@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/colorTransparent">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view_topics"
+        card_view:cardCornerRadius="30dp"
+        card_view:cardUseCompatPadding="true"
+        android:elevation="8dp"
+        android:layout_gravity="center"
+        android:layout_width="240dp"
+        android:layout_height="240dp">
+
+    <ImageView
+        android:id="@+id/image_view_topics"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/jjong" />
+
+    <View
+        android:id="@+id/scrim_gradient_topics"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@drawable/scrim_gradient_topics"
+        />
+
+    <TextView
+        android:id="@+id/tv_topics_name"
+        android:text="SAMPLE TEXT"
+        android:textSize="@dimen/text_size_small"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="16dp"
+        android:textStyle="bold"
+        android:gravity="center" />
+
+        <ImageButton
+            android:id="@+id/img_btn_topic_confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="8dp"
+            android:background="@drawable/ic_add_circle_black_24dp" />
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>
