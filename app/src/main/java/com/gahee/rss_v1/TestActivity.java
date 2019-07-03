@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.gahee.rss_v1.CNN.FeedAPIcnn;
-import com.gahee.rss_v1.CNN.Feedcnn;
+import com.gahee.rss_v1.CNN.FeedCnn;
 import com.gahee.rss_v1.CNN.Item;
 
 import java.util.List;
@@ -56,12 +56,12 @@ public class TestActivity extends AppCompatActivity {
 
         FeedAPIcnn feedAPIcnn = retrofit.create(FeedAPIcnn.class);
 
-        Call<Feedcnn> call = feedAPIcnn.getEditionTechnologyFeed();
+        Call<FeedCnn> call = feedAPIcnn.getEditionTechnologyFeed();
 
-        call.enqueue(new Callback<Feedcnn>() {
+        call.enqueue(new Callback<FeedCnn>() {
 
             @Override
-            public void onResponse(Call<Feedcnn> call, Response<Feedcnn> response) {
+            public void onResponse(Call<FeedCnn> call, Response<FeedCnn> response) {
                 Log.d(TAG, "channel - title : " + response.body().getChannel().getTitle());
                 Log.d(TAG, "description : " + response.body().getChannel().getItem().get(1).getDescription());
 
@@ -77,7 +77,7 @@ public class TestActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Feedcnn> call, Throwable t) {
+            public void onFailure(Call<FeedCnn> call, Throwable t) {
                 Log.e(TAG, "onFailure : Unable to retrieve RSS : " + t.getMessage());
             }
         });
@@ -93,12 +93,12 @@ public class TestActivity extends AppCompatActivity {
 
         FeedAPIcnn feedAPIcnn = retrofit.create(FeedAPIcnn.class);
 
-        Call<Feedcnn> call = feedAPIcnn.getEditionSpaceFeed();
+        Call<FeedCnn> call = feedAPIcnn.getEditionSpaceFeed();
 
-        call.enqueue(new Callback<Feedcnn>() {
+        call.enqueue(new Callback<FeedCnn>() {
 
             @Override
-            public void onResponse(Call<Feedcnn> call, Response<Feedcnn> response) {
+            public void onResponse(Call<FeedCnn> call, Response<FeedCnn> response) {
                 Log.d(TAG, "channel - title : " + response.body().getChannel().getTitle());
                 Log.d(TAG, "description : " + response.body().getChannel().getItem().get(1).getDescription());
 
@@ -114,7 +114,7 @@ public class TestActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Feedcnn> call, Throwable t) {
+            public void onFailure(Call<FeedCnn> call, Throwable t) {
                 Log.e(TAG, "onFailure : Unable to retrieve RSS : " + t.getMessage());
             }
         });

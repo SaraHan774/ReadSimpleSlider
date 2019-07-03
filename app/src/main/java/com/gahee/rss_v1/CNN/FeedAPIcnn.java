@@ -8,61 +8,61 @@ public interface FeedAPIcnn {
     String BASE_URL = "http://rss.cnn.com/rss/";
 
     @GET("edition_technology.rss")
-    Call<Feedcnn> getEditionTechnologyFeed();
+    Call<FeedCnn> getEditionTechnologyFeed();
 
     @GET("edition_space.rss")
-    Call<Feedcnn> getEditionSpaceFeed();
+    Call<FeedCnn> getEditionSpaceFeed();
 
     @GET("edition_world.rss")
-    Call<Feedcnn> getEditionWorldFeed();
+    Call<FeedCnn> getEditionWorldFeed();
 
     @GET("edition_africa.rss")
-    Call<Feedcnn> getEditionAfricaFeed();
+    Call<FeedCnn> getEditionAfricaFeed();
 
     @GET("edition_americas.rss")
-    Call<Feedcnn> getEditionAmericasFeed();
+    Call<FeedCnn> getEditionAmericasFeed();
 
     @GET("edition_asia.rss")
-    Call<Feedcnn> getEditionAsiaFeed();
+    Call<FeedCnn> getEditionAsiaFeed();
 
     @GET("edition_europe.rss")
-    Call<Feedcnn> getEditionEuropeFeed();
+    Call<FeedCnn> getEditionEuropeFeed();
 
     @GET("edition_meast.rss")
-    Call<Feedcnn> getEditionMiddleEastFeed();
+    Call<FeedCnn> getEditionMiddleEastFeed();
 
     @GET("edition_us.rss")
-    Call<Feedcnn> getEditionUSFeed();
+    Call<FeedCnn> getEditionUSFeed();
 
     @GET("money_news_international.rss")
-    Call<Feedcnn> getMoneyNewsInternationalFeed();
+    Call<FeedCnn> getMoneyNewsInternationalFeed();
 
     @GET("edition_entertainment.rss")
-    Call<Feedcnn> getEditionEntertainmentFeed();
+    Call<FeedCnn> getEditionEntertainmentFeed();
 
     @GET("edition_sport.rss")
-    Call<Feedcnn> getEditionSportFeed();
+    Call<FeedCnn> getEditionSportFeed();
 
     @GET("edition_football.rss")
-    Call<Feedcnn> getEditionFootballFeed();
+    Call<FeedCnn> getEditionFootballFeed();
 
     @GET("edition_golf.rss")
-    Call<Feedcnn> getEditionGolfFeed();
+    Call<FeedCnn> getEditionGolfFeed();
 
     @GET("edition_motorsport.rss")
-    Call<Feedcnn> getEditionMotorSportFeed();
+    Call<FeedCnn> getEditionMotorSportFeed();
 
     @GET("edition_tennis.rss")
-    Call<Feedcnn> getEditionTennisFeed();
+    Call<FeedCnn> getEditionTennisFeed();
 
     @GET("edition_travel.rss")
-    Call<Feedcnn> getEditionTravelFeed();
+    Call<FeedCnn> getEditionTravelFeed();
 
     @GET("cnn_freevideo.rss")
-    Call<Feedcnn> getFreeVideoFeed();
+    Call<FeedCnn> getFreeVideoFeed();
 
     @GET("cnn_latest.rss")
-    Call<Feedcnn> getCnnLatestFeed();
+    Call<FeedCnn> getCnnLatestFeed();
 
 
 }

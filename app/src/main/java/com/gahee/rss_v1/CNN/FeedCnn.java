@@ -7,7 +7,7 @@ import org.simpleframework.xml.Root;
 import java.io.Serializable;
 
 @Root(name = "rss", strict = false)
-public class Feedcnn implements Serializable {
+public class FeedCnn implements Serializable {
     //channel
     //channel - title, pubdate, item
     //channel - item - title, link, description, pubdate, thumbnail
