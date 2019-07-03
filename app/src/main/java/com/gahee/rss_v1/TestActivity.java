@@ -32,7 +32,7 @@ public class TestActivity extends AppCompatActivity {
     private static final String TAG = TestActivity.class.getSimpleName();
     private static final String BASE_URL = "http://rss.cnn.com/rss/";
     private static final String UNSPLASH_BASE_URL = "https://api.unsplash.com";
-    private static final String ACCESS_KEY = "20c590f0fc1956bf72bb7bfbd5c4053b145bf8b18549395eaec3c22bcf16e62e";
+    private static final String ACCESS_KEY = "";//Unsplash AccessKey goes here
     private TextView textView;
     private Button button;
     private StringBuffer desc;
