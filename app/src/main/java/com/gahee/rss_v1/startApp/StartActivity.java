@@ -1,24 +1,20 @@
-package com.gahee.rss_v1;
+package com.gahee.rss_v1.startApp;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.text.Html;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.gahee.rss_v1.CheckIfNew;
+import com.gahee.rss_v1.R;
+
 import java.util.ArrayList;
-import java.util.List;
 
 public class StartActivity extends AppCompatActivity {
 
@@ -87,17 +83,31 @@ public class StartActivity extends AppCompatActivity {
 
             addSliderDots(currentPosition);
 
-            //on the second page (current position 1)
-            //inflate fragment to display topics items
-            //send the topics list to view pager adapter class
-            //set the adapter to the view pager in the fragment
-
-            if(currentPosition == 1){
-                addTopicsToViewPagers();
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.topics_fragment_placeholder, TopicFragment.newInstance(topicsItemList));
-                fragmentTransaction.commit();
-                Log.d(TAG, "fragment transaction committed");
+            switch (currentPosition){
+                case 0:
+                    //on the first page
+                    //initialize EditText obj -> save user name in shared preference
+                    //let user select the country / region (maybe)
+                    //initialize check button - on Click save user name in SP
+                    //make a Toast that the user name has been saved.
+                    break;
+                case 1:
+                    //on the second page (current position 1)
+                    //inflate fragment to display topics items
+                    //send the topics list to view pager adapter class
+                    //set the adapter to the view pager in the fragment
+                    addTopicsToViewPagers();
+                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.topics_fragment_placeholder, TopicFragment.newInstance(topicsItemList));
+                    fragmentTransaction.commit();
+                    Log.d(TAG, "fragment transaction committed");
+                    break;
+                case 2:
+                    //loading page
+                    //initialize animations on the dots
+                    //do background work -> parsing xml & creating cards
+                    //when it's ready to display contents, switch to Main Activity
+                    break; 
             }
 
         }

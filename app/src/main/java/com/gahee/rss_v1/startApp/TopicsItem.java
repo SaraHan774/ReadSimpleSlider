@@ -1,4 +1,4 @@
-package com.gahee.rss_v1;
+package com.gahee.rss_v1.startApp;
 
 import android.os.Parcel;
 import android.os.Parcelable;

@@ -8,9 +8,10 @@ import java.io.Serializable;
 
 @Root(name = "rss", strict = false)
 public class FeedCnn implements Serializable {
-    //channel
-    //channel - title, pubdate, item
-    //channel - item - title, link, description, pubdate, thumbnail
+
+    //rss - channel
+    //rss - channel - title, pubdate, item
+    //rss - channel - item - title, link, description, pubdate, thumbnail
         //item -> repeating
 
     @Element(name = "channel")
