@@ -21,15 +21,11 @@ public class TopicFragment extends Fragment {
 
     private static final String TAG = TopicFragment.class.getSimpleName();
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String TOPICS = "param1";
+
 
     private ViewPager viewPager;
-
-    // TODO: Rename and change types of parameters
-    private ArrayList<TopicsItem> mParam1;
+    private ArrayList<TopicsItem> topicsItems;
 
 //    private OnFragmentInteractionListener mListener;
 
@@ -40,7 +36,7 @@ public class TopicFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         viewPager = view.findViewById(R.id.topics_view_pager);
-        TopicsSliderAdapter topicsSliderAdapter = new TopicsSliderAdapter(mParam1, view.getContext());
+        TopicsSliderAdapter topicsSliderAdapter = new TopicsSliderAdapter(topicsItems, view.getContext());
         viewPager.setAdapter(topicsSliderAdapter);
         viewPager.setPageMargin(24);
         transformViewPager();
@@ -75,18 +71,10 @@ public class TopicFragment extends Fragment {
         });
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @return A new instance of fragment TopicFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static TopicFragment newInstance(ArrayList<TopicsItem> param1) {
         TopicFragment fragment = new TopicFragment();
         Bundle args = new Bundle();
-        args.putParcelableArrayList(ARG_PARAM1, param1);
+        args.putParcelableArrayList(TOPICS, param1);
         fragment.setArguments(args);
         return fragment;
     }
@@ -95,7 +83,7 @@ public class TopicFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getParcelableArrayList(ARG_PARAM1);
+            topicsItems = getArguments().getParcelableArrayList(TOPICS);
         }
     }
 
