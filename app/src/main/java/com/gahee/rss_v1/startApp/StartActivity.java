@@ -107,7 +107,7 @@ public class StartActivity extends AppCompatActivity {
                     //initialize animations on the dots
                     //do background work -> parsing xml & creating cards
                     //when it's ready to display contents, switch to Main Activity
-                    break; 
+                    break;
             }
 
         }
