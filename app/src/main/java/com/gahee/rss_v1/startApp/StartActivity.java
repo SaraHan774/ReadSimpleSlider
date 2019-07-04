@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.gahee.rss_v1.CNN.TopicsEnum;
 import com.gahee.rss_v1.CheckIfNew;
 import com.gahee.rss_v1.R;
 
@@ -120,6 +121,7 @@ public class StartActivity extends AppCompatActivity {
 
     //test list
     ArrayList<TopicsItem> topicsItemList = new ArrayList<>();
+    
 
     private void addTopicsToViewPagers(){
 

@@ -15,6 +15,7 @@ import com.gahee.rss_v1.CNN.FeedCnn;
 import com.gahee.rss_v1.CNN.Item;
 import com.gahee.rss_v1.unsplash.RandomPhoto;
 import com.gahee.rss_v1.unsplash.Unsplash;
+import com.gahee.rss_v1.unsplash.UnsplashUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -31,8 +32,7 @@ public class TestActivity extends AppCompatActivity {
 
     private static final String TAG = TestActivity.class.getSimpleName();
     private static final String BASE_URL = "http://rss.cnn.com/rss/";
-    private static final String UNSPLASH_BASE_URL = "https://api.unsplash.com";
-    private static final String ACCESS_KEY = BuildConfig.unsplashAccessKey;//Unsplash AccessKey goes here
+
     private TextView textView;
     private Button button;
     private StringBuffer desc;
@@ -56,32 +56,8 @@ public class TestActivity extends AppCompatActivity {
             }
         });
 
-        Map<String, String> params = new HashMap<>();
-        params.put("query", "birds");
-        params.put("client_id", ACCESS_KEY);
-
-        Log.d(TAG, "hashmap : "  + params);
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(UNSPLASH_BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        Unsplash unsplash = retrofit.create(Unsplash.class);
-        final Call<RandomPhoto> randomPhotoCall = unsplash.getRandomPhoto(params);
-        randomPhotoCall.enqueue(new Callback<RandomPhoto>() {
-            @Override
-            public void onResponse(Call<RandomPhoto> call, Response<RandomPhoto> response) {
-                 randomPhotoUrl = response.body().getUrLs().getFull();
-                Log.d(TAG, "connection successful (unsplash) randomPhotoUrl : " + randomPhotoUrl );
-                loadImageFromGlide();
-            }
-
-            @Override
-            public void onFailure(Call<RandomPhoto> call, Throwable t) {
-                Log.d(TAG, "failed to fetch data from unsplash");
-            }
-        });
-        //Glide executes before the completion of onResponse() -> Retrofit
+        UnsplashUtils unsplashUtils = new UnsplashUtils(this, imageView);
+        unsplashUtils.getRandomPhotoBasedOnQuery("tigers");
     }
 
     private void retrieveTechFeed(){
@@ -156,10 +132,6 @@ public class TestActivity extends AppCompatActivity {
                 Log.e(TAG, "onFailure : Unable to retrieve RSS : " + t.getMessage());
             }
         });
-    }
-
-    private void loadImageFromGlide(){
-        Glide.with(this).load(randomPhotoUrl).into(imageView);
     }
 
 
