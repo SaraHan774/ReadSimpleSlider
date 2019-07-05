@@ -36,8 +36,6 @@ public class TestActivity extends AppCompatActivity {
     private TextView textView;
     private Button button;
     private StringBuffer desc;
-    private String randomPhotoUrl;
-
     private ImageView imageView;
 
     @Override

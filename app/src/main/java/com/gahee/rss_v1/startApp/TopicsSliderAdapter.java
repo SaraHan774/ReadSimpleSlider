@@ -4,30 +4,33 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
+import com.bumptech.glide.Glide;
 import com.gahee.rss_v1.R;
-
-import java.util.ArrayList;
 
 public class TopicsSliderAdapter extends PagerAdapter {
 
     private LayoutInflater layoutInflater;
     private Context context;
-    private ArrayList<TopicsItem> topicsItemArrayList;
+    private String [] topics;
+    private int [] photos;
 
-    public TopicsSliderAdapter(ArrayList<TopicsItem> topicsItemArrayList, Context context){
-        this.topicsItemArrayList = topicsItemArrayList;
+    public TopicsSliderAdapter(String [] topics, int [] photos, Context context){
+        this.topics = topics;
+        this.photos = photos;
         this.context = context;
     }
 
 
     @Override
     public int getCount() {
-        return 10;
+        return topics.length;
     }
 
     @Override
@@ -40,8 +43,21 @@ public class TopicsSliderAdapter extends PagerAdapter {
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.topics_slider, container, false);
+
         TextView textView = view.findViewById(R.id.tv_topics_name);
-        textView.setText(topicsItemArrayList.get(position).getmTopicName());
+        textView.setText(topics[position]);
+
+        ImageView imageView = view.findViewById(R.id.image_view_topics);
+        Glide.with(view).load(photos[position]).placeholder(R.drawable.android).into(imageView);
+
+        ImageButton imageButton = view.findViewById(R.id.img_btn_topic_confirm);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //save topic information to the database
+            }
+        });
+
         container.addView(view);
         return view;
     }
@@ -51,4 +67,8 @@ public class TopicsSliderAdapter extends PagerAdapter {
         View view = (View) object;
         container.removeView(view);
     }
+
+
+
+
 }

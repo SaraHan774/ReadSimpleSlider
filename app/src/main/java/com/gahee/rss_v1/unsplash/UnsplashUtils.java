@@ -1,7 +1,9 @@
 package com.gahee.rss_v1.unsplash;
 
 import android.app.Activity;
+import android.content.Context;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -25,10 +27,23 @@ public class UnsplashUtils {
 
     private String randomPhotoUrl;
     private Activity activity;
+    private Context context;
+    private View view;
     private ImageView imageView;
+
 
     public UnsplashUtils(Activity activity, ImageView imageView){
         this.activity = activity;
+        this.imageView = imageView;
+    }
+
+    public UnsplashUtils(Context context, ImageView imageView){
+        this.context= context;
+        this.imageView = imageView;
+    }
+
+    public UnsplashUtils(View view, ImageView imageView){
+        this.view = view;
         this.imageView = imageView;
     }
 
@@ -48,9 +63,19 @@ public class UnsplashUtils {
         randomPhotoCall.enqueue(new Callback<RandomPhoto>() {
             @Override
             public void onResponse(Call<RandomPhoto> call, Response<RandomPhoto> response) {
-                randomPhotoUrl = response.body().getUrLs().getFull();
+                if(response.body() != null){
+                    randomPhotoUrl = response.body().getUrls().getFull();
+                    if(activity != null){
+                        loadImageFromGlide(activity);
+                    }else if(view != null){
+                        loadImageFromGlide(view);
+                    }else{
+                        loadImageFromGlide(context);
+                    }
+                }
+
                 Log.d(TAG, "connection successful (unsplash) randomPhotoUrl : " + randomPhotoUrl);
-                loadImageFromGlide();
+
             }
 
             @Override
@@ -60,11 +85,31 @@ public class UnsplashUtils {
         });
     }
 
-    private void loadImageFromGlide(){
-        Glide.with(activity)
-                .load(randomPhotoUrl)
-                .placeholder(R.drawable.android)//temporary placeholder for testing
-                .into(imageView);
+    public void loadImageFromGlide(Activity activity){
+        if(randomPhotoUrl != null){
+            Glide.with(activity)
+                    .load(randomPhotoUrl)
+                    .placeholder(R.drawable.android)//temporary placeholder for testing
+                    .into(imageView);
+        }
+    }
+
+    public void loadImageFromGlide(Context context){
+        if(randomPhotoUrl != null) {
+            Glide.with(context)
+                    .load(randomPhotoUrl)
+                    .placeholder(R.drawable.android)//temporary placeholder for testing
+                    .into(imageView);
+        }
+    }
+
+    public void loadImageFromGlide(View view){
+        if(randomPhotoUrl != null){
+            Glide.with(view)
+                    .load(randomPhotoUrl)
+                    .placeholder(R.drawable.android)//temporary placeholder for testing
+                    .into(imageView);
+        }
     }
 
 }

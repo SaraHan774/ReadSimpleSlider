@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.text.Html;
 import android.util.Log;
 import android.widget.Button;
@@ -14,9 +16,8 @@ import android.widget.TextView;
 import com.gahee.rss_v1.CheckIfNew;
 import com.gahee.rss_v1.R;
 
-import java.util.ArrayList;
-
-public class StartActivity extends AppCompatActivity {
+public class StartActivity extends AppCompatActivity implements
+        TopicFragment.OnFragmentInteractionListener{
 
     private static final String TAG = StartActivity.class.getSimpleName();
 
@@ -26,6 +27,9 @@ public class StartActivity extends AppCompatActivity {
     private int[] startSliderLayouts;
     private Button buttonSkip, buttonNext;
     private CheckIfNew checkIfNew;
+
+    private String [] topics;
+    private int [] photos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +53,9 @@ public class StartActivity extends AppCompatActivity {
         addSliderDots(viewPager.getCurrentItem());
 
 
+        PhotoUtils photoUtils = new PhotoUtils();
+        topics = photoUtils.getTopicsOfPhotos();
+        photos = photoUtils.getPhotos();
     }
 
     private void addSliderDots(int currentPage){
@@ -96,11 +103,9 @@ public class StartActivity extends AppCompatActivity {
                     //inflate fragment to display topics items
                     //send the topics list to view pager adapter class
                     //set the adapter to the view pager in the fragment
-                    addTopicsToViewPagers();
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.topics_fragment_placeholder, TopicFragment.newInstance(topicsItemList));
+                    fragmentTransaction.replace(R.id.topics_fragment_placeholder, TopicFragment.newInstance(topics, photos));
                     fragmentTransaction.commit();
-                    Log.d(TAG, "fragment transaction committed");
                     break;
                 case 2:
                     //loading page
@@ -118,15 +123,10 @@ public class StartActivity extends AppCompatActivity {
         }
     };
 
-    //test list
-    ArrayList<TopicsItem> topicsItemList = new ArrayList<>();
 
 
-    private void addTopicsToViewPagers(){
-
-        for(int i = 0; i < 10 ; i++){
-         topicsItemList.add(new TopicsItem("Sample Name" + i));
-        }
+    @Override
+    public void onFragmentInteraction(Uri uri) {
 
     }
 }

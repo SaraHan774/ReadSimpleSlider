@@ -7,10 +7,10 @@ public class RandomPhoto {
 
     @SerializedName("urls")
     @Expose
-    private URLs urLs;
+    private URLs urls;
 
-    public URLs getUrLs() {
-        return urLs;
+    public URLs getUrls() {
+        return urls;
     }
 
 

@@ -13,23 +13,26 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.gahee.rss_v1.R;
-
-import java.util.ArrayList;
 
 
 public class TopicFragment extends Fragment {
 
     private static final String TAG = TopicFragment.class.getSimpleName();
 
-    private static final String TOPICS = "param1";
+    private static final String PARAM1 = "param1";
+    private static final String PARAM2 = "param2";
 
 
     private ViewPager viewPager;
-    private ArrayList<TopicsItem> topicsItems;
+    private String [] topics;
+    private int [] photos;
 
-//    private OnFragmentInteractionListener mListener;
+    private ImageView imageView;
+
+    private OnFragmentInteractionListener mListener;
 
     public TopicFragment() {
         // Required empty public constructor
@@ -38,7 +41,7 @@ public class TopicFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         viewPager = view.findViewById(R.id.topics_view_pager);
-        TopicsSliderAdapter topicsSliderAdapter = new TopicsSliderAdapter(topicsItems, view.getContext());
+        TopicsSliderAdapter topicsSliderAdapter = new TopicsSliderAdapter(topics, photos, view.getContext());
         viewPager.setAdapter(topicsSliderAdapter);
         viewPager.setPageMargin(24);
         transformViewPager();
@@ -73,10 +76,14 @@ public class TopicFragment extends Fragment {
         });
     }
 
-    public static TopicFragment newInstance(ArrayList<TopicsItem> param1) {
+    public static TopicFragment newInstance(String [] topics, int [] photos) {
         TopicFragment fragment = new TopicFragment();
+        Log.d(TAG, "newInstance");
+
         Bundle args = new Bundle();
-        args.putParcelableArrayList(TOPICS, param1);
+        args.putStringArray(PARAM1, topics);
+        args.putIntArray(PARAM2, photos);
+
         fragment.setArguments(args);
         return fragment;
     }
@@ -85,7 +92,8 @@ public class TopicFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            topicsItems = getArguments().getParcelableArrayList(TOPICS);
+           topics = getArguments().getStringArray(PARAM1);
+           photos = getArguments().getIntArray(PARAM2);
         }
     }
 
@@ -98,20 +106,20 @@ public class TopicFragment extends Fragment {
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
-//        if (mListener != null) {
-//            mListener.onFragmentInteraction(uri);
-//        }
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
 
 
     }
@@ -119,7 +127,7 @@ public class TopicFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-//        mListener = null;
+        mListener = null;
     }
 
     /**
@@ -132,8 +140,7 @@ public class TopicFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-//    public interface OnFragmentInteractionListener {
-//        // TODO: Update argument type and name
-//        void onFragmentInteraction(Uri uri);
-//    }
+    public interface OnFragmentInteractionListener {
+        void onFragmentInteraction(Uri uri);
+    }
 }
