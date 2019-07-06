@@ -10,12 +10,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import com.gahee.rss_v1.R;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.tabs.TabLayout;
 
 public class MainTabActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
+
+    private ViewPager viewPager;
+    private TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +29,17 @@ public class MainTabActivity extends AppCompatActivity
         setContentView(R.layout.tab_and_navigate_activity);
 
         //connect adapter to the view pager
+        viewPager = findViewById(R.id.main_news_view_pager);
+        tabLayout = findViewById(R.id.tabs);
+        PagerAdapter adapter = new MainFragmentPagerAdapter(
+                getSupportFragmentManager(),
+                this
+        );
+        viewPager.setAdapter(adapter);
+        tabLayout.setupWithViewPager(viewPager);
 
-        //navigation drawer
+
+        //set up navigation drawer
         Toolbar toolbar = findViewById(R.id.nav_toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

@@ -86,6 +86,9 @@ public class TestActivity extends AppCompatActivity {
                 desc = new StringBuffer();
                 for(int i = 0; i < items.size(); i++){
                     desc.append(i + " : " + response.body().getChannel().getItem().get(i).getDescription() + "\n");
+            //read data from the network, and store the data in a list
+            //send this list to the rv adapter
+            //
 
                 }
 

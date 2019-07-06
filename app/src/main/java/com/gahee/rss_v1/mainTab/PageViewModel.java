@@ -1,4 +1,4 @@
-package com.gahee.rss_v1.mainTab.ui.main;
+package com.gahee.rss_v1.mainTab;
 
 import androidx.arch.core.util.Function;
 import androidx.lifecycle.LiveData;
