@@ -29,4 +29,9 @@
         and is designed primarily for touchscreen mobile devices such as smartphones and tablets.
     </string>
 
+    <string name="title_activity_main_tab">MainTabActivity</string>
+    <string name="tab_my_news">MY NEWS</string>
+    <string name="tab_favorites">FAVORITES</string>
+    <string name="search">SEARCH\nRESULT</string>
+
 </resources>

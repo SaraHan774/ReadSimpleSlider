@@ -11,7 +11,7 @@ public class PhotoUtils{
             "Top Stories", "World", "Africa", "Americas", "Asia",
             "Europe", "Middle East", "U.S.", "Money", "Technology",
             "Science & Space", "Entertainment", "World Sport", "Football",
-            "Golf", "Motorsport", "Tennis", "Travel", "Video", "Most Recent"
+            "Golf", "Motorsport", "Tennis", "Travel", "Video News", "Most Recent"
     };
 
     private int [] Photos = {

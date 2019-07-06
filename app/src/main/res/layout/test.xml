@@ -7,7 +7,7 @@
 <LinearLayout
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/img_test"
@@ -28,6 +28,16 @@
         android:layout_margin="16dp"
         android:text="TEST"
         android:id="@+id/btn_test"/>
+<androidx.core.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="400dp">
+    <WebView
+        android:id="@+id/test_webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+    </WebView>
+</androidx.core.widget.NestedScrollView>
 
 </LinearLayout>
 

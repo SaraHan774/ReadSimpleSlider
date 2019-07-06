@@ -28,6 +28,7 @@ public class StartActivity extends AppCompatActivity implements
     private Button buttonSkip, buttonNext;
     private CheckIfNew checkIfNew;
 
+    //sending topics and photos to TopicsFragment.java -> TopicsSliderAdapter.java
     private String [] topics;
     private int [] photos;
 

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -37,6 +38,7 @@ public class TestActivity extends AppCompatActivity {
     private Button button;
     private StringBuffer desc;
     private ImageView imageView;
+    private WebView webView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +48,7 @@ public class TestActivity extends AppCompatActivity {
         textView = findViewById(R.id.tv_test);
         button = findViewById(R.id.btn_test);
         imageView = findViewById(R.id.img_test);
-
+        webView = findViewById(R.id.test_webview);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,6 +58,9 @@ public class TestActivity extends AppCompatActivity {
 
         UnsplashUtils unsplashUtils = new UnsplashUtils(this, imageView);
         unsplashUtils.getRandomPhotoBasedOnQuery("tigers");
+
+        webView.loadUrl("https://edition.cnn.com/videos/weather/2019/07/05/daily-weather-forecast-severe-storms-weekend-weather-heat-rain.cnn");
+
     }
 
     private void retrieveTechFeed(){
@@ -94,7 +99,6 @@ public class TestActivity extends AppCompatActivity {
             }
         });
 
-
     }
 
     private void retrieveSpaceFeed(){
@@ -131,6 +135,8 @@ public class TestActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
 
 
