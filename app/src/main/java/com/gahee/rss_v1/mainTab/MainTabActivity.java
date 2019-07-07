@@ -27,11 +27,6 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 
-import retrofit2.Retrofit;
-import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
-
-import static com.gahee.rss_v1.CNN.XMLUtils.ARTICLE_DATA;
-import static com.gahee.rss_v1.CNN.XMLUtils.GET_ARTICLE_DATA;
 
 
 public class MainTabActivity extends AppCompatActivity
