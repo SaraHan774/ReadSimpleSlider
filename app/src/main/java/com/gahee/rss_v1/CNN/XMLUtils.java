@@ -6,6 +6,7 @@ import android.util.Log;
 import com.gahee.rss_v1.CNN.model.Article;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -19,15 +20,16 @@ public class XMLUtils {
     public static final String GET_ARTICLE_DATA = "GET_ARTICLE_DATA";
     private Retrofit retrofit;
     private ArrayList<Article> articles= new ArrayList<>();
-
+    private HashMap<String, ArrayList<Article>> map = new HashMap<>();
+    private String userTopic;
 
     public XMLUtils(Retrofit retrofit){
         this.retrofit = retrofit;
     }
 
-    public void getScienceEdition(){
+    public void getTopStories(){
         CnnAPI cnnAPI = retrofit.create(CnnAPI.class);
-        Call<TagRss> call = cnnAPI.getEditionSpaceFeed(); //make this reusable
+        Call<TagRss> call = cnnAPI.getTopStories(); //make this reusable
         call.enqueue(new Callback<TagRss>() {
 
             @Override
@@ -43,9 +45,9 @@ public class XMLUtils {
         });
     }
 
-    public synchronized void getMoneyEdition(){
+    public synchronized void getWorldEdition(){
         CnnAPI cnnAPI = retrofit.create(CnnAPI.class);
-        Call<TagRss> call = cnnAPI.getMoneyNewsInternationalFeed(); //make this reusable
+        Call<TagRss> call = cnnAPI.getEditionWorldFeed(); //make this reusable
         call.enqueue(new Callback<TagRss>() {
 
             @Override
@@ -62,11 +64,73 @@ public class XMLUtils {
         });
     }
 
+    public synchronized void getAfricaEdition(){
+        CnnAPI cnnAPI = retrofit.create(CnnAPI.class);
+        Call<TagRss> call = cnnAPI.getEditionAfricaFeed(); //make this reusable
+        call.enqueue(new Callback<TagRss>() {
+
+            @Override
+            public void onResponse(Call<TagRss> call, Response<TagRss> response) {
+                Log.d(TAG, "channel - title : " + response.body().getChannel().getTitle());
+                //put data into Article object
+                storeDataIntoArticle(call, response);
+            }
+
+            @Override
+            public void onFailure(Call<TagRss> call, Throwable t) {
+                Log.e(TAG, "onFailure : Unable to retrieve RSS : " + t.getMessage());
+            }
+        });
+    }
+
+    public synchronized void getAmericasEdition(){
+        CnnAPI cnnAPI = retrofit.create(CnnAPI.class);
+        Call<TagRss> call = cnnAPI.getEditionAmericasFeed(); //make this reusable
+        call.enqueue(new Callback<TagRss>() {
+
+            @Override
+            public void onResponse(Call<TagRss> call, Response<TagRss> response) {
+                Log.d(TAG, "channel - title : " + response.body().getChannel().getTitle());
+                //put data into Article object
+                storeDataIntoArticle(call, response);
+            }
+
+            @Override
+            public void onFailure(Call<TagRss> call, Throwable t) {
+                Log.e(TAG, "onFailure : Unable to retrieve RSS : " + t.getMessage());
+            }
+        });
+    }
+
+    public synchronized void getAsiaEdition(){
+        CnnAPI cnnAPI = retrofit.create(CnnAPI.class);
+        Call<TagRss> call = cnnAPI.getEditionAsiaFeed(); //make this reusable
+        call.enqueue(new Callback<TagRss>() {
+
+            @Override
+            public void onResponse(Call<TagRss> call, Response<TagRss> response) {
+                Log.d(TAG, "channel - title : " + response.body().getChannel().getTitle());
+                //put data into Article object
+                storeDataIntoArticle(call, response);
+            }
+
+            @Override
+            public void onFailure(Call<TagRss> call, Throwable t) {
+                Log.e(TAG, "onFailure : Unable to retrieve RSS : " + t.getMessage());
+            }
+        });
+    }
+
+
+
     private synchronized void storeDataIntoArticle(Call<TagRss> call, Response<TagRss> response){
-
+        String topicTitle = "";
+        if(articles != null){
+            articles.clear();
+        }
         for(int i = 0; i< response.body().getChannel().getItem().size(); i++){
-            String topicTitle = response.body().getChannel().getTitle();
 
+            topicTitle = response.body().getChannel().getTitle();
             String articleTitle = response.body().getChannel().getItem().get(i).getTitle();
             String articleLink = response.body().getChannel().getItem().get(i).getLink();
             String pubDate = response.body().getChannel().getItem().get(i).getPubdate();
@@ -84,11 +148,23 @@ public class XMLUtils {
                     "article title : " + articleTitle + "\n"
                     + "media: " + media + "\n"
             + "article description  : " + cleanArticleDescription + "\n\n");
-        }
+       }
+        map.put(userTopic, (ArrayList<Article>) articles.clone());
+        //instead of storing in a map, store it directly in the database
+        //in the onCreate method of main tab activity, refresh the rss data to fetch the latest articles
+
+    }
+
+ //this method sets the topic that the user selects
+    public void setTopic(String topic){
+            userTopic = topic;
     }
 
     public ArrayList<Article> getArticle(){
         return this.articles;
     }
 
+    public HashMap<String, ArrayList<Article>> getMapArticles() {
+        return map;
+    }
 }

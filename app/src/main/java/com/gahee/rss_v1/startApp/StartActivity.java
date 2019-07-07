@@ -70,15 +70,6 @@ public class StartActivity extends AppCompatActivity implements
     }
 
 
-    private Retrofit buildRetrofit(){
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(SimpleXmlConverterFactory.create())
-                .build();
-
-        return retrofit;
-    }
-
     private void addSliderDots(int currentPage){
         dots = new TextView[startSliderLayouts.length];
         int activeColor = getResources().getColor(R.color.colorBlack);
@@ -127,11 +118,15 @@ public class StartActivity extends AppCompatActivity implements
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                     fragmentTransaction.replace(R.id.topics_fragment_placeholder, TopicFragment.newInstance(topics, photos));
                     fragmentTransaction.commit();
+                    Button doneButton = findViewById(R.id.btn_done);
+                    doneButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            //set static boolean isSelecting to false;
+                        }
+                    });
                     break;
                 case 2:
-                    XMLUtils xmlUtils = new XMLUtils(buildRetrofit());
-                    xmlUtils.getMoneyEdition();
-                    StartActivity.this.articles = xmlUtils.getArticle();
                     //loading page
                     //initialize animations on the dots
                     //do background work -> parsing xml & creating cards
@@ -140,6 +135,7 @@ public class StartActivity extends AppCompatActivity implements
                     button.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+
                             Log.d(TAG, "articles : " + articles);
                             Intent intent = new Intent(StartActivity.this, MainTabActivity.class);
                             intent.putParcelableArrayListExtra("DATA", articles);

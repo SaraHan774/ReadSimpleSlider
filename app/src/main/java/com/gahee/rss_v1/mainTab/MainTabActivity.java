@@ -46,6 +46,11 @@ public class MainTabActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tab_and_navigate_activity);
+//query the topics list to the database and call fetchDataBasedOnUserSelection(topicString) method.
+        //and hand over the map data? or something that gets returned from the query
+        //into the Fragment Pager Adapter - to display it on the my news tab
+        //FragmentPagerAdapter -> recycler view adapter -> view holder handling the data
+                        //inside the cardview -> another ViewPager -> Adapter -> handling the data
 
         this.articles = getIntent().getParcelableArrayListExtra("DATA");
 

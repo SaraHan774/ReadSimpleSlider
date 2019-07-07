@@ -39,7 +39,6 @@ public class MainFragmentPagerAdapter extends FragmentPagerAdapter {
         this.context = context;
         this.articles = articles;
         Log.d(TAG, "articles : " + this.articles);
-
         myNewsFragment.setData(this.articles);
     }
 
