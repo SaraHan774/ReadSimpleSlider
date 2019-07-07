@@ -18,6 +18,10 @@ public class MyFavoritesAdapter extends RecyclerView.Adapter<MyFavoritesAdapter.
     Context context;
     //get the data from the database
 
+    public MyFavoritesAdapter(Context context){
+        this.context = context;
+    }
+
     @NonNull
     @Override
     public MyFavoritesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -29,13 +33,13 @@ public class MyFavoritesAdapter extends RecyclerView.Adapter<MyFavoritesAdapter.
     public void onBindViewHolder(@NonNull MyFavoritesViewHolder holder, int position) {
 
         //holder.articlePhoto - set the image from the database
-        //holder.articleTitle  -  set the title from the database
+        //holder.topicTitle  -  set the title from the database
 
     }
 
     @Override
     public int getItemCount() { //get the length of of the list from the database
-        return 0;
+        return 1;
     }
 
     public class MyFavoritesViewHolder extends RecyclerView.ViewHolder{

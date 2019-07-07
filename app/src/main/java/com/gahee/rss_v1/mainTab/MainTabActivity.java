@@ -1,6 +1,12 @@
 package com.gahee.rss_v1.mainTab;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -13,27 +19,44 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.gahee.rss_v1.CNN.XMLUtils;
+import com.gahee.rss_v1.CNN.model.Article;
 import com.gahee.rss_v1.R;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.ArrayList;
+
+import retrofit2.Retrofit;
+import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
+
+import static com.gahee.rss_v1.CNN.XMLUtils.ARTICLE_DATA;
+import static com.gahee.rss_v1.CNN.XMLUtils.GET_ARTICLE_DATA;
+
+
 public class MainTabActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
 
+    private static final String TAG = MainTabActivity.class.getSimpleName();
     private ViewPager viewPager;
     private TabLayout tabLayout;
+    private ArrayList<Article> articles = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tab_and_navigate_activity);
 
+        this.articles = getIntent().getParcelableArrayListExtra("DATA");
+
+        Log.d(TAG, "articles : " + articles);
         //connect adapter to the view pager
         viewPager = findViewById(R.id.main_news_view_pager);
         tabLayout = findViewById(R.id.tabs);
         PagerAdapter adapter = new MainFragmentPagerAdapter(
                 getSupportFragmentManager(),
-                this
+                this,
+                articles
         );
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
@@ -49,7 +72,23 @@ public class MainTabActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
+
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(TAG, "onstart");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "onresume");
+    }
+
+
 
     @Override
     public void onBackPressed() {
@@ -88,4 +127,10 @@ public class MainTabActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         return false;
     } //deal with navigation using recycler view
+
+
+
+
+
+
 }

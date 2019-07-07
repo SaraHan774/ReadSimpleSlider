@@ -1,17 +1,21 @@
 package com.gahee.rss_v1.CNN;
 
+import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Path;
 import org.simpleframework.xml.Root;
+import org.simpleframework.xml.Text;
 
 import java.io.Serializable;
 
 @Root(name = "item", strict = false)
-public class Item implements Serializable {
+public class TagItem implements Serializable {
     //channel - item - title, link, description, pubdate, thumbnail
     @Element(name = "title", required = false)
     private String title;
 
-    @Element(name = "link", required = false)
+    @Path("link")
+    @Text(required = false)
     private String link;
 
     @Element(name = "description", required = false)
@@ -21,10 +25,10 @@ public class Item implements Serializable {
     private String pubdate;
 
     @Element(name = "thumbnail", required = false)
-    private String thumbnail;
+    private Thumbnail thumbnail;
 
 
-    public Item(){
+    public TagItem(){
 
     }
 
@@ -60,11 +64,18 @@ public class Item implements Serializable {
         this.pubdate = pubdate;
     }
 
-    public String getThumbnail() {
+    public Thumbnail getThumbnail() {
         return thumbnail;
     }
 
-    public void setThumbnail(String thumbnail) {
-        this.thumbnail = thumbnail;
+    @Root(name = "thumbnail", strict = false)
+    public static class Thumbnail{
+
+        @Attribute(name = "url")
+        private String url;
+
+        public String getUrl() {
+            return url;
+        }
     }
 }

@@ -4,17 +4,26 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.text.Html;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.gahee.rss_v1.CNN.XMLUtils;
+import com.gahee.rss_v1.CNN.model.Article;
 import com.gahee.rss_v1.CheckIfNew;
 import com.gahee.rss_v1.R;
+import com.gahee.rss_v1.mainTab.MainTabActivity;
+
+import java.util.ArrayList;
+
+import retrofit2.Retrofit;
+import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
 public class StartActivity extends AppCompatActivity implements
         TopicFragment.OnFragmentInteractionListener{
@@ -25,12 +34,14 @@ public class StartActivity extends AppCompatActivity implements
     private LinearLayout linearLayout;
     private TextView[] dots;
     private int[] startSliderLayouts;
-    private Button buttonSkip, buttonNext;
     private CheckIfNew checkIfNew;
 
     //sending topics and photos to TopicsFragment.java -> TopicsSliderAdapter.java
     private String [] topics;
     private int [] photos;
+
+    private ArrayList<Article> articles;
+    private static final String BASE_URL = "http://rss.cnn.com/rss/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +50,6 @@ public class StartActivity extends AppCompatActivity implements
 
         viewPager = findViewById(R.id.slide_view_pager);
         linearLayout = findViewById(R.id.linear_layout_start);
-//        buttonSkip = findViewById(R.id.btn_skip);
-//        buttonNext = findViewById(R.id.btn_next);
 
         startSliderLayouts = new int[]{
                 R.layout.start_slider_name,
@@ -57,6 +66,17 @@ public class StartActivity extends AppCompatActivity implements
         PhotoUtils photoUtils = new PhotoUtils();
         topics = photoUtils.getTopicsOfPhotos();
         photos = photoUtils.getPhotos();
+
+    }
+
+
+    private Retrofit buildRetrofit(){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(SimpleXmlConverterFactory.create())
+                .build();
+
+        return retrofit;
     }
 
     private void addSliderDots(int currentPage){
@@ -109,10 +129,24 @@ public class StartActivity extends AppCompatActivity implements
                     fragmentTransaction.commit();
                     break;
                 case 2:
+                    XMLUtils xmlUtils = new XMLUtils(buildRetrofit());
+                    xmlUtils.getMoneyEdition();
+                    StartActivity.this.articles = xmlUtils.getArticle();
                     //loading page
                     //initialize animations on the dots
                     //do background work -> parsing xml & creating cards
                     //when it's ready to display contents, switch to Main Activity
+                    Button button = findViewById(R.id.btn_next);
+                    button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Log.d(TAG, "articles : " + articles);
+                            Intent intent = new Intent(StartActivity.this, MainTabActivity.class);
+                            intent.putParcelableArrayListExtra("DATA", articles);
+                            startActivity(intent);
+                        }
+                    });
+
                     break;
             }
 

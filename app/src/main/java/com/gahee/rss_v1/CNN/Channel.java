@@ -16,8 +16,8 @@ public class Channel implements Serializable {
     @Element(name = "pubdate", required = false)
     private String pubdate;
 
-    @ElementList(inline = true, name = "item", required = false)
-    private List<Item> item;
+    @ElementList(inline = true, entry = "item", required = false)
+    private List<TagItem> item;
 
     public String getTitle() {
         return title;
@@ -35,11 +35,11 @@ public class Channel implements Serializable {
         this.pubdate = pubdate;
     }
 
-    public List<Item> getItem() {
+    public List<TagItem> getItem() {
         return item;
     }
 
-    public void setItem(List<Item> item) {
+    public void setItem(List<TagItem> item) {
         this.item = item;
     }
 

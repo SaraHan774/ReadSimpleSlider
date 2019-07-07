@@ -10,23 +10,17 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.gahee.rss_v1.CNN.FeedAPIcnn;
-import com.gahee.rss_v1.CNN.FeedCnn;
-import com.gahee.rss_v1.CNN.Item;
-import com.gahee.rss_v1.unsplash.RandomPhoto;
-import com.gahee.rss_v1.unsplash.Unsplash;
+import com.gahee.rss_v1.CNN.CnnAPI;
+import com.gahee.rss_v1.CNN.TagRss;
+import com.gahee.rss_v1.CNN.TagItem;
 import com.gahee.rss_v1.unsplash.UnsplashUtils;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
 public class TestActivity extends AppCompatActivity {
@@ -71,18 +65,18 @@ public class TestActivity extends AppCompatActivity {
                 .addConverterFactory(SimpleXmlConverterFactory.create())
                 .build();
 
-        FeedAPIcnn feedAPIcnn = retrofit.create(FeedAPIcnn.class);
+        CnnAPI cnnAPI = retrofit.create(CnnAPI.class);
 
-        Call<FeedCnn> call = feedAPIcnn.getEditionTechnologyFeed();
+        Call<TagRss> call = cnnAPI.getEditionTechnologyFeed();
 
-        call.enqueue(new Callback<FeedCnn>() {
+        call.enqueue(new Callback<TagRss>() {
 
             @Override
-            public void onResponse(Call<FeedCnn> call, Response<FeedCnn> response) {
+            public void onResponse(Call<TagRss> call, Response<TagRss> response) {
                 Log.d(TAG, "channel - title : " + response.body().getChannel().getTitle());
                 Log.d(TAG, "description : " + response.body().getChannel().getItem().get(1).getDescription());
 
-                List<Item> items = response.body().getChannel().getItem();
+                List<TagItem> items = response.body().getChannel().getItem();
                 desc = new StringBuffer();
                 for(int i = 0; i < items.size(); i++){
                     desc.append(i + " : " + response.body().getChannel().getItem().get(i).getDescription() + "\n");
@@ -97,7 +91,7 @@ public class TestActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<FeedCnn> call, Throwable t) {
+            public void onFailure(Call<TagRss> call, Throwable t) {
                 Log.e(TAG, "onFailure : Unable to retrieve RSS : " + t.getMessage());
             }
         });
@@ -110,18 +104,18 @@ public class TestActivity extends AppCompatActivity {
                 .addConverterFactory(SimpleXmlConverterFactory.create())
                 .build();
 
-        FeedAPIcnn feedAPIcnn = retrofit.create(FeedAPIcnn.class);
+        CnnAPI cnnAPI = retrofit.create(CnnAPI.class);
 
-        Call<FeedCnn> call = feedAPIcnn.getEditionSpaceFeed();
+        Call<TagRss> call = cnnAPI.getEditionSpaceFeed();
 
-        call.enqueue(new Callback<FeedCnn>() {
+        call.enqueue(new Callback<TagRss>() {
 
             @Override
-            public void onResponse(Call<FeedCnn> call, Response<FeedCnn> response) {
+            public void onResponse(Call<TagRss> call, Response<TagRss> response) {
                 Log.d(TAG, "channel - title : " + response.body().getChannel().getTitle());
                 Log.d(TAG, "description : " + response.body().getChannel().getItem().get(1).getDescription());
 
-                List<Item> items = response.body().getChannel().getItem();
+                List<TagItem> items = response.body().getChannel().getItem();
                 desc = new StringBuffer();
                 for(int i = 0; i < items.size(); i++){
                     desc.append(i + " : " + response.body().getChannel().getItem().get(i).getDescription() + "\n");
@@ -133,7 +127,7 @@ public class TestActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<FeedCnn> call, Throwable t) {
+            public void onFailure(Call<TagRss> call, Throwable t) {
                 Log.e(TAG, "onFailure : Unable to retrieve RSS : " + t.getMessage());
             }
         });

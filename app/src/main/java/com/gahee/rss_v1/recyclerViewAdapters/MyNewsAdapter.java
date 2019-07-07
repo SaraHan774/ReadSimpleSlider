@@ -9,17 +9,23 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.gahee.rss_v1.CNN.model.Article;
 import com.gahee.rss_v1.R;
+
+import java.util.ArrayList;
 
 
 public class MyNewsAdapter extends RecyclerView.Adapter<MyNewsAdapter.MyNewsViewHolder> {
 //this rv adapter will be set to fragment_main_news.xml
 
-    Context context;
+    private Context context;
+    private ArrayList<Article> articles;
     //fetch necessary data from the news page
 
-    public MyNewsAdapter(){
+    public MyNewsAdapter(Context context, ArrayList<Article> articles){
         //set the data to the adapter
+        this.context = context;
+        this.articles = articles;
     }
 
     @NonNull
@@ -31,20 +37,20 @@ public class MyNewsAdapter extends RecyclerView.Adapter<MyNewsAdapter.MyNewsView
 
     @Override
     public void onBindViewHolder(@NonNull MyNewsViewHolder holder, int position) {
-
+        holder.topicTitle.setText(articles.get(position).getTopicTitle());
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return 1;
     }
 
     public class MyNewsViewHolder extends RecyclerView.ViewHolder{
-        TextView articleTitle;
+        TextView topicTitle;
 
         public MyNewsViewHolder(@NonNull View itemView) {
             super(itemView);
-            articleTitle = itemView.findViewById(R.id.tv_main_news_topic);
+            topicTitle = itemView.findViewById(R.id.tv_main_news_topic);
         }
     }
 }

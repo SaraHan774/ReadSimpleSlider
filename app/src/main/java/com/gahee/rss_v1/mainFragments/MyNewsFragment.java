@@ -1,6 +1,7 @@
 package com.gahee.rss_v1.mainFragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,20 +9,50 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.gahee.rss_v1.CNN.model.Article;
 import com.gahee.rss_v1.R;
+import com.gahee.rss_v1.recyclerViewAdapters.MyNewsAdapter;
+
+import java.util.ArrayList;
 
 public class MyNewsFragment extends Fragment {
+
+    private static final String TAG = MyNewsFragment.class.getSimpleName();
+    private RecyclerView myNewsRecyclerView;
+    private RecyclerView.LayoutManager layoutManager;
+    private RecyclerView.Adapter adapter;
+
+    private ArrayList<Article> articles = new ArrayList<>();
 
     public MyNewsFragment(){
         //required empty public constructor
     }
 
+    public void setData(ArrayList<Article> articles){
+        this.articles = articles;
+    }
+
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //defines the xml file for the fragment
-        return inflater.inflate(R.layout.fragment_main_news, container, false);
+        View view = inflater.inflate(R.layout.fragment_main_news, container, false);
+
+        //set up recycler view & layout manager
+        myNewsRecyclerView = view.findViewById(R.id.main_news_recycler_view);
+        layoutManager = new LinearLayoutManager(this.getActivity());
+        myNewsRecyclerView.setLayoutManager(layoutManager);
+
+        //fix the constructor of the adapter later
+        adapter = new MyNewsAdapter(getContext(), articles);
+        myNewsRecyclerView.setAdapter(adapter);
+        Log.d(TAG, "onCreateView()");
+        return view;
     }
 
     // This event is triggered soon after onCreateView().
