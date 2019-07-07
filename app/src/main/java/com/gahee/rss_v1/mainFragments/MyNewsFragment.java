@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.gahee.rss_v1.CNN.model.Article;
 import com.gahee.rss_v1.R;
 import com.gahee.rss_v1.recyclerViewAdapters.MyNewsAdapter;
+import com.gahee.rss_v1.roomDatabase.NewsEntities;
 
 import java.util.ArrayList;
 
@@ -24,15 +25,14 @@ public class MyNewsFragment extends Fragment {
     private RecyclerView myNewsRecyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter adapter;
-
-    private ArrayList<Article> articles = new ArrayList<>();
+    private ArrayList<NewsEntities> newsEntities;
 
     public MyNewsFragment(){
         //required empty public constructor
     }
 
-    public void setData(ArrayList<Article> articles){
-        this.articles = articles;
+    public void setData(ArrayList<NewsEntities> newsEntities){
+        this.newsEntities= newsEntities;
     }
 
 
@@ -49,7 +49,7 @@ public class MyNewsFragment extends Fragment {
         myNewsRecyclerView.setLayoutManager(layoutManager);
 
         //fix the constructor of the adapter later
-        adapter = new MyNewsAdapter(getContext(), articles);
+        adapter = new MyNewsAdapter(getContext(), newsEntities);
         myNewsRecyclerView.setAdapter(adapter);
         Log.d(TAG, "onCreateView()");
         return view;

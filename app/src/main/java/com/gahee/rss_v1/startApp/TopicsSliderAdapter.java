@@ -16,6 +16,7 @@ import androidx.viewpager.widget.PagerAdapter;
 import com.bumptech.glide.Glide;
 import com.gahee.rss_v1.CNN.TopicSelection;
 import com.gahee.rss_v1.R;
+import com.gahee.rss_v1.roomDatabase.NewsEntities;
 
 import java.util.HashMap;
 
@@ -25,12 +26,13 @@ public class TopicsSliderAdapter extends PagerAdapter {
     private Context context;
     private String [] topics;
     private int [] photos;
-    TopicSelection topicSelection = new TopicSelection();
+    private TopicSelection topicSelection;
 
     public TopicsSliderAdapter(String [] topics, int [] photos, Context context){
         this.topics = topics;
         this.photos = photos;
         this.context = context;
+        topicSelection = new TopicSelection(this.context);
     }
 
 
@@ -61,7 +63,7 @@ public class TopicsSliderAdapter extends PagerAdapter {
             @Override
             public void onClick(View view) {
                 //save topic information to the database
-                topicSelection.fetchDataBasedOnUserSelection(topics[position]); //isSelecting true;
+                topicSelection.fetchDataBasedOnUserSelection(topics[position]);//isSelecting true;
                 //make the ArrayList<Article> to be a live data - so that the database will be updated
                 Toast.makeText(context, "Added to user selections", Toast.LENGTH_SHORT).show();
             }

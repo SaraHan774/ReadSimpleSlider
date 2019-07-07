@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.gahee.rss_v1.CNN.TopicSelection;
 import com.gahee.rss_v1.CNN.XMLUtils;
 import com.gahee.rss_v1.CNN.model.Article;
 import com.gahee.rss_v1.CheckIfNew;
@@ -40,8 +41,6 @@ public class StartActivity extends AppCompatActivity implements
     private String [] topics;
     private int [] photos;
 
-    private ArrayList<Article> articles;
-    private static final String BASE_URL = "http://rss.cnn.com/rss/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,10 +134,11 @@ public class StartActivity extends AppCompatActivity implements
                     button.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-
-                            Log.d(TAG, "articles : " + articles);
+                            //when the user clicks done button, navigate to the main activity
                             Intent intent = new Intent(StartActivity.this, MainTabActivity.class);
-                            intent.putParcelableArrayListExtra("DATA", articles);
+                            TopicSelection topicSelection = new TopicSelection(StartActivity.this);
+                            ArrayList<String> topics = topicSelection.getNewsTopics();
+                            intent.putStringArrayListExtra("topics", topics);
                             startActivity(intent);
                         }
                     });
@@ -160,5 +160,6 @@ public class StartActivity extends AppCompatActivity implements
     public void onFragmentInteraction(Uri uri) {
 
     }
+
 }
 

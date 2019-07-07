@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
+import java.net.DatagramSocket;
 import java.util.List;
 
 public class NewsRepository {
@@ -22,7 +23,7 @@ public class NewsRepository {
 
     }
 
-    public LiveData<List<FavEntities>> getMyFavoriteNews(){
+    private LiveData<List<FavEntities>> getMyFavoriteNews(){
         return favoriteNews;
     }
 
@@ -30,7 +31,11 @@ public class NewsRepository {
         new InsertAsync(daos).execute(newsEntities);
     }
 
-    public void insertMyFav(FavEntities favEntities){
+    public NewsEntities loadNewsByTopic(String topic){
+        return new LoadAsync(daos).doInBackground();
+    }
+
+    private void insertMyFav(FavEntities favEntities){
         new InsertMyFavAsync(daos).execute(favEntities);
     }
 
@@ -38,11 +43,11 @@ public class NewsRepository {
         new DeleteByTopicAsync(daos).execute(topic);
     }
 
-    public void deleteMyFavByTitle(String articleTitle){
+    private void deleteMyFavByTitle(String articleTitle){
         new DeleteByArticleTitleAsync(daos).execute(articleTitle);
     }
 
-    public class InsertAsync extends AsyncTask<NewsEntities, Void, Void>{
+    public static class InsertAsync extends AsyncTask<NewsEntities, Void, Void>{
         private Daos daos;
 
         InsertAsync(Daos daos){
@@ -56,7 +61,7 @@ public class NewsRepository {
         }
     }
 
-    public class DeleteByTopicAsync extends AsyncTask<String, Void, Void>{
+    public static class DeleteByTopicAsync extends AsyncTask<String, Void, Void>{
         private Daos daos;
 
         DeleteByTopicAsync(Daos daos){
@@ -70,7 +75,7 @@ public class NewsRepository {
         }
     }
 
-    public class InsertMyFavAsync extends AsyncTask<FavEntities, Void, Void>{
+    public static class InsertMyFavAsync extends AsyncTask<FavEntities, Void, Void>{
         private Daos daos;
 
         InsertMyFavAsync(Daos daos){
@@ -84,7 +89,7 @@ public class NewsRepository {
         }
     }
 
-    public class DeleteByArticleTitleAsync extends AsyncTask<String, Void, Void>{
+    public static class DeleteByArticleTitleAsync extends AsyncTask<String, Void, Void>{
         private Daos daos;
 
         DeleteByArticleTitleAsync(Daos daos){
@@ -95,6 +100,20 @@ public class NewsRepository {
         protected Void doInBackground(String... strings) {
             daos.deleteMyFavoriteByTitle(strings[0]);
             return null;
+        }
+    }
+
+    public static class LoadAsync extends AsyncTask<String, Void, NewsEntities>{
+        private Daos daos;
+        private NewsEntities newsEntities;
+        LoadAsync(Daos daos){
+            this.daos = daos;
+        }
+
+        @Override
+        protected NewsEntities doInBackground(String... strings) {
+            newsEntities = daos.loadNewsByTopic(strings[0]);
+            return newsEntities;
         }
     }
 

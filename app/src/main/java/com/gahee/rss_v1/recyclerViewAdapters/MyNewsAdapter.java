@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gahee.rss_v1.CNN.model.Article;
 import com.gahee.rss_v1.R;
+import com.gahee.rss_v1.roomDatabase.NewsEntities;
 
 import java.util.ArrayList;
 
@@ -19,13 +20,13 @@ public class MyNewsAdapter extends RecyclerView.Adapter<MyNewsAdapter.MyNewsView
 //this rv adapter will be set to fragment_main_news.xml
 
     private Context context;
-    private ArrayList<Article> articles;
+    private ArrayList<NewsEntities> newsEntities;
     //fetch necessary data from the news page
 
-    public MyNewsAdapter(Context context, ArrayList<Article> articles){
+    public MyNewsAdapter(Context context,ArrayList<NewsEntities> newsEntities){
         //set the data to the adapter
         this.context = context;
-        this.articles = articles;
+        this.newsEntities =  newsEntities;
     }
 
     @NonNull
@@ -37,7 +38,7 @@ public class MyNewsAdapter extends RecyclerView.Adapter<MyNewsAdapter.MyNewsView
 
     @Override
     public void onBindViewHolder(@NonNull MyNewsViewHolder holder, int position) {
-        holder.topicTitle.setText(articles.get(position).getTopicTitle());
+        holder.topicTitle.setText(newsEntities.get(position).getTopic());
     }
 
     @Override

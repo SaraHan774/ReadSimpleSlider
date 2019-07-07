@@ -22,9 +22,12 @@ import androidx.viewpager.widget.ViewPager;
 import com.gahee.rss_v1.CNN.XMLUtils;
 import com.gahee.rss_v1.CNN.model.Article;
 import com.gahee.rss_v1.R;
+import com.gahee.rss_v1.roomDatabase.NewsEntities;
+import com.gahee.rss_v1.roomDatabase.NewsRepository;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 
@@ -35,7 +38,8 @@ public class MainTabActivity extends AppCompatActivity
     private static final String TAG = MainTabActivity.class.getSimpleName();
     private ViewPager viewPager;
     private TabLayout tabLayout;
-    private ArrayList<Article> articles = new ArrayList<>();
+
+    private ArrayList<String> topics = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,16 +51,18 @@ public class MainTabActivity extends AppCompatActivity
         //FragmentPagerAdapter -> recycler view adapter -> view holder handling the data
                         //inside the cardview -> another ViewPager -> Adapter -> handling the data
 
-        this.articles = getIntent().getParcelableArrayListExtra("DATA");
+       //instead of fetching data from the intent, fetch data from the database.
 
-        Log.d(TAG, "articles : " + articles);
+        this.topics = getIntent().getStringArrayListExtra("topics");
+        getData(this.topics);
+
         //connect adapter to the view pager
         viewPager = findViewById(R.id.main_news_view_pager);
         tabLayout = findViewById(R.id.tabs);
         PagerAdapter adapter = new MainFragmentPagerAdapter(
                 getSupportFragmentManager(),
                 this,
-                articles
+                newsEntities
         );
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
@@ -74,6 +80,15 @@ public class MainTabActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
+    }
+
+    ArrayList<NewsEntities> newsEntities;
+    NewsRepository newsRepository;
+    private void getData(ArrayList<String> topics){
+        newsRepository = new NewsRepository(this);
+        for(int i = 0; i < topics.size(); i++){
+            newsEntities.add(newsRepository.loadNewsByTopic(topics.get(i)));
+        }
     }
 
     @Override
@@ -127,10 +142,6 @@ public class MainTabActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         return false;
     } //deal with navigation using recycler view
-
-
-
-
 
 
 }
