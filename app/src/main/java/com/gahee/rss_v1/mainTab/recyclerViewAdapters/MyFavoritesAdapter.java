@@ -1,4 +1,4 @@
-package com.gahee.rss_v1.recyclerViewAdapters;
+package com.gahee.rss_v1.mainTab.recyclerViewAdapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;

@@ -9,14 +9,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.gahee.rss_v1.CNN.model.Article;
-import com.gahee.rss_v1.R;
-import com.gahee.rss_v1.mainFragments.MyFavoritesFragment;
-import com.gahee.rss_v1.mainFragments.MyNewsFragment;
-import com.gahee.rss_v1.roomDatabase.NewsEntities;
+import com.gahee.rss_v1.mainTab.mainFragments.MyFavoritesFragment;
+import com.gahee.rss_v1.mainTab.mainFragments.MyNewsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
@@ -28,20 +25,18 @@ public class MainFragmentPagerAdapter extends FragmentPagerAdapter {
     private final int PAGE_NUM = 2;
     private Context context;
     private String[] tabTitles = {"News", "Favorites"};
-    private ArrayList<List<NewsEntities>> newsEntities;
     private MyNewsFragment myNewsFragment = new MyNewsFragment();
-
+    private List<ArrayList<Article>> arrayLists = new ArrayList<>();
     //need to get the data to display from MainTabActivity.java - 생성자를 통해서 전달해주어야 한다
     // 생성자 안에서 받아와서 Fragment 의 생성자로 다시 전달 (?)
     // fragment 의 recycler view 안에다가 전달해야. (뉴스 토픽)
     // + 버튼에다가 onClickListener 부터 만들어야.
 
-    public MainFragmentPagerAdapter(FragmentManager fm, Context context,ArrayList<List<NewsEntities>> newsEntities) {
+    public MainFragmentPagerAdapter(FragmentManager fm, Context context, List<ArrayList<Article>> arrayLists) {
         super(fm);
         this.context = context;
-        this.newsEntities= newsEntities;
-        Log.d(TAG, "articles : " + this.newsEntities);
-        myNewsFragment.setData(this.newsEntities);
+        this.arrayLists = arrayLists;
+        Log.d(TAG, "articles : ");
     }
 
 
@@ -49,6 +44,7 @@ public class MainFragmentPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
+                myNewsFragment.setData(arrayLists);
                 return myNewsFragment;
             case 1:
                 return new MyFavoritesFragment();

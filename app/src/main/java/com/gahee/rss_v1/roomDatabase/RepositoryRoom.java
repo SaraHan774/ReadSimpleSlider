@@ -5,26 +5,30 @@ import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
-import java.net.DatagramSocket;
 import java.util.List;
 
-public class NewsRepository {
+public class RepositoryRoom {
 
-    private static final String TAG = NewsRepository.class.getSimpleName();
+    private static final String TAG = RepositoryRoom.class.getSimpleName();
     private Daos daos;
     private LiveData<List<FavEntities>> favoriteNews;
+    private LiveData<List<TopicStrings>> topicStrings;
     private static FavEntities favEntities;
     private static NewsEntities newsEntities;
 
-    public NewsRepository(Context context){
+    public RepositoryRoom(Context context){
         NewsDatabase newsDatabase = NewsDatabase.getDatabase(context);
         daos = newsDatabase.daos();
         favoriteNews = daos.getMyFavoriteArticles();
-
+        topicStrings = daos.loadTopicStrings();
     }
 
     public LiveData<List<FavEntities>> getMyFavoriteNews(){
         return favoriteNews;
+    }
+
+    public LiveData<List<TopicStrings>> getTopicStrings() {
+        return topicStrings;
     }
 
     public void insertNews(NewsEntities newsEntities){
@@ -46,6 +50,15 @@ public class NewsRepository {
     public void deleteMyFavByTitle(String articleTitle){
         new DeleteByArticleTitleAsync(daos).execute(articleTitle);
     }
+
+    //for topic strings
+    public void insertTopicString(String topic){
+        new InsertTopicStringAsync(daos).execute(topic);
+    }
+
+//    public LiveData<List<TopicStrings>> loadTopicStrings(){
+//        return new LoadTopicStringsAsync(daos).doInBackground();
+//    }
 
     public static class InsertAsync extends AsyncTask<NewsEntities, Void, Void>{
         private Daos daos;
@@ -115,6 +128,32 @@ public class NewsRepository {
             return daos.loadNewsByTopic(strings[0]);
         }
     }
+
+    public static class InsertTopicStringAsync extends AsyncTask<String, Void, Void>{
+        private Daos daos;
+
+        public InsertTopicStringAsync(Daos daos){
+            this.daos = daos;
+        }
+
+        @Override
+        protected Void doInBackground(String... strings) {
+            daos.insertTopicString(strings[0]);
+            return null;
+        }
+    }
+
+//    public static class LoadTopicStringsAsync extends AsyncTask<Void, Void, LiveData<List<TopicStrings>>>{
+//        private Daos daos;
+//
+//        public LoadTopicStringsAsync(Daos daos){
+//            this.daos = daos;
+//        }
+//        @Override
+//        protected LiveData<List<TopicStrings>> doInBackground(Void... voids) {
+//            return daos.loadTopicStrings();
+//        }
+//    }
 
 
 }

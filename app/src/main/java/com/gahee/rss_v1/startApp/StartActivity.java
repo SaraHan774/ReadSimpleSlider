@@ -3,11 +3,9 @@ package com.gahee.rss_v1.startApp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
@@ -18,9 +16,13 @@ import android.widget.TextView;
 
 import com.gahee.rss_v1.CheckIfNew;
 import com.gahee.rss_v1.R;
-import com.gahee.rss_v1.mainTab.MainTabActivity;
+import com.gahee.rss_v1.remoteDataSource.RepositoryRemote;
+import com.gahee.rss_v1.roomDatabase.ViewModelRoom;
+import com.gahee.rss_v1.roomDatabase.TopicStrings;
+import com.gahee.rss_v1.remoteDataSource.ViewModelRemote;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class StartActivity extends AppCompatActivity{
 
@@ -36,6 +38,9 @@ public class StartActivity extends AppCompatActivity{
     private String [] topics;
     private int [] photos;
 
+    //fetching this list from the database
+    private List<TopicStrings> topicStrings = new ArrayList<>();
+    private ViewModelRoom viewModelRoom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,9 +68,13 @@ public class StartActivity extends AppCompatActivity{
         topics = photoUtils.getTopicsOfPhotos();
         photos = photoUtils.getPhotos();
 
-        ViewModel viewModel = ViewModelProviders.of(this).get(TopicsViewModel.class);
-
-
+        viewModelRoom = ViewModelProviders.of(this).get(ViewModelRoom.class);
+        viewModelRoom.getTopicStrings().observe(this, new Observer<List<TopicStrings>>() {
+            @Override
+            public void onChanged(List<TopicStrings> topicStrings) {
+                StartActivity.this.topicStrings = topicStrings;
+            }
+        });
     }
 
 
@@ -96,7 +105,6 @@ public class StartActivity extends AppCompatActivity{
 
         }
 
-        ArrayList<String> selectedTopics;
         @Override
         public void onPageSelected(int currentPosition) {
 
@@ -120,13 +128,6 @@ public class StartActivity extends AppCompatActivity{
                     FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                     fragmentTransaction.replace(R.id.topics_fragment_placeholder, TopicFragment.newInstance(topics, photos));
                     fragmentTransaction.commit();
-                    Button doneButton = findViewById(R.id.btn_done);
-                    doneButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            //set static boolean isSelecting to false;
-                        }
-                    });
 
                     break;
                 case 2:
@@ -135,22 +136,23 @@ public class StartActivity extends AppCompatActivity{
                     //initialize animations on the dots
                     //do background work -> parsing xml & creating cards
                     //when it's ready to display contents, switch to Main Activity
-                    Button button = findViewById(R.id.btn_next);
+                    final Button button = findViewById(R.id.btn_next);
                     button.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            //when the user clicks done button, navigate to the main activity
-                            Intent intent = new Intent(StartActivity.this, MainTabActivity.class);
-                            TopicsViewModel topicsViewModel=  ViewModelProviders.of(StartActivity.this).get(TopicsViewModel.class);
-                            topicsViewModel.getTopics().observe(StartActivity.this, new Observer<ArrayList<String>>() {
-                                @Override
-                                public void onChanged(ArrayList<String> strings) {
-                                    selectedTopics = strings;
-                                }
-                            });
-                            Log.d(TAG, "topics : " + selectedTopics);
-                            intent.putStringArrayListExtra("topics", selectedTopics);
-                            startActivity(intent);
+                            int i;
+                            for(i = 0; i < topicStrings.size(); i++){
+                                RepositoryRemote.getInstance().requestDataAsync(topicStrings.get(i).getTopicString());
+                            }
+                            //how to transit from start activity to main tab activity ?
+//                            button.setText("READY!");
+//                            try {
+//                                Thread.sleep(2000);
+//                            } catch (InterruptedException e) {
+//                                e.printStackTrace();
+//                            }
+//                            Intent intent = new Intent(StartActivity.this, MainTabActivity.class);
+//                            startActivity(intent);
                         }
                     });
 

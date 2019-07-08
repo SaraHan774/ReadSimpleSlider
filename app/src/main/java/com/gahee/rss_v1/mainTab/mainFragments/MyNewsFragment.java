@@ -1,4 +1,4 @@
-package com.gahee.rss_v1.mainFragments;
+package com.gahee.rss_v1.mainTab.mainFragments;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -14,8 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.gahee.rss_v1.CNN.model.Article;
 import com.gahee.rss_v1.R;
-import com.gahee.rss_v1.recyclerViewAdapters.MyNewsAdapter;
-import com.gahee.rss_v1.roomDatabase.NewsEntities;
+import com.gahee.rss_v1.mainTab.recyclerViewAdapters.MyNewsAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,14 +25,15 @@ public class MyNewsFragment extends Fragment {
     private RecyclerView myNewsRecyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter adapter;
-    private ArrayList<List<NewsEntities>> newsEntities;
+    private List<ArrayList<Article>> arrayLists = new ArrayList<>();
+    private ArrayList<String> articleTopics = new ArrayList<>();
 
     public MyNewsFragment(){
         //required empty public constructor
     }
 
-    public void setData(ArrayList<List<NewsEntities>> newsEntities){
-        this.newsEntities= newsEntities;
+    public void setData(List<ArrayList<Article>> arrayLists){
+        this.arrayLists = arrayLists;
     }
 
 
@@ -49,8 +49,11 @@ public class MyNewsFragment extends Fragment {
         layoutManager = new LinearLayoutManager(this.getActivity());
         myNewsRecyclerView.setLayoutManager(layoutManager);
 
+        //store article topics in a different list
+        getArticleTopics();
+
         //fix the constructor of the adapter later
-        adapter = new MyNewsAdapter(getContext(), newsEntities);
+        adapter = new MyNewsAdapter(getContext(), articleTopics);
         myNewsRecyclerView.setAdapter(adapter);
         Log.d(TAG, "onCreateView()");
         return view;
@@ -62,6 +65,17 @@ public class MyNewsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         // Setup any handles to view objects here
         // EditText etFoo = (EditText) view.findViewById(R.id.etFoo);
+    }
+
+    private void getArticleTopics(){
+        if(arrayLists != null){
+            for(int i = 0; i < arrayLists.size(); i++){
+                String topicTitle = arrayLists.get(i).get(0).getTopicTitle();
+                articleTopics.add(topicTitle);
+            }
+        }else{
+            articleTopics.add(null);
+        }
     }
 
 }

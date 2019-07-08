@@ -11,12 +11,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.gahee.rss_v1.CNN.model.Article;
 import com.gahee.rss_v1.R;
-import com.gahee.rss_v1.roomDatabase.NewsEntities;
-import com.gahee.rss_v1.roomDatabase.NewsRepository;
+import com.gahee.rss_v1.remoteDataSource.ViewModelRemote;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
@@ -30,10 +33,7 @@ public class MainTabActivity extends AppCompatActivity
     private static final String TAG = MainTabActivity.class.getSimpleName();
     private ViewPager viewPager;
     private TabLayout tabLayout;
-
-    private ArrayList<String> topics = new ArrayList<>();
-    ArrayList<List<NewsEntities>> newsEntities;
-    NewsRepository newsRepository;
+    List<ArrayList<Article>> arrayLists = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +45,14 @@ public class MainTabActivity extends AppCompatActivity
         //FragmentPagerAdapter -> recycler view adapter -> view holder handling the data
                         //inside the cardview -> another ViewPager -> Adapter -> handling the data
 
-       //instead of fetching data from the intent, fetch data from the database.
-
-        this.topics = getIntent().getStringArrayListExtra("topics");
-        Log.d(TAG, "Topics : " + topics);
-        getData(this.topics);
+        ViewModel viewModel = ViewModelProviders.of(this).get(ViewModelRemote.class);
+        ((ViewModelRemote) viewModel).getMutableLiveData().observe(this, new Observer<List<ArrayList<Article>>>() {
+            @Override
+            public void onChanged(List<ArrayList<Article>> arrayLists) {
+                MainTabActivity.this.arrayLists = arrayLists;
+                //get the data from ViewModelRemote
+            }
+        });
 
         //connect adapter to the view pager
         viewPager = findViewById(R.id.main_news_view_pager);
@@ -57,7 +60,7 @@ public class MainTabActivity extends AppCompatActivity
         PagerAdapter adapter = new MainFragmentPagerAdapter(
                 getSupportFragmentManager(),
                 this,
-                newsEntities
+                arrayLists
         );
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
@@ -74,16 +77,8 @@ public class MainTabActivity extends AppCompatActivity
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
-
     }
 
-    private void getData(ArrayList<String> topics){
-        newsRepository = new NewsRepository(this);
-        for(int i = 0; i < topics.size(); i++){
-            newsEntities.add(newsRepository.loadNewsByTopic(topics.get(i)));
-        }
-        Log.d(TAG, "news entities : " + newsEntities);
-    }
 
     @Override
     protected void onStart() {

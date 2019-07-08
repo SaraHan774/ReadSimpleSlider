@@ -1,4 +1,4 @@
-package com.gahee.rss_v1.requests;
+package com.gahee.rss_v1.remoteDataSource.requests;
 
 import android.util.Log;
 

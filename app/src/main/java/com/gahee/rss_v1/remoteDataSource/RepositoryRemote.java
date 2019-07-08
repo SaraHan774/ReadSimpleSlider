@@ -1,4 +1,4 @@
-package com.gahee.rss_v1.repository;
+package com.gahee.rss_v1.remoteDataSource;
 
 import android.os.AsyncTask;
 
@@ -6,26 +6,26 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.gahee.rss_v1.CNN.tags.Rss;
 import com.gahee.rss_v1.CNN.model.Article;
-import com.gahee.rss_v1.requests.FetchArticles;
-import com.gahee.rss_v1.requests.StoreData;
+import com.gahee.rss_v1.remoteDataSource.requests.FetchArticles;
+import com.gahee.rss_v1.remoteDataSource.requests.StoreData;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 
-public class Repository {
+public class RepositoryRemote {
 
     private MutableLiveData<List<ArrayList<Article>>> listMutableLiveData = new MutableLiveData<>();
     private List<ArrayList<Article>> list = new ArrayList<>();
     private ArrayList<Article> articleArrayList = new ArrayList<>();
     private FetchArticles fetchArticles = new FetchArticles();
 
-    private static Repository instance;
+    private static RepositoryRemote instance;
 
-    public static Repository getInstance() {
+    public static RepositoryRemote getInstance() {
         if(instance == null){
-            instance = new Repository();
+            instance = new RepositoryRemote();
         }
         return instance;
     }
@@ -36,7 +36,7 @@ public class Repository {
 
 
     public MutableLiveData<List<ArrayList<Article>>> getListMutableLiveData() {
-        return StoreData.getInstance().getMutableLiveData();
+        return StoreData.getInstance().getListMutableLiveData();
     }
 
     public ArrayList<Article> getArticleArrayList() {

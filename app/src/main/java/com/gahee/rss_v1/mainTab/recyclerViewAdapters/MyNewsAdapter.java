@@ -1,4 +1,4 @@
-package com.gahee.rss_v1.recyclerViewAdapters;
+package com.gahee.rss_v1.mainTab.recyclerViewAdapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,25 +9,22 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.gahee.rss_v1.CNN.model.Article;
 import com.gahee.rss_v1.R;
-import com.gahee.rss_v1.roomDatabase.NewsEntities;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class MyNewsAdapter extends RecyclerView.Adapter<MyNewsAdapter.MyNewsViewHolder> {
 //this rv adapter will be set to fragment_main_news.xml
 
     private Context context;
-    private ArrayList<List<NewsEntities>> newsEntities;
+    private ArrayList<String> topics;
     //fetch necessary data from the news page
 
-    public MyNewsAdapter(Context context, ArrayList<List<NewsEntities>> newsEntities){
+    public MyNewsAdapter(Context context, ArrayList<String> topics){
         //set the data to the adapter
         this.context = context;
-        this.newsEntities =  newsEntities;
+        this.topics = topics;
     }
 
     @NonNull
@@ -39,7 +36,7 @@ public class MyNewsAdapter extends RecyclerView.Adapter<MyNewsAdapter.MyNewsView
 
     @Override
     public void onBindViewHolder(@NonNull MyNewsViewHolder holder, int position) {
-        holder.topicTitle.setText(newsEntities.get(0).get(position).getTopic());
+        holder.topicTitle.setText(topics.get(position));
         //database 에서 불러오는 것 실패하는 중 ... ^^
     }
 

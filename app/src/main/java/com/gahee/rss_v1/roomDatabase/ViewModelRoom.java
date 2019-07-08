@@ -9,32 +9,37 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
-public class NewsViewModel extends AndroidViewModel {
+public class ViewModelRoom extends AndroidViewModel {
 
-    private static final String TAG = NewsViewModel.class.getSimpleName();
-    private NewsRepository newsRepository;
+    private static final String TAG = ViewModelRoom.class.getSimpleName();
+    private RepositoryRoom repositoryRoom;
     private LiveData<List<FavEntities>> favoriteNews;
 
-    public NewsViewModel(@NonNull Application application) {
+    public ViewModelRoom(@NonNull Application application) {
         super(application);
         Log.d(TAG, "view model constructor running");
-        newsRepository = new NewsRepository(application);
-        favoriteNews = newsRepository.getMyFavoriteNews();
+        repositoryRoom = new RepositoryRoom(application);
+        favoriteNews = repositoryRoom.getMyFavoriteNews();
     }
 
     public LiveData<List<FavEntities>> getFavoriteNews(){
         Log.d(TAG, "getting my favorites ");
-        return newsRepository.getMyFavoriteNews();
+        return repositoryRoom.getMyFavoriteNews();
     }
 
     public void insertMyFavorite(FavEntities favEntities){
         Log.d(TAG, "inserting my favorite article ");
-        newsRepository.insertMyFav(favEntities);
+        repositoryRoom.insertMyFav(favEntities);
     }
 
     public void deleteMyFavorite(String articleTitle){
         Log.d(TAG, "deleting my favorite article ");
-        newsRepository.deleteMyFavByTitle(articleTitle);
+        repositoryRoom.deleteMyFavByTitle(articleTitle);
+    }
+
+    public LiveData<List<TopicStrings>> getTopicStrings(){
+        Log.d(TAG, "loading topic strings from the database");
+        return repositoryRoom.getTopicStrings();
     }
 
 

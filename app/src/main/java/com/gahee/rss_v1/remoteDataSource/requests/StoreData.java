@@ -1,4 +1,4 @@
-package com.gahee.rss_v1.requests;
+package com.gahee.rss_v1.remoteDataSource.requests;
 
 import android.text.Html;
 import android.util.Log;
@@ -19,7 +19,8 @@ public class StoreData {
 
     private static final String TAG = "StoreData";
 
-    private MutableLiveData<List<ArrayList<Article>>> mutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<ArrayList<Article>>> listMutableLiveData = new MutableLiveData<>();
+
     private ArrayList<Article> articleArrayList = new ArrayList<>();
     private List<ArrayList<Article>> list = new ArrayList<>();
 
@@ -72,11 +73,11 @@ public class StoreData {
             articleArrayList.add(new Article(topicTitle, articleTitle, articleLink, pubDate, media, cleanArticleDescription));
         }
         list.add(articleArrayList);
-        mutableLiveData.setValue(list);
+        listMutableLiveData.setValue(list);
     }
 
-    public MutableLiveData<List<ArrayList<Article>>> getMutableLiveData() {
-        return mutableLiveData;
+    public MutableLiveData<List<ArrayList<Article>>> getListMutableLiveData() {
+        return listMutableLiveData;
 }
 
     public ArrayList<Article> getArticleArrayList() {

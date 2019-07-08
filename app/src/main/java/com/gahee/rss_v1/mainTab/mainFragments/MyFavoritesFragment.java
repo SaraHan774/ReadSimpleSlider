@@ -1,4 +1,4 @@
-package com.gahee.rss_v1.mainFragments;
+package com.gahee.rss_v1.mainTab.mainFragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gahee.rss_v1.R;
-import com.gahee.rss_v1.recyclerViewAdapters.MyFavoritesAdapter;
+import com.gahee.rss_v1.mainTab.recyclerViewAdapters.MyFavoritesAdapter;
 
 public class MyFavoritesFragment extends Fragment {
     // The onCreateView method is called when Fragment should create its View object hierarchy,

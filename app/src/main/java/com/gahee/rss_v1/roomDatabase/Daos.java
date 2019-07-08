@@ -32,5 +32,10 @@ public interface Daos {
     @Query("SELECT * FROM myFavoritesTable ORDER BY pubDate")
     LiveData<List<FavEntities>> getMyFavoriteArticles();
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertTopicString(String topic);
+
+    @Query("SELECT * FROM topicStringsTable")
+    LiveData<List<TopicStrings>> loadTopicStrings();
 
 }
