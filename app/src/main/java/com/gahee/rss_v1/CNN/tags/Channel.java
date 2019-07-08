@@ -1,4 +1,4 @@
-package com.gahee.rss_v1.CNN;
+package com.gahee.rss_v1.CNN.tags;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
@@ -17,7 +17,7 @@ public class Channel implements Serializable {
     private String pubdate;
 
     @ElementList(inline = true, entry = "item", required = false)
-    private List<TagItem> item;
+    private List<Item> item;
 
     public String getTitle() {
         return title;
@@ -35,11 +35,11 @@ public class Channel implements Serializable {
         this.pubdate = pubdate;
     }
 
-    public List<TagItem> getItem() {
+    public List<Item> getItem() {
         return item;
     }
 
-    public void setItem(List<TagItem> item) {
+    public void setItem(List<Item> item) {
         this.item = item;
     }
 

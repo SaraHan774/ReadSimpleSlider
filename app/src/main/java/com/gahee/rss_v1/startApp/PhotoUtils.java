@@ -6,12 +6,12 @@ import java.util.Arrays;
 
 public class PhotoUtils{
 
-    private String []  Topics
+    private String [] Topics
             = {
             "Top Stories", "World", "Africa", "Americas", "Asia",
             "Europe", "Middle East", "U.S.", "Money", "Technology",
             "Science & Space", "Entertainment", "World Sport", "Football",
-            "Golf", "Motorsport", "Tennis", "Travel", "Video News", "Most Recent"
+            "Golf", "Motorsport", "Tennis", "Travel", "Most Recent"
     };
 
     private int [] Photos = {
@@ -20,7 +20,7 @@ public class PhotoUtils{
             R.drawable.us, R.drawable.money, R.drawable.technology, R.drawable.science,
             R.drawable.entertainment, R.drawable.world_sport, R.drawable.football,
             R.drawable.golf, R.drawable.motorsport, R.drawable.tennis,
-            R.drawable.travel, R.drawable.video, R.drawable.latest_news
+            R.drawable.travel, R.drawable.latest_news
     };
 
     public String [] getTopicsOfPhotos(){
@@ -28,11 +28,5 @@ public class PhotoUtils{
     }
 
     public int [] getPhotos(){return Photos; }
-
-    public int getPhotoByTopic(String topic){
-        int index = Arrays.binarySearch(Topics, topic);
-        int photo = Photos[index];
-        return photo;
-    }
 
 }

@@ -15,6 +15,7 @@ import com.gahee.rss_v1.mainFragments.MyNewsFragment;
 import com.gahee.rss_v1.roomDatabase.NewsEntities;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,7 +28,7 @@ public class MainFragmentPagerAdapter extends FragmentPagerAdapter {
     private final int PAGE_NUM = 2;
     private Context context;
     private String[] tabTitles = {"News", "Favorites"};
-    private ArrayList<NewsEntities> newsEntities;
+    private ArrayList<List<NewsEntities>> newsEntities;
     private MyNewsFragment myNewsFragment = new MyNewsFragment();
 
     //need to get the data to display from MainTabActivity.java - 생성자를 통해서 전달해주어야 한다
@@ -35,7 +36,7 @@ public class MainFragmentPagerAdapter extends FragmentPagerAdapter {
     // fragment 의 recycler view 안에다가 전달해야. (뉴스 토픽)
     // + 버튼에다가 onClickListener 부터 만들어야.
 
-    public MainFragmentPagerAdapter(FragmentManager fm, Context context,ArrayList<NewsEntities> newsEntities) {
+    public MainFragmentPagerAdapter(FragmentManager fm, Context context,ArrayList<List<NewsEntities>> newsEntities) {
         super(fm);
         this.context = context;
         this.newsEntities= newsEntities;

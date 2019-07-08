@@ -17,8 +17,10 @@ import android.widget.ImageView;
 
 import com.gahee.rss_v1.R;
 
+import java.util.ArrayList;
 
-public class TopicFragment extends Fragment {
+
+public class TopicFragment extends Fragment{
 
     private static final String TAG = TopicFragment.class.getSimpleName();
 
@@ -31,8 +33,6 @@ public class TopicFragment extends Fragment {
     private int [] photos;
 
     private ImageView imageView;
-
-    private OnFragmentInteractionListener mListener;
 
     public TopicFragment() {
         // Required empty public constructor
@@ -104,43 +104,14 @@ public class TopicFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_topic, container, false);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-
-
     }
+
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(Uri uri);
     }
 }

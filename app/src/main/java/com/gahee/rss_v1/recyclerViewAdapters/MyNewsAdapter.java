@@ -14,16 +14,17 @@ import com.gahee.rss_v1.R;
 import com.gahee.rss_v1.roomDatabase.NewsEntities;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class MyNewsAdapter extends RecyclerView.Adapter<MyNewsAdapter.MyNewsViewHolder> {
 //this rv adapter will be set to fragment_main_news.xml
 
     private Context context;
-    private ArrayList<NewsEntities> newsEntities;
+    private ArrayList<List<NewsEntities>> newsEntities;
     //fetch necessary data from the news page
 
-    public MyNewsAdapter(Context context,ArrayList<NewsEntities> newsEntities){
+    public MyNewsAdapter(Context context, ArrayList<List<NewsEntities>> newsEntities){
         //set the data to the adapter
         this.context = context;
         this.newsEntities =  newsEntities;
@@ -38,7 +39,8 @@ public class MyNewsAdapter extends RecyclerView.Adapter<MyNewsAdapter.MyNewsView
 
     @Override
     public void onBindViewHolder(@NonNull MyNewsViewHolder holder, int position) {
-        holder.topicTitle.setText(newsEntities.get(position).getTopic());
+        holder.topicTitle.setText(newsEntities.get(0).get(position).getTopic());
+        //database 에서 불러오는 것 실패하는 중 ... ^^
     }
 
     @Override

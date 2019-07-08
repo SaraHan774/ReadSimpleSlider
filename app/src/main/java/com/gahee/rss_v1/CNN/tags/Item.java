@@ -1,4 +1,4 @@
-package com.gahee.rss_v1.CNN;
+package com.gahee.rss_v1.CNN.tags;
 
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
@@ -9,7 +9,7 @@ import org.simpleframework.xml.Text;
 import java.io.Serializable;
 
 @Root(name = "item", strict = false)
-public class TagItem implements Serializable {
+public class Item implements Serializable {
     //channel - item - title, link, description, pubdate, thumbnail
     @Element(name = "title", required = false)
     private String title;
@@ -28,7 +28,7 @@ public class TagItem implements Serializable {
     private Thumbnail thumbnail;
 
 
-    public TagItem(){
+    public Item(){
 
     }
 

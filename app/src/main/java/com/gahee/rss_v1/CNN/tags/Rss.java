@@ -1,4 +1,4 @@
-package com.gahee.rss_v1.CNN;
+package com.gahee.rss_v1.CNN.tags;
 
 
 import org.simpleframework.xml.Element;
@@ -7,7 +7,7 @@ import org.simpleframework.xml.Root;
 import java.io.Serializable;
 
 @Root(name = "rss", strict = false)
-public class TagRss implements Serializable {
+public class Rss implements Serializable {
 
     //rss - channel
     //rss - channel - title, pubdate, item

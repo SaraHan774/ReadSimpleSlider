@@ -18,6 +18,7 @@ import com.gahee.rss_v1.recyclerViewAdapters.MyNewsAdapter;
 import com.gahee.rss_v1.roomDatabase.NewsEntities;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MyNewsFragment extends Fragment {
 
@@ -25,13 +26,13 @@ public class MyNewsFragment extends Fragment {
     private RecyclerView myNewsRecyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter adapter;
-    private ArrayList<NewsEntities> newsEntities;
+    private ArrayList<List<NewsEntities>> newsEntities;
 
     public MyNewsFragment(){
         //required empty public constructor
     }
 
-    public void setData(ArrayList<NewsEntities> newsEntities){
+    public void setData(ArrayList<List<NewsEntities>> newsEntities){
         this.newsEntities= newsEntities;
     }
 

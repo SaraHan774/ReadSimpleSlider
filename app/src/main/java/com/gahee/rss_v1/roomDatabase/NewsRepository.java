@@ -23,7 +23,7 @@ public class NewsRepository {
 
     }
 
-    private LiveData<List<FavEntities>> getMyFavoriteNews(){
+    public LiveData<List<FavEntities>> getMyFavoriteNews(){
         return favoriteNews;
     }
 
@@ -31,11 +31,11 @@ public class NewsRepository {
         new InsertAsync(daos).execute(newsEntities);
     }
 
-    public NewsEntities loadNewsByTopic(String topic){
+    public List<NewsEntities> loadNewsByTopic(String topic){
         return new LoadAsync(daos).doInBackground();
     }
 
-    private void insertMyFav(FavEntities favEntities){
+    public void insertMyFav(FavEntities favEntities){
         new InsertMyFavAsync(daos).execute(favEntities);
     }
 
@@ -43,7 +43,7 @@ public class NewsRepository {
         new DeleteByTopicAsync(daos).execute(topic);
     }
 
-    private void deleteMyFavByTitle(String articleTitle){
+    public void deleteMyFavByTitle(String articleTitle){
         new DeleteByArticleTitleAsync(daos).execute(articleTitle);
     }
 
@@ -103,17 +103,16 @@ public class NewsRepository {
         }
     }
 
-    public static class LoadAsync extends AsyncTask<String, Void, NewsEntities>{
+    public static class LoadAsync extends AsyncTask<String, Void, List<NewsEntities>>{
         private Daos daos;
-        private NewsEntities newsEntities;
+
         LoadAsync(Daos daos){
             this.daos = daos;
         }
 
         @Override
-        protected NewsEntities doInBackground(String... strings) {
-            newsEntities = daos.loadNewsByTopic(strings[0]);
-            return newsEntities;
+        protected List<NewsEntities> doInBackground(String... strings) {
+            return daos.loadNewsByTopic(strings[0]);
         }
     }
 

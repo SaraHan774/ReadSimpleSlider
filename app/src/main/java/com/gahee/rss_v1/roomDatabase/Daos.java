@@ -17,7 +17,7 @@ public interface Daos {
     void insert(NewsEntities newsEntities);
 
     @Query("SELECT * FROM myNewsTable WHERE topic = :topic")
-    NewsEntities loadNewsByTopic(String topic);
+    List<NewsEntities> loadNewsByTopic(String topic);
 
     @Query("DELETE FROM myNewsTable WHERE topic = :topic")
     void deleteByArticleTopic(String topic);

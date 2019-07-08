@@ -1,5 +1,7 @@
 package com.gahee.rss_v1.CNN;
 
+import com.gahee.rss_v1.CNN.tags.Rss;
+
 import retrofit2.Call;
 import retrofit2.http.GET;
 
@@ -8,64 +10,64 @@ public interface CnnAPI {
     String BASE_URL = "http://rss.cnn.com/rss/";
 
     @GET("edition.rss")
-    Call<TagRss> getTopStories();
+    Call<Rss> getTopStories();
 
     @GET("edition_world.rss")
-    Call<TagRss> getEditionWorldFeed();
+    Call<Rss> getEditionWorldFeed();
 
     @GET("edition_africa.rss")
-    Call<TagRss> getEditionAfricaFeed();
+    Call<Rss> getEditionAfricaFeed();
 
     @GET("edition_americas.rss")
-    Call<TagRss> getEditionAmericasFeed();
+    Call<Rss> getEditionAmericasFeed();
 
     @GET("edition_asia.rss")
-    Call<TagRss> getEditionAsiaFeed();
+    Call<Rss> getEditionAsiaFeed();
 
     @GET("edition_europe.rss")
-    Call<TagRss> getEditionEuropeFeed();
+    Call<Rss> getEditionEuropeFeed();
 
     @GET("edition_meast.rss")
-    Call<TagRss> getEditionMiddleEastFeed();
+    Call<Rss> getEditionMiddleEastFeed();
 
     @GET("edition_us.rss")
-    Call<TagRss> getEditionUSFeed();
+    Call<Rss> getEditionUSFeed();
 
     @GET("money_news_international.rss")
-    Call<TagRss> getMoneyNewsInternationalFeed();
+    Call<Rss> getMoneyNewsInternationalFeed();
 
     @GET("edition_technology.rss")
-    Call<TagRss> getEditionTechnologyFeed();
+    Call<Rss> getEditionTechnologyFeed();
 
     @GET("edition_space.rss")
-    Call<TagRss> getEditionSpaceFeed();
+    Call<Rss> getEditionSpaceFeed();
 
     @GET("edition_entertainment.rss")
-    Call<TagRss> getEditionEntertainmentFeed();
+    Call<Rss> getEditionEntertainmentFeed();
 
     @GET("edition_sport.rss")
-    Call<TagRss> getEditionSportFeed();
+    Call<Rss> getEditionSportFeed();
 
     @GET("edition_football.rss")
-    Call<TagRss> getEditionFootballFeed();
+    Call<Rss> getEditionFootballFeed();
 
     @GET("edition_golf.rss")
-    Call<TagRss> getEditionGolfFeed();
+    Call<Rss> getEditionGolfFeed();
 
     @GET("edition_motorsport.rss")
-    Call<TagRss> getEditionMotorSportFeed();
+    Call<Rss> getEditionMotorSportFeed();
 
     @GET("edition_tennis.rss")
-    Call<TagRss> getEditionTennisFeed();
+    Call<Rss> getEditionTennisFeed();
 
     @GET("edition_travel.rss")
-    Call<TagRss> getEditionTravelFeed();
+    Call<Rss> getEditionTravelFeed();
 
     @GET("cnn_freevideo.rss")
-    Call<TagRss> getFreeVideoFeed();
+    Call<Rss> getFreeVideoFeed();
 
     @GET("cnn_latest.rss")
-    Call<TagRss> getCnnLatestFeed();
+    Call<Rss> getCnnLatestFeed();
 
 
 }

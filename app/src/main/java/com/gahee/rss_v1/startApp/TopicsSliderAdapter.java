@@ -1,6 +1,7 @@
 package com.gahee.rss_v1.startApp;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,25 +15,20 @@ import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.bumptech.glide.Glide;
-import com.gahee.rss_v1.CNN.TopicSelection;
 import com.gahee.rss_v1.R;
-import com.gahee.rss_v1.roomDatabase.NewsEntities;
-
-import java.util.HashMap;
 
 public class TopicsSliderAdapter extends PagerAdapter {
+
 
     private LayoutInflater layoutInflater;
     private Context context;
     private String [] topics;
     private int [] photos;
-    private TopicSelection topicSelection;
 
     public TopicsSliderAdapter(String [] topics, int [] photos, Context context){
         this.topics = topics;
         this.photos = photos;
         this.context = context;
-        topicSelection = new TopicSelection(this.context);
     }
 
 
@@ -63,7 +59,7 @@ public class TopicsSliderAdapter extends PagerAdapter {
             @Override
             public void onClick(View view) {
                 //save topic information to the database
-                topicSelection.fetchDataBasedOnUserSelection(topics[position]);//isSelecting true;
+//                topicSelection.fetchDataBasedOnUserSelection(topics[position]);//isSelecting true;
                 //make the ArrayList<Article> to be a live data - so that the database will be updated
                 Toast.makeText(context, "Added to user selections", Toast.LENGTH_SHORT).show();
             }
@@ -73,13 +69,11 @@ public class TopicsSliderAdapter extends PagerAdapter {
         return view;
     }
 
+
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
         View view = (View) object;
         container.removeView(view);
     }
-
-
-
 
 }

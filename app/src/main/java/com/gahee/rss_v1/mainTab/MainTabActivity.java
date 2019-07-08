@@ -1,10 +1,5 @@
 package com.gahee.rss_v1.mainTab;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -19,17 +14,14 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.gahee.rss_v1.CNN.XMLUtils;
-import com.gahee.rss_v1.CNN.model.Article;
 import com.gahee.rss_v1.R;
 import com.gahee.rss_v1.roomDatabase.NewsEntities;
 import com.gahee.rss_v1.roomDatabase.NewsRepository;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-
+import java.util.List;
 
 
 public class MainTabActivity extends AppCompatActivity
@@ -40,6 +32,8 @@ public class MainTabActivity extends AppCompatActivity
     private TabLayout tabLayout;
 
     private ArrayList<String> topics = new ArrayList<>();
+    ArrayList<List<NewsEntities>> newsEntities;
+    NewsRepository newsRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +48,7 @@ public class MainTabActivity extends AppCompatActivity
        //instead of fetching data from the intent, fetch data from the database.
 
         this.topics = getIntent().getStringArrayListExtra("topics");
+        Log.d(TAG, "Topics : " + topics);
         getData(this.topics);
 
         //connect adapter to the view pager
@@ -82,13 +77,12 @@ public class MainTabActivity extends AppCompatActivity
 
     }
 
-    ArrayList<NewsEntities> newsEntities;
-    NewsRepository newsRepository;
     private void getData(ArrayList<String> topics){
         newsRepository = new NewsRepository(this);
         for(int i = 0; i < topics.size(); i++){
             newsEntities.add(newsRepository.loadNewsByTopic(topics.get(i)));
         }
+        Log.d(TAG, "news entities : " + newsEntities);
     }
 
     @Override
