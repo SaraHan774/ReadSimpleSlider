@@ -19,30 +19,30 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view_news_tab"
-        card_view:cardCornerRadius="30dp"
+        card_view:cardCornerRadius="20dp"
         card_view:cardUseCompatPadding="true"
         android:elevation="8dp"
         android:layout_gravity="center"
+        android:layout_margin="8dp"
         android:layout_width="match_parent"
         android:layout_height="320dp">
 
         <!--this frame layout holds the fragment which
         will be displaying sliders using ViewPagers -->
 
-        <FrameLayout
-            android:id="@+id/main_news_place_holder"
-            android:layout_margin="8dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+        <!--<FrameLayout-->
+            <!--android:id="@+id/main_news_place_holder"-->
+            <!--android:layout_margin="8dp"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"/>-->
         <!--fragment main news inner content will be added to this frame layout -->
 
-        <View
-            android:id="@+id/scrim_gradient_topics"
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/main_news_inner_view_pager"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="@drawable/scrim_gradient_topics"
-            />
+            android:layout_height="match_parent" />
 
+        <!--view pager as a child of card view (if possible)-->
 
     </androidx.cardview.widget.CardView>
 

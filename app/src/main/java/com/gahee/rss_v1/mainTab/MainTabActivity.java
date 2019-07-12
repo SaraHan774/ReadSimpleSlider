@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProviders;
@@ -34,7 +35,7 @@ public class MainTabActivity extends AppCompatActivity
     private static final String TAG = MainTabActivity.class.getSimpleName();
     private ViewPager viewPager;
     private TabLayout tabLayout;
-    List<ArrayList<Article>> arrayLists = new ArrayList<>();
+    private ArrayList<ArrayList<Article>> arrayLists = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,30 +51,23 @@ public class MainTabActivity extends AppCompatActivity
         viewPager = findViewById(R.id.main_news_view_pager);
         tabLayout = findViewById(R.id.tabs);
 
-//        ViewModel viewModel = ViewModelProviders.of(this).get(ViewModelRemote.class);
-//        ((ViewModelRemote) viewModel).getMutableLiveData().observe(this, new Observer<List<ArrayList<Article>>>() {
-//            @Override
-//            public void onChanged(List<ArrayList<Article>> arrayLists) {
-//
-//
-//
-//            }
-//        });
+        ViewModel viewModel = ViewModelProviders.of(this).get(ViewModelRemote.class);
+        ((ViewModelRemote) viewModel).getMutableLiveData().observe(this, new Observer<ArrayList<ArrayList<Article>>>() {
+            @Override
+            public void onChanged(ArrayList<ArrayList<Article>> arrayLists) {
 
-        this.arrayLists = RepositoryRemote.getInstance().getList();
-        for(int i = 0; i < arrayLists.size(); i++){
-            Log.d(TAG, "arrayLists : " + this.arrayLists.get(i).get(i).getTopicTitle());
-        }
-        //get the data from ViewModelRemote
-        PagerAdapter adapter = new MainFragmentPagerAdapter(
-                getSupportFragmentManager(),
-                MainTabActivity.this,
-                arrayLists
-        );
-        viewPager.setAdapter(adapter);
-        tabLayout.setupWithViewPager(viewPager);
+                MainTabActivity.this.arrayLists = arrayLists;
+                //get the data from ViewModelRemote
+                PagerAdapter adapter = new MainFragmentPagerAdapter(
+                        getSupportFragmentManager(),
+                        MainTabActivity.this,
+                        arrayLists
+                );
+                viewPager.setAdapter(adapter);
+                tabLayout.setupWithViewPager(viewPager);
 
-
+            }
+        });
 
 
         //set up navigation drawer

@@ -10,10 +10,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
+import com.gahee.rss_v1.CNN.model.Article;
 import com.gahee.rss_v1.R;
+import com.gahee.rss_v1.mainTab.SliderPagerAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class MyNewsAdapter extends RecyclerView.Adapter<MyNewsAdapter.MyNewsViewHolder> {
@@ -21,13 +26,13 @@ public class MyNewsAdapter extends RecyclerView.Adapter<MyNewsAdapter.MyNewsView
     private static final String TAG = "MyNewsAdapter";
 
     private Context context;
-    private ArrayList<String> topics;
+    private List<ArrayList<Article>> arrayLists;
     //fetch necessary data from the news page
 
-    public MyNewsAdapter(Context context, ArrayList<String> topics){
+    public MyNewsAdapter(Context context, List<ArrayList<Article>> arrayLists){
         //set the data to the adapter
         this.context = context;
-        this.topics = topics;
+        this.arrayLists = arrayLists;
     }
 
     @NonNull
@@ -39,24 +44,26 @@ public class MyNewsAdapter extends RecyclerView.Adapter<MyNewsAdapter.MyNewsView
 
     @Override
     public void onBindViewHolder(@NonNull MyNewsViewHolder holder, int position) {
-            holder.topicTitle.setText(topics.get(position));
-        Log.d(TAG, "on bind view holder ... topics : " + topics.get(position));
+            holder.topicTitle.setText(arrayLists.get(position).get(0).getTopicTitle());
+        //initialize view pager -> set contents into the view pager
+        //해당 position 의 기사가 들어있는 array list 하나를 넘겨준다.
+        PagerAdapter pagerAdapter = new SliderPagerAdapter(context, arrayLists.get(position));
+        holder.viewPager.setAdapter(pagerAdapter);
     }
 
     @Override
     public int getItemCount() {
-        Log.d(TAG, "topics size : " + topics.size());
-        return topics.size();
+        return arrayLists.size();
     }
 
     public class MyNewsViewHolder extends RecyclerView.ViewHolder{
         TextView topicTitle;
-//        CardView cardView;
+        ViewPager viewPager;
 
         public MyNewsViewHolder(@NonNull View itemView) {
             super(itemView);
             topicTitle = itemView.findViewById(R.id.tv_main_news_topic);
-//            cardView = itemView.findViewById(R.id.card_view_news_tab);
+            viewPager = itemView.findViewById(R.id.main_news_inner_view_pager);
         }
     }
 }

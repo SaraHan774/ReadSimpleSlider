@@ -11,3 +11,5 @@
         android:layout_height="wrap_content"/>
 
 </ScrollView>
+
+<!-- cf. nested scroll view will not display the full recycler view -->

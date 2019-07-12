@@ -36,7 +36,7 @@ public class MyNewsFragment extends Fragment {
         this.arrayLists = arrayLists;
         //store article topics in a different list
         Log.d(TAG, "setting data ... Data : " + arrayLists.size());
-        getArticleTopics();
+//        getArticleTopics();
     }
 
 
@@ -66,24 +66,23 @@ public class MyNewsFragment extends Fragment {
         myNewsRecyclerView.setLayoutManager(layoutManager);
         myNewsRecyclerView.setHasFixedSize(true);
         //fix the constructor of the adapter later
-        adapter = new MyNewsAdapter(getContext(), articleTopics);
-        adapter.notifyDataSetChanged();
-        Log.d(TAG, "article topics in on create view : " + articleTopics);
+        adapter = new MyNewsAdapter(getContext(), arrayLists);
+        adapter.notifyDataSetChanged(); //???
         myNewsRecyclerView.setAdapter(adapter);
     }
 
-    private void getArticleTopics(){
-        if(arrayLists != null){
-            for(int i = 0; i < arrayLists.size(); i++){
-                Log.d(TAG, "get article topics...." + arrayLists.get(i).size());
-                String topicTitle = arrayLists.get(i).get(0).getTopicTitle();
-                articleTopics.add(topicTitle);
-                Log.d(TAG, "topic titles : " + topicTitle);
-            }
-        }else{
-            articleTopics.add(null);
-        }
-        Log.d(TAG, "storing article topics in a different list ... article topics : " + articleTopics);
-    }
+//    private void getArticleTopics(){
+//        if(arrayLists != null){
+//            for(int i = 0; i < arrayLists.size(); i++){
+//                Log.d(TAG, "get article topics...." + arrayLists.get(i).size());
+//                String topicTitle = arrayLists.get(i).get(0).getTopicTitle();
+//                articleTopics.add(topicTitle);
+//                Log.d(TAG, "topic titles : " + topicTitle);
+//            }
+//        }else{
+//            articleTopics.add(null);
+//        }
+//        Log.d(TAG, "storing article topics in a different list ... article topics : " + articleTopics);
+//    }
 
 }

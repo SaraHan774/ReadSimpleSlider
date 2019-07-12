@@ -1,26 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ImageView
+        android:id="@+id/img_inner_slider"
         android:layout_width="match_parent"
-        android:layout_height="240dp" />
-
+        android:layout_height="match_parent" />
 
     <TextView
-        android:id="@+id/tv_news_title"
-        android:text="SAMPLE TEXT"
-        android:textSize="@dimen/text_size_small"
+        android:id="@+id/tv_article_title_inner_slider"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="16dp"
-        android:textStyle="bold"
-        />
+        android:layout_margin="16dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/sample_text_short"
+        android:textSize="@dimen/text_size_medium"
+        app:layout_constraintBottom_toTopOf="@+id/tv_article_desc_inner_slider"
+        tools:layout_editor_absoluteX="8dp" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/tv_article_desc_inner_slider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/img_inner_slider"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="SAMPLE TEXT"
+        android:textSize="@dimen/text_size_small"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/img_inner_slider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 <!--
 main rv view holder

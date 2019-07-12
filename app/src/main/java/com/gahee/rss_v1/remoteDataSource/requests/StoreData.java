@@ -77,13 +77,14 @@ public class StoreData {
             }
             articles = new Article(topicTitle, articleTitle, articleLink, pubDate, media, cleanArticleDescription);
             articleArrayList.add(articles);
-            System.out.println(articleArrayList.get(i).getTopicTitle());
         }
         Log.d(TAG, "array list of articles : " + articleArrayList.size());
-        list.add(articleArrayList);
-        //Log.d(TAG, "list size : " + list);
-        listMutableLiveData.setValue(list);
-        //Log.d(TAG, "list mutable live data " + listMutableLiveData.getValue().size());
+        if(!list.contains(articleArrayList)) {
+            list.add(articleArrayList);
+            //Log.d(TAG, "list size : " + list);
+            listMutableLiveData.setValue(list);
+            //Log.d(TAG, "list mutable live data " + listMutableLiveData.getValue().size());
+        }
     }
 
     public MutableLiveData<ArrayList<ArrayList<Article>>> getListMutableLiveData() {

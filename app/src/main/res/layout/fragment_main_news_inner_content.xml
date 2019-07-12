@@ -3,12 +3,15 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/main_news_inner_view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+    <!--<androidx.viewpager.widget.ViewPager-->
+        <!--android:id="@+id/main_news_inner_view_pager"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"/>-->
 
     <!--This view pager will hold main news slider
     which will display info fetched from the internet -->
+
+    <!--this will not be used if the card view can directly hold the
+    view pager -->
 
 </LinearLayout>
