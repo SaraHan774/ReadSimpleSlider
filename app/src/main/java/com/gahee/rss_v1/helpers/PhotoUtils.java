@@ -1,4 +1,4 @@
-package com.gahee.rss_v1.startApp;
+package com.gahee.rss_v1.helpers;
 
 import com.gahee.rss_v1.R;
 

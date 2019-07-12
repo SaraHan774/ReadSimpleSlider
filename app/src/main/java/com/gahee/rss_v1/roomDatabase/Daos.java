@@ -33,7 +33,7 @@ public interface Daos {
     LiveData<List<FavEntities>> getMyFavoriteArticles();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertTopicString(String topic);
+    void insertTopicString(TopicStrings topicStrings);
 
     @Query("SELECT * FROM topicStringsTable")
     LiveData<List<TopicStrings>> loadTopicStrings();

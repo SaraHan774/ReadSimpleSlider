@@ -19,6 +19,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.gahee.rss_v1.CNN.model.Article;
 import com.gahee.rss_v1.R;
+import com.gahee.rss_v1.remoteDataSource.RepositoryRemote;
 import com.gahee.rss_v1.remoteDataSource.ViewModelRemote;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
@@ -45,25 +46,34 @@ public class MainTabActivity extends AppCompatActivity
         //FragmentPagerAdapter -> recycler view adapter -> view holder handling the data
                         //inside the cardview -> another ViewPager -> Adapter -> handling the data
 
-        ViewModel viewModel = ViewModelProviders.of(this).get(ViewModelRemote.class);
-        ((ViewModelRemote) viewModel).getMutableLiveData().observe(this, new Observer<List<ArrayList<Article>>>() {
-            @Override
-            public void onChanged(List<ArrayList<Article>> arrayLists) {
-                MainTabActivity.this.arrayLists = arrayLists;
-                //get the data from ViewModelRemote
-            }
-        });
-
         //connect adapter to the view pager
         viewPager = findViewById(R.id.main_news_view_pager);
         tabLayout = findViewById(R.id.tabs);
+
+//        ViewModel viewModel = ViewModelProviders.of(this).get(ViewModelRemote.class);
+//        ((ViewModelRemote) viewModel).getMutableLiveData().observe(this, new Observer<List<ArrayList<Article>>>() {
+//            @Override
+//            public void onChanged(List<ArrayList<Article>> arrayLists) {
+//
+//
+//
+//            }
+//        });
+
+        this.arrayLists = RepositoryRemote.getInstance().getList();
+        for(int i = 0; i < arrayLists.size(); i++){
+            Log.d(TAG, "arrayLists : " + this.arrayLists.get(i).get(i).getTopicTitle());
+        }
+        //get the data from ViewModelRemote
         PagerAdapter adapter = new MainFragmentPagerAdapter(
                 getSupportFragmentManager(),
-                this,
+                MainTabActivity.this,
                 arrayLists
         );
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
+
+
 
 
         //set up navigation drawer

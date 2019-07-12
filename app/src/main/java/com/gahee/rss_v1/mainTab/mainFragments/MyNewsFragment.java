@@ -34,6 +34,9 @@ public class MyNewsFragment extends Fragment {
 
     public void setData(List<ArrayList<Article>> arrayLists){
         this.arrayLists = arrayLists;
+        //store article topics in a different list
+        Log.d(TAG, "setting data ... Data : " + arrayLists.size());
+        getArticleTopics();
     }
 
 
@@ -44,17 +47,8 @@ public class MyNewsFragment extends Fragment {
         //defines the xml file for the fragment
         View view = inflater.inflate(R.layout.fragment_main_news, container, false);
 
-        //set up recycler view & layout manager
-        myNewsRecyclerView = view.findViewById(R.id.main_news_recycler_view);
-        layoutManager = new LinearLayoutManager(this.getActivity());
-        myNewsRecyclerView.setLayoutManager(layoutManager);
 
-        //store article topics in a different list
-        getArticleTopics();
 
-        //fix the constructor of the adapter later
-        adapter = new MyNewsAdapter(getContext(), articleTopics);
-        myNewsRecyclerView.setAdapter(adapter);
         Log.d(TAG, "onCreateView()");
         return view;
     }
@@ -65,17 +59,31 @@ public class MyNewsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         // Setup any handles to view objects here
         // EditText etFoo = (EditText) view.findViewById(R.id.etFoo);
+
+        //set up recycler view & layout manager
+        myNewsRecyclerView = view.findViewById(R.id.main_news_recycler_view);
+        layoutManager = new LinearLayoutManager(getActivity());
+        myNewsRecyclerView.setLayoutManager(layoutManager);
+        myNewsRecyclerView.setHasFixedSize(true);
+        //fix the constructor of the adapter later
+        adapter = new MyNewsAdapter(getContext(), articleTopics);
+        adapter.notifyDataSetChanged();
+        Log.d(TAG, "article topics in on create view : " + articleTopics);
+        myNewsRecyclerView.setAdapter(adapter);
     }
 
     private void getArticleTopics(){
         if(arrayLists != null){
             for(int i = 0; i < arrayLists.size(); i++){
+                Log.d(TAG, "get article topics...." + arrayLists.get(i).size());
                 String topicTitle = arrayLists.get(i).get(0).getTopicTitle();
                 articleTopics.add(topicTitle);
+                Log.d(TAG, "topic titles : " + topicTitle);
             }
         }else{
             articleTopics.add(null);
         }
+        Log.d(TAG, "storing article topics in a different list ... article topics : " + articleTopics);
     }
 
 }

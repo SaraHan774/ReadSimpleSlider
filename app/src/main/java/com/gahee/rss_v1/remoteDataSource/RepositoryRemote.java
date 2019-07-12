@@ -1,6 +1,7 @@
 package com.gahee.rss_v1.remoteDataSource;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -21,6 +22,8 @@ public class RepositoryRemote {
     private ArrayList<Article> articleArrayList = new ArrayList<>();
     private FetchArticles fetchArticles = new FetchArticles();
 
+    private static final String TAG = "RepositoryRemote";
+
     private static RepositoryRemote instance;
 
     public static RepositoryRemote getInstance() {
@@ -31,25 +34,27 @@ public class RepositoryRemote {
     }
 
     public void requestDataAsync(String topic){
+        Log.d(TAG, "request data async / topic : " + topic);
         new FetchArticleAsync().execute(topic);
     }
 
 
-    public MutableLiveData<List<ArrayList<Article>>> getListMutableLiveData() {
+    public MutableLiveData<ArrayList<ArrayList<Article>>> getListMutableLiveData() {
         return StoreData.getInstance().getListMutableLiveData();
     }
 
-    public ArrayList<Article> getArticleArrayList() {
-        return StoreData.getInstance().getArticleArrayList();
-    }
+//    public ArrayList<Article> getArticleArrayList() {
+//        return StoreData.getInstance().getArticleArrayList();
+//    }
 
-    public List<ArrayList<Article>> getList() {
+    public ArrayList<ArrayList<Article>> getList() {
         return StoreData.getInstance().getList();
     }
 
     class FetchArticleAsync extends AsyncTask<String, Void, Void>{
         @Override
         protected Void doInBackground(String... strings) {
+            Log.d(TAG, "fetch data async running ... / strings[0] : " + strings[0]);
             Call<Rss> call = FetchArticles.decideWhatToCall(strings[0]);
             fetchArticles.fetchArticleBasedOnUserSelection(call);
             return null;

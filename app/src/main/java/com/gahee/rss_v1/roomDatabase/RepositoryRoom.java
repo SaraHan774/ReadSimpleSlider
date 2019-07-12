@@ -2,6 +2,7 @@ package com.gahee.rss_v1.roomDatabase;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
@@ -52,8 +53,9 @@ public class RepositoryRoom {
     }
 
     //for topic strings
-    public void insertTopicString(String topic){
-        new InsertTopicStringAsync(daos).execute(topic);
+    public void insertTopicString(TopicStrings topicStrings){
+        Log.d(TAG, "inserting topic strings : topic strings = " + topicStrings);
+        new InsertTopicStringAsync(daos).execute(topicStrings);
     }
 
 //    public LiveData<List<TopicStrings>> loadTopicStrings(){
@@ -129,7 +131,7 @@ public class RepositoryRoom {
         }
     }
 
-    public static class InsertTopicStringAsync extends AsyncTask<String, Void, Void>{
+    public static class InsertTopicStringAsync extends AsyncTask<TopicStrings, Void, Void>{
         private Daos daos;
 
         public InsertTopicStringAsync(Daos daos){
@@ -137,8 +139,8 @@ public class RepositoryRoom {
         }
 
         @Override
-        protected Void doInBackground(String... strings) {
-            daos.insertTopicString(strings[0]);
+        protected Void doInBackground(TopicStrings... topicStrings) {
+            daos.insertTopicString(topicStrings[0]);
             return null;
         }
     }

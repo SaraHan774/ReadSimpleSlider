@@ -1,5 +1,6 @@
 package com.gahee.rss_v1.remoteDataSource.requests;
 
+import android.print.PrinterId;
 import android.util.Log;
 
 import com.gahee.rss_v1.CNN.CnnAPI;
@@ -13,9 +14,10 @@ import retrofit2.Response;
 import static com.gahee.rss_v1.helpers.Constants.*;
 
 
-    public class FetchArticles {
+public class FetchArticles {
 
     private static final String TAG = FetchArticles.class.getSimpleName();
+    private static StoreData storeData = StoreData.getInstance();
 
     private static String []  Topics
             = {
@@ -31,6 +33,7 @@ import static com.gahee.rss_v1.helpers.Constants.*;
         Call<Rss> call;
         int topicIndex = LinearSearch.findIndex(Topics, Topic);
         CnnAPI cnnAPI = ServiceGenerator.getCnnAPI();
+        Log.d(TAG, "deciding what to call .../ topic index : " + topicIndex);
         switch(topicIndex){
             //make a constant util - helper > Constants.java
             case TOP_STORIES:
@@ -93,6 +96,7 @@ import static com.gahee.rss_v1.helpers.Constants.*;
             default:
                 call = null;
         }
+
         return call;
     }
 
@@ -102,7 +106,6 @@ import static com.gahee.rss_v1.helpers.Constants.*;
             public void onResponse(Call<Rss> call, Response<Rss> response) {
                 if(response.body() != null){
                     Log.d(TAG, "fetching article from the web ... onResponse : " + response.body());
-                    StoreData storeData = StoreData.getInstance();
                     storeData.storeArticlesIntoArrayList(call, response);
                 }
             }

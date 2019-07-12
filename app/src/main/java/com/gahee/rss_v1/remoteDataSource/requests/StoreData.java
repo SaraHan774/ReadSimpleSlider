@@ -19,10 +19,9 @@ public class StoreData {
 
     private static final String TAG = "StoreData";
 
-    private MutableLiveData<List<ArrayList<Article>>> listMutableLiveData = new MutableLiveData<>();
-
-    private ArrayList<Article> articleArrayList = new ArrayList<>();
-    private List<ArrayList<Article>> list = new ArrayList<>();
+    private MutableLiveData<ArrayList<ArrayList<Article>>> listMutableLiveData = new MutableLiveData<>();
+    private ArrayList<ArrayList<Article>> list = new ArrayList<>();
+    private Article articles;
 
     private static StoreData instance;
 
@@ -33,7 +32,9 @@ public class StoreData {
         return instance;
     }
 
-    public void storeArticlesIntoArrayList(Call<Rss> call, Response<Rss> response){
+    public synchronized void storeArticlesIntoArrayList(Call<Rss> call, Response<Rss> response){
+        ArrayList<Article> articleArrayList = new ArrayList<>();
+
         String topicTitle;
         String articleTitle = null;
         String articleLink = null;
@@ -41,6 +42,10 @@ public class StoreData {
         String media = null;
         String articleDescription;
         String cleanArticleDescription = null;
+
+        if(articleArrayList != null){
+            articleArrayList.clear();
+        }
 
         for(int i = 0; i< response.body().getChannel().getItem().size(); i++){
             Item item = response.body().getChannel().getItem().get(i);
@@ -56,7 +61,7 @@ public class StoreData {
                 } else {
                     media = "";
                 }
-                //remove html tag from article description content
+                //remove html tag from articles description content
                 if (item.getDescription() != null) {
                     articleDescription = response.body().getChannel().getItem().get(i).getDescription();
                     cleanArticleDescription = Html.fromHtml(articleDescription).toString();
@@ -64,27 +69,32 @@ public class StoreData {
                     cleanArticleDescription = "";
                 }
 
-                Log.d(TAG, "Topic title : " + topicTitle + "\n"
-                        + "article link : " + articleLink + "\n" +
-                        "article title : " + articleTitle + "\n"
-                        + "media: " + media + "\n"
-                        + "article description  : " + cleanArticleDescription + "\n\n");
+//                Log.d(TAG, "Topic title : " + topicTitle + "\n"
+//                        + "articles link : " + articleLink + "\n" +
+//                        "articles title : " + articleTitle + "\n"
+//                        + "media: " + media + "\n"
+//                        + "articles description  : " + cleanArticleDescription + "\n\n");
             }
-            articleArrayList.add(new Article(topicTitle, articleTitle, articleLink, pubDate, media, cleanArticleDescription));
+            articles = new Article(topicTitle, articleTitle, articleLink, pubDate, media, cleanArticleDescription);
+            articleArrayList.add(articles);
+            System.out.println(articleArrayList.get(i).getTopicTitle());
         }
+        Log.d(TAG, "array list of articles : " + articleArrayList.size());
         list.add(articleArrayList);
+        //Log.d(TAG, "list size : " + list);
         listMutableLiveData.setValue(list);
+        //Log.d(TAG, "list mutable live data " + listMutableLiveData.getValue().size());
     }
 
-    public MutableLiveData<List<ArrayList<Article>>> getListMutableLiveData() {
+    public MutableLiveData<ArrayList<ArrayList<Article>>> getListMutableLiveData() {
         return listMutableLiveData;
-}
-
-    public ArrayList<Article> getArticleArrayList() {
-        return articleArrayList;
     }
 
-    public List<ArrayList<Article>> getList() {
+//    public ArrayList<Article> getArticleArrayList() {
+//     //   return articleArrayList;
+//    }
+
+    public ArrayList<ArrayList<Article>> getList() {
         return list;
     }
 }

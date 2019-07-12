@@ -26,7 +26,7 @@ public class MainFragmentPagerAdapter extends FragmentPagerAdapter {
     private Context context;
     private String[] tabTitles = {"News", "Favorites"};
     private MyNewsFragment myNewsFragment = new MyNewsFragment();
-    private List<ArrayList<Article>> arrayLists = new ArrayList<>();
+    private List<ArrayList<Article>> arrayLists;
     //need to get the data to display from MainTabActivity.java - 생성자를 통해서 전달해주어야 한다
     // 생성자 안에서 받아와서 Fragment 의 생성자로 다시 전달 (?)
     // fragment 의 recycler view 안에다가 전달해야. (뉴스 토픽)
@@ -36,7 +36,7 @@ public class MainFragmentPagerAdapter extends FragmentPagerAdapter {
         super(fm);
         this.context = context;
         this.arrayLists = arrayLists;
-        Log.d(TAG, "articles : ");
+        Log.d(TAG, "articles : " + arrayLists.size());
     }
 
 

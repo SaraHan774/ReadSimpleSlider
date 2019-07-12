@@ -6,6 +6,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
@@ -16,10 +18,11 @@ import android.widget.TextView;
 
 import com.gahee.rss_v1.CheckIfNew;
 import com.gahee.rss_v1.R;
+import com.gahee.rss_v1.helpers.PhotoUtils;
+import com.gahee.rss_v1.mainTab.MainTabActivity;
 import com.gahee.rss_v1.remoteDataSource.RepositoryRemote;
 import com.gahee.rss_v1.roomDatabase.ViewModelRoom;
 import com.gahee.rss_v1.roomDatabase.TopicStrings;
-import com.gahee.rss_v1.remoteDataSource.ViewModelRemote;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +76,7 @@ public class StartActivity extends AppCompatActivity{
             @Override
             public void onChanged(List<TopicStrings> topicStrings) {
                 StartActivity.this.topicStrings = topicStrings;
+                Log.d(TAG, "topic strings observed : " + topicStrings);
             }
         });
     }
@@ -143,16 +147,17 @@ public class StartActivity extends AppCompatActivity{
                             int i;
                             for(i = 0; i < topicStrings.size(); i++){
                                 RepositoryRemote.getInstance().requestDataAsync(topicStrings.get(i).getTopicString());
+                                Log.d(TAG, "topic strings .get (i) . get topic string : " + topicStrings.get(i).getTopicString());
                             }
-                            //how to transit from start activity to main tab activity ?
-//                            button.setText("READY!");
-//                            try {
-//                                Thread.sleep(2000);
-//                            } catch (InterruptedException e) {
-//                                e.printStackTrace();
-//                            }
-//                            Intent intent = new Intent(StartActivity.this, MainTabActivity.class);
-//                            startActivity(intent);
+//                            how to transit from start activity to main tab activity ?
+                            button.setText("READY!");
+                            try {
+                                Thread.sleep(2000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            Intent intent = new Intent(StartActivity.this, MainTabActivity.class);
+                            startActivity(intent);
                         }
                     });
 

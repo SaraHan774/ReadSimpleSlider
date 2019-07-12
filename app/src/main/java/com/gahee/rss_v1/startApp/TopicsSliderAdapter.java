@@ -15,6 +15,7 @@ import androidx.viewpager.widget.PagerAdapter;
 import com.bumptech.glide.Glide;
 import com.gahee.rss_v1.R;
 import com.gahee.rss_v1.roomDatabase.RepositoryRoom;
+import com.gahee.rss_v1.roomDatabase.TopicStrings;
 
 public class TopicsSliderAdapter extends PagerAdapter {
 
@@ -59,7 +60,7 @@ public class TopicsSliderAdapter extends PagerAdapter {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                repositoryRoom.insertTopicString(topics[position]);
+                repositoryRoom.insertTopicString(new TopicStrings(topics[position]));
                 //save topic information to the database
                 Toast.makeText(context, "Added to user selections", Toast.LENGTH_SHORT).show();
             }

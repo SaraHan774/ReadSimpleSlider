@@ -1,12 +1,14 @@
 package com.gahee.rss_v1.mainTab.recyclerViewAdapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gahee.rss_v1.R;
@@ -16,6 +18,7 @@ import java.util.ArrayList;
 
 public class MyNewsAdapter extends RecyclerView.Adapter<MyNewsAdapter.MyNewsViewHolder> {
 //this rv adapter will be set to fragment_main_news.xml
+    private static final String TAG = "MyNewsAdapter";
 
     private Context context;
     private ArrayList<String> topics;
@@ -36,21 +39,24 @@ public class MyNewsAdapter extends RecyclerView.Adapter<MyNewsAdapter.MyNewsView
 
     @Override
     public void onBindViewHolder(@NonNull MyNewsViewHolder holder, int position) {
-        holder.topicTitle.setText(topics.get(position));
-        //database 에서 불러오는 것 실패하는 중 ... ^^
+            holder.topicTitle.setText(topics.get(position));
+        Log.d(TAG, "on bind view holder ... topics : " + topics.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return 1;
+        Log.d(TAG, "topics size : " + topics.size());
+        return topics.size();
     }
 
     public class MyNewsViewHolder extends RecyclerView.ViewHolder{
         TextView topicTitle;
+//        CardView cardView;
 
         public MyNewsViewHolder(@NonNull View itemView) {
             super(itemView);
             topicTitle = itemView.findViewById(R.id.tv_main_news_topic);
+//            cardView = itemView.findViewById(R.id.card_view_news_tab);
         }
     }
 }
