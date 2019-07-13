@@ -1,4 +1,4 @@
-package com.gahee.rss_v1.mainTab;
+package com.gahee.rss_v1.mainTab.pagerAdapters;
 
 import android.content.Context;
 import android.util.Log;

@@ -8,15 +8,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.gahee.rss_v1.CNN.model.Article;
 import com.gahee.rss_v1.R;
-import com.gahee.rss_v1.mainTab.SliderPagerAdapter;
-
+import com.gahee.rss_v1.mainTab.mainFragments.FlippedFragment;
+import com.gahee.rss_v1.mainTab.pagerAdapters.SliderPagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,20 +36,37 @@ public class MyNewsAdapter extends RecyclerView.Adapter<MyNewsAdapter.MyNewsView
         this.arrayLists = arrayLists;
     }
 
+    private View newsView;
+
     @NonNull
     @Override
     public MyNewsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.main_rv_view_holder, parent, false);
-        return new MyNewsViewHolder(view);
+        newsView = LayoutInflater.from(context).inflate(R.layout.main_rv_view_holder, parent, false);
+        Log.d(TAG, "view group : " + parent);
+        return new MyNewsViewHolder(newsView);
     }
 
+
     @Override
-    public void onBindViewHolder(@NonNull MyNewsViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final MyNewsViewHolder holder, final int position) {
             holder.topicTitle.setText(arrayLists.get(position).get(0).getTopicTitle());
         //initialize view pager -> set contents into the view pager
         //해당 position 의 기사가 들어있는 array list 하나를 넘겨준다.
         PagerAdapter pagerAdapter = new SliderPagerAdapter(context, arrayLists.get(position));
         holder.viewPager.setAdapter(pagerAdapter);
+
+        //if view holder was double clicked,
+        //change the view holder to a bigger one (with the web view)
+        //and parse the article URI to that web view
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
+                FlippedFragment flippedFragment = FlippedFragment.newInstance();
+                flippedFragment.setData(arrayLists.get(position));
+
+            }
+        });
     }
 
     @Override
@@ -66,4 +84,5 @@ public class MyNewsAdapter extends RecyclerView.Adapter<MyNewsAdapter.MyNewsView
             viewPager = itemView.findViewById(R.id.main_news_inner_view_pager);
         }
     }
+
 }

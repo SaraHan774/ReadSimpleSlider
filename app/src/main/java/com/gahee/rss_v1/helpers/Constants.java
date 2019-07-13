@@ -23,4 +23,7 @@ public class Constants {
 
     public static final String BASE_URL = "http://rss.cnn.com/rss/";
 
+    public static final String SHARED_PREF_USER_NAME = "user_name_sp";
+    public static final String USER_NAME_KEY = "user_name_key";
+
 }

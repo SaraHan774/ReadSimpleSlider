@@ -64,7 +64,7 @@ public class StoreData {
                 //remove html tag from articles description content
                 if (item.getDescription() != null) {
                     articleDescription = response.body().getChannel().getItem().get(i).getDescription();
-                    cleanArticleDescription = Html.fromHtml(articleDescription).toString();
+                    cleanArticleDescription = Html.fromHtml(articleDescription).toString().replace((char) 65532, (char) 32).trim();
                 } else {
                     cleanArticleDescription = "";
                 }

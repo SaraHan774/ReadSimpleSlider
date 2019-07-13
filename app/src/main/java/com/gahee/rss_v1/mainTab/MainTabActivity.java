@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProviders;
@@ -20,13 +19,12 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.gahee.rss_v1.CNN.model.Article;
 import com.gahee.rss_v1.R;
-import com.gahee.rss_v1.remoteDataSource.RepositoryRemote;
+import com.gahee.rss_v1.mainTab.pagerAdapters.MainFragmentPagerAdapter;
 import com.gahee.rss_v1.remoteDataSource.ViewModelRemote;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class MainTabActivity extends AppCompatActivity

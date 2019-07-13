@@ -7,14 +7,17 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
-import android.nfc.Tag;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gahee.rss_v1.CheckIfNew;
 import com.gahee.rss_v1.R;
@@ -26,6 +29,11 @@ import com.gahee.rss_v1.roomDatabase.TopicStrings;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import static com.gahee.rss_v1.helpers.Constants.SHARED_PREF_USER_NAME;
+import static com.gahee.rss_v1.helpers.Constants.USER_NAME_KEY;
 
 public class StartActivity extends AppCompatActivity{
 
@@ -44,6 +52,10 @@ public class StartActivity extends AppCompatActivity{
     //fetching this list from the database
     private List<TopicStrings> topicStrings = new ArrayList<>();
     private ViewModelRoom viewModelRoom;
+
+    //first page views
+    EditText editText;
+    ImageButton userNameConfirm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +78,6 @@ public class StartActivity extends AppCompatActivity{
         viewPager.addOnPageChangeListener(listener);
         addSliderDots(viewPager.getCurrentItem());
 
-
         PhotoUtils photoUtils = new PhotoUtils();
         topics = photoUtils.getTopicsOfPhotos();
         photos = photoUtils.getPhotos();
@@ -79,6 +90,7 @@ public class StartActivity extends AppCompatActivity{
                 Log.d(TAG, "topic strings observed : " + topicStrings);
             }
         });
+
     }
 
 
@@ -117,50 +129,16 @@ public class StartActivity extends AppCompatActivity{
             switch (currentPosition){
                 case 0:
                     Log.d(TAG, "on page selected 0 ");
-                    //on the first page
-                    //initialize EditText obj -> save user name in shared preference
-                    //let user select the country / region (maybe)
-                    //initialize check button - on Click save user name in SP
-                    //make a Toast that the user name has been saved.
+                    // how to get rid of NPE ?
+                    //confirmUserName();
                     break;
                 case 1:
                     Log.d(TAG, "on page selected 1 ");
-                    //on the second page (current position 1)
-                    //inflate fragment to display topics items
-                    //send the topics list to view pager adapter class
-                    //set the adapter to the view pager in the fragment
-                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.topics_fragment_placeholder, TopicFragment.newInstance(topics, photos));
-                    fragmentTransaction.commit();
-
+                    showTopicsViewPager();
                     break;
                 case 2:
                     Log.d(TAG, "on page selected 2 ");
-                    //loading page
-                    //initialize animations on the dots
-                    //do background work -> parsing xml & creating cards
-                    //when it's ready to display contents, switch to Main Activity
-                    final Button button = findViewById(R.id.btn_next);
-                    button.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            int i;
-                            for(i = 0; i < topicStrings.size(); i++){
-                                RepositoryRemote.getInstance().requestDataAsync(topicStrings.get(i).getTopicString());
-                                Log.d(TAG, "topic strings .get (i) . get topic string : " + topicStrings.get(i).getTopicString());
-                            }
-//                            how to transit from start activity to main tab activity ?
-                            button.setText("READY!");
-                            try {
-                                Thread.sleep(2000);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                            Intent intent = new Intent(StartActivity.this, MainTabActivity.class);
-                            startActivity(intent);
-                        }
-                    });
-
+                    navigateToMainTabActivity();
                     break;
             }
 
@@ -172,5 +150,64 @@ public class StartActivity extends AppCompatActivity{
         }
     };
 
+
+
+
+    private void confirmUserName(){
+        editText = findViewById(R.id.et_type_name);
+        userNameConfirm = findViewById(R.id.img_btn_name_confirm);
+
+        userNameConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(editText.getText().toString().isEmpty()){
+                    editText.setError(getResources().getString(R.string.name_error));
+                    editText.requestFocus();
+                }else{
+                    String userName = editText.getText().toString();
+                    SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF_USER_NAME, MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString(USER_NAME_KEY, userName);
+                    editor.apply();
+
+                    Toast.makeText(StartActivity.this,
+                            getResources().getString(R.string.name_confirmed),
+                            Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+    }
+
+    private void showTopicsViewPager(){
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.topics_fragment_placeholder, TopicFragment.newInstance(topics, photos));
+        fragmentTransaction.commit();
+    }
+
+    private void navigateToMainTabActivity(){
+        final Button button = findViewById(R.id.btn_next);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO : this seems very inefficient
+                button.setText(getResources().getString(R.string.ready));
+                if(RepositoryRemote.getInstance().getList() != null){
+                    RepositoryRemote.getInstance().getList().clear();
+                }
+                for(int i = 0; i < topicStrings.size(); i++){
+                    RepositoryRemote.getInstance().requestDataAsync(topicStrings.get(i).getTopicString());
+                }
+//                            how to transit from start activity to main tab activity ?
+                try {
+                    Thread.sleep(1500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                Intent intent = new Intent(StartActivity.this, MainTabActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
 }
 

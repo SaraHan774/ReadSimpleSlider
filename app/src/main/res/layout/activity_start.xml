@@ -21,15 +21,6 @@
         android:layout_alignBottom="@id/slide_view_pager"
         android:layout_centerHorizontal="true"
         android:padding="20dp"
-        >
-
-        <Button
-            android:id="@+id/btn_skip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="SKIP"/>
-
-
-    </LinearLayout>
+        />
 
 </RelativeLayout>

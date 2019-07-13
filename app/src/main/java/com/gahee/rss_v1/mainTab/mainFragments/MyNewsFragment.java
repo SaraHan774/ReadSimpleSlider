@@ -47,8 +47,6 @@ public class MyNewsFragment extends Fragment {
         //defines the xml file for the fragment
         View view = inflater.inflate(R.layout.fragment_main_news, container, false);
 
-
-
         Log.d(TAG, "onCreateView()");
         return view;
     }

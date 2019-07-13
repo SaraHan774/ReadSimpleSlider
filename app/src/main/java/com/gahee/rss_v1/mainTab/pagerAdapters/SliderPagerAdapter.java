@@ -1,9 +1,10 @@
-package com.gahee.rss_v1.mainTab;
+package com.gahee.rss_v1.mainTab.pagerAdapters;
 
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -17,7 +18,6 @@ import com.gahee.rss_v1.CNN.model.Article;
 import com.gahee.rss_v1.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class SliderPagerAdapter extends PagerAdapter {
 
@@ -50,6 +50,12 @@ public class SliderPagerAdapter extends PagerAdapter {
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.main_news_slider, container, false);
 
+        //set the page number
+        TextView tv_article_page_current = view.findViewById(R.id.tv_article_page_number_current);
+        tv_article_page_current.setText(String.valueOf(position + 1));
+        TextView tv_article_page_total = view.findViewById(R.id.tv_article_page_number_total);
+        tv_article_page_total.setText(String.valueOf(arrayList.size()));
+
         //set the title of the article
         TextView tv_article_title = view.findViewById(R.id.tv_article_title_inner_slider);
         tv_article_title.setText(arrayList.get(position).getArticleTitle());
@@ -61,15 +67,6 @@ public class SliderPagerAdapter extends PagerAdapter {
         //set the thumbnail of the article
         ImageView imageView = view.findViewById(R.id.img_inner_slider);
         Glide.with(context).load(R.drawable.android).into(imageView);
-
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String articleLink = arrayList.get(position).getArticleLink();
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(articleLink));
-                context.startActivity(intent);
-            }
-        });
 
         container.addView(view);
         return view;

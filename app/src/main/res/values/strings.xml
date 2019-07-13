@@ -17,10 +17,14 @@
     <!--Welcome & Starting screen Strings -->
     <string name="ask_name">What is your name?</string>
     <string name="type_name">Please type in your name below</string>
+    <string name="name_error">Please type in your name</string>
+    <string name="name_confirmed">Thank you and Welcome!</string>
+
     <string name="ask_interest">What is your interest?</string>
     <string name="find_topics">Slide right to find your interest!</string>
     <string name="generate_feed">generating feed from your selections ...</string>
     <string name="ask_ready">Are you ready to slide?</string>
+    <string name="ready">READY!</string>
 
     <string name="sample_text_short">SAMPLE TEXT</string>
     <string name="sample_text_medium">
@@ -33,5 +37,6 @@
     <string name="tab_my_news">MY NEWS</string>
     <string name="tab_favorites">FAVORITES</string>
     <string name="search">SEARCH\nRESULT</string>
+
 
 </resources>
