@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/myColorOldAqua</item>
         <item name="colorPrimaryDark">@color/myColorChicNavy</item>
         <item name="colorAccent">@color/myColorLightBeige</item>
+        <item name="android:fontFamily">@font/dm_serif_text</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
