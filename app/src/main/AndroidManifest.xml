@@ -15,7 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".startApp.SplashActivity">
+        <activity android:name=".startApp.SplashActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,7 +27,8 @@
             android:name=".mainTab.MainTabActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".TestActivity"></activity>
-        <activity android:name=".startApp.StartActivity">
+        <activity android:name=".startApp.StartActivity"
+            android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
     </application>

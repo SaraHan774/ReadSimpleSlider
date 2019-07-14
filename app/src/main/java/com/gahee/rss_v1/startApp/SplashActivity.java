@@ -22,13 +22,22 @@ public class SplashActivity extends AppCompatActivity {
         //if already a user of this app, then navigate to MainTabActivity
 
         Intent intent = new Intent(getApplicationContext(), StartActivity.class);
-        try{
-            Thread.sleep(1500);
-        }catch (InterruptedException e){
-            e.printStackTrace();
-        }
+
+//        try{
+//            Thread.sleep(1500);
+//        }catch (InterruptedException e){
+//            e.printStackTrace();
+//        }
+
         startActivity(intent);
-        finish(); //gone from the back stack
+        finish();
+
+ //gone from the back stack
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
 }
