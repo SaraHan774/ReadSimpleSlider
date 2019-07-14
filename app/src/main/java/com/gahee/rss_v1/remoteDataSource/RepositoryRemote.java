@@ -43,12 +43,13 @@ public class RepositoryRemote {
         return StoreData.getInstance().getListMutableLiveData();
     }
 
-//    public ArrayList<Article> getArticleArrayList() {
-//        return StoreData.getInstance().getArticleArrayList();
-//    }
 
     public ArrayList<ArrayList<Article>> getList() {
-        return StoreData.getInstance().getList();
+        return StoreData.getInstance().getListOfArticlesSortedByTopics();
+    }
+
+    public MutableLiveData<ArrayList<Article>> getListForSearch(){
+        return StoreData.getInstance().getListForSearch() ;
     }
 
     class FetchArticleAsync extends AsyncTask<String, Void, Void>{

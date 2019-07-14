@@ -13,5 +13,4 @@ public class RandomPhoto {
         return urls;
     }
 
-
 }

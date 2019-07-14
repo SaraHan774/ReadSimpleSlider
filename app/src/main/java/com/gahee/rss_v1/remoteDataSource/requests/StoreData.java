@@ -10,7 +10,6 @@ import com.gahee.rss_v1.CNN.tags.Rss;
 import com.gahee.rss_v1.CNN.model.Article;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -20,7 +19,7 @@ public class StoreData {
     private static final String TAG = "StoreData";
 
     private MutableLiveData<ArrayList<ArrayList<Article>>> listMutableLiveData = new MutableLiveData<>();
-    private ArrayList<ArrayList<Article>> list = new ArrayList<>();
+    private ArrayList<ArrayList<Article>> listOfArticlesSortedByTopics = new ArrayList<>();
     private Article articles;
 
     private static StoreData instance;
@@ -79,13 +78,15 @@ public class StoreData {
             }
             articles = new Article(topicTitle, articleTitle, articleLink, pubDate, media, cleanArticleDescription);
             articleArrayList.add(articles);
+            auxiliaryListForSearch.add(articles);
         }
-        Log.d(TAG, "array list of articles : " + articleArrayList.size());
-        if(!list.contains(articleArrayList)) {
-            list.add(articleArrayList);
-            //Log.d(TAG, "list size : " + list);
-            listMutableLiveData.setValue(list);
-            //Log.d(TAG, "list mutable live data " + listMutableLiveData.getValue().size());
+        Log.d(TAG, "articles : " + articleArrayList.size());
+
+        if(!listOfArticlesSortedByTopics.contains(articleArrayList)) {
+            listOfArticlesSortedByTopics.add(articleArrayList);
+            //Log.d(TAG, "listOfArticlesSortedByTopics size : " + listOfArticlesSortedByTopics);
+            listMutableLiveData.setValue(listOfArticlesSortedByTopics);
+            //Log.d(TAG, "listOfArticlesSortedByTopics mutable live data " + listMutableLiveData.getValue().size());
         }
     }
 
@@ -93,11 +94,18 @@ public class StoreData {
         return listMutableLiveData;
     }
 
-//    public ArrayList<Article> getArticleArrayList() {
-//     //   return articleArrayList;
-//    }
 
-    public ArrayList<ArrayList<Article>> getList() {
-        return list;
+    public ArrayList<ArrayList<Article>> getListOfArticlesSortedByTopics() {
+        return listOfArticlesSortedByTopics;
+    }
+
+
+    //these are made for search.
+    private MutableLiveData<ArrayList<Article>> listForSearch = new MutableLiveData<>();
+    private ArrayList<Article> auxiliaryListForSearch = new ArrayList<>();
+
+    public MutableLiveData<ArrayList<Article>> getListForSearch(){
+        listForSearch.setValue(auxiliaryListForSearch);
+        return listForSearch;
     }
 }

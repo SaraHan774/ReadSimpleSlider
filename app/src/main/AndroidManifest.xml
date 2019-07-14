@@ -4,8 +4,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -15,7 +15,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".startApp.SplashActivity"
+        <activity android:name=".searchResult.SearchResultActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+        <activity
+            android:name=".startApp.SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,12 +35,16 @@
         </activity>
         <activity
             android:name=".mainTab.MainTabActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".TestActivity"></activity>
-        <activity android:name=".startApp.StartActivity"
             android:theme="@style/AppTheme.NoActionBar">
 
+            <meta-data
+                android:name="android.app.default_searchable"
+                android:value=".SearchResultActivity" />
         </activity>
+        <activity android:name=".TestActivity" />
+        <activity
+            android:name=".startApp.StartActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

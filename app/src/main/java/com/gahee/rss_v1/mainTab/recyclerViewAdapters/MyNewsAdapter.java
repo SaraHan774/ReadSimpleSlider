@@ -49,7 +49,7 @@ public class MyNewsAdapter extends RecyclerView.Adapter<MyNewsAdapter.MyNewsView
 
     @Override
     public void onBindViewHolder(@NonNull final MyNewsViewHolder holder, final int position) {
-            holder.topicTitle.setText(arrayLists.get(position).get(0).getTopicTitle());
+        holder.topicTitle.setText(arrayLists.get(position).get(0).getTopicTitle());
         //initialize view pager -> set contents into the view pager
         //해당 position 의 기사가 들어있는 array list 하나를 넘겨준다.
         PagerAdapter pagerAdapter = new SliderPagerAdapter(context, arrayLists.get(position));

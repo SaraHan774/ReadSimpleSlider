@@ -23,11 +23,15 @@ public class Constants {
 
     public static final String BASE_URL = "http://rss.cnn.com/rss/";
 
+    //for saving user's name
     public static final String SHARED_PREF_USER_NAME = "user_name_sp";
     public static final String USER_NAME_KEY = "user_name_key";
 
+    //for user's profile photo
     public static final String SHARED_PREF_USER_PIC = "user_pic_pref";
     public static final String USER_PIC_KEY = "user_pic_key";
-
     public static final int LOAD_IMAGE = 6676;
+
+    //for sending search results via intent
+    public static final String SEARCH_RESULT_INTENT = "search_result";
 }

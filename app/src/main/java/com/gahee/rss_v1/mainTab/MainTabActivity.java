@@ -2,9 +2,6 @@ package com.gahee.rss_v1.mainTab;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -13,7 +10,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import androidx.appcompat.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,27 +21,28 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.bumptech.glide.Glide;
 import com.gahee.rss_v1.CNN.model.Article;
 import com.gahee.rss_v1.R;
 import com.gahee.rss_v1.mainTab.pagerAdapters.MainFragmentPagerAdapter;
 import com.gahee.rss_v1.remoteDataSource.ViewModelRemote;
 import com.gahee.rss_v1.roomDatabase.TopicStrings;
 import com.gahee.rss_v1.roomDatabase.ViewModelRoom;
+import com.gahee.rss_v1.searchResult.SearchResultActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.gahee.rss_v1.helpers.Constants.LOAD_IMAGE;
+import static com.gahee.rss_v1.helpers.Constants.SEARCH_RESULT_INTENT;
 import static com.gahee.rss_v1.helpers.Constants.SHARED_PREF_USER_NAME;
 import static com.gahee.rss_v1.helpers.Constants.SHARED_PREF_USER_PIC;
 import static com.gahee.rss_v1.helpers.Constants.USER_NAME_KEY;
@@ -55,6 +55,7 @@ public class MainTabActivity extends AppCompatActivity
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private ArrayList<ArrayList<Article>> arrayLists = new ArrayList<>();
+    private ArrayList<Article> auxiliaryListForSearch = new ArrayList<>();
     private TextView userName;
     private NavigationView navigationView;
     private ViewModelRoom viewModelRoom;
@@ -91,6 +92,14 @@ public class MainTabActivity extends AppCompatActivity
 
             }
         });
+
+        viewModelRemote.getMutableLiveDataForSearch().observe(this, new Observer<ArrayList<Article>>() {
+            @Override
+            public void onChanged(ArrayList<Article> articles) {
+                MainTabActivity.this.auxiliaryListForSearch = articles;
+            }
+        });
+
 
 
         //set up navigation drawer
@@ -155,10 +164,53 @@ public class MainTabActivity extends AppCompatActivity
         }
     }
 
+    private ArrayList<Article> searchResultList = new ArrayList<>();
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+
+        SearchView searchView = (SearchView) menu.findItem(R.id.news_search_icon).getActionView();
+        searchView.setFocusable(false);
+        searchView.setQueryHint(getResources().getString(R.string.search_hint));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                //make an array list to store search results
+                if(searchResultList != null){
+                    Log.d(TAG, "search list cleared ");
+                    searchResultList.clear();
+                }
+                //clear the list before another search
+                for(int i =0; i < auxiliaryListForSearch.size(); i++){
+                    if(auxiliaryListForSearch.get(i).getTopicTitle().contains(query)){
+                        //send the article data into another recycler view which contains card view for the search results
+                        searchResultList.add(auxiliaryListForSearch.get(i));
+                    }else if(auxiliaryListForSearch.get(i).getArticleDescription().contains(query)){
+                        //send the article data ...
+                        searchResultList.add(auxiliaryListForSearch.get(i));
+                    }
+                }
+                if(searchResultList == null){
+                    Toast.makeText(MainTabActivity.this, "No Search Result!", Toast.LENGTH_SHORT).show();
+                }else{
+                    Intent intent = new Intent(MainTabActivity.this, SearchResultActivity.class);
+                    intent.putParcelableArrayListExtra(SEARCH_RESULT_INTENT, searchResultList);
+                    intent.setAction(Intent.ACTION_SEARCH);
+                    startActivity(intent);
+                    return true;
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
+
         return true;
     }
 
