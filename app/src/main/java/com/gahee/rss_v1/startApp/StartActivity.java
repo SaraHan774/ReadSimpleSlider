@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -68,6 +69,7 @@ public class StartActivity extends AppCompatActivity{
         linearLayout = findViewById(R.id.linear_layout_start);
 
         startSliderLayouts = new int[]{
+                R.layout.read_simple_slider,
                 R.layout.start_slider_name,
                 R.layout.start_slider_interest,
                 R.layout.start_slider_wait
@@ -76,7 +78,7 @@ public class StartActivity extends AppCompatActivity{
         StartSliderAdapter startSliderAdapter = new StartSliderAdapter(this, startSliderLayouts);
         viewPager.setAdapter(startSliderAdapter);
         viewPager.addOnPageChangeListener(listener);
-        addSliderDots(viewPager.getCurrentItem());
+        pageSwitcher(2);
 
         PhotoUtils photoUtils = new PhotoUtils();
         topics = photoUtils.getTopicsOfPhotos();
@@ -94,28 +96,9 @@ public class StartActivity extends AppCompatActivity{
     }
 
 
-    private void addSliderDots(int currentPage){
-        dots = new TextView[startSliderLayouts.length];
-        int activeColor = getResources().getColor(R.color.colorBlack);
-        int inactiveColor = getResources().getColor(R.color.colorLightGrey);
-
-        //clearing all dots
-        linearLayout.removeAllViews();
-        for(int i =0; i < dots.length; i++){
-          dots[i] = new TextView(this);
-          dots[i].setText(Html.fromHtml("&#8226"));
-          dots[i].setTextSize(32);
-            if(i == currentPage){
-                dots[i].setTextColor(activeColor);
-            }else{
-                dots[i].setTextColor(inactiveColor);
-            }
-          linearLayout.addView(dots[i]);
-
-        }
-    }
 
     ViewPager.OnPageChangeListener listener = new ViewPager.OnPageChangeListener() {
+
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -124,22 +107,21 @@ public class StartActivity extends AppCompatActivity{
         @Override
         public void onPageSelected(int currentPosition) {
 
-            addSliderDots(currentPosition);
-
-            switch (currentPosition){
-                case 0:
-                    Log.d(TAG, "on page selected 0 ");
-                    // how to get rid of NPE ?
-                    //confirmUserName();
-                    break;
-                case 1:
-                    Log.d(TAG, "on page selected 1 ");
-                    showTopicsViewPager();
-                    break;
-                case 2:
-                    Log.d(TAG, "on page selected 2 ");
-                    navigateToMainTabActivity();
-                    break;
+            if(currentPosition == 0){
+                //set the timer
+            }else{
+                addSliderDots(currentPosition - 1);
+                switch (currentPosition){
+                    case 1:
+                        confirmUserName();
+                        break;
+                    case 2:
+                        showTopicsViewPager();
+                        break;
+                    case 3:
+                        navigateToMainTabActivity();
+                        break;
+                }
             }
 
         }
@@ -150,9 +132,33 @@ public class StartActivity extends AppCompatActivity{
         }
     };
 
+    /*
+    * adds dots to the bottom of the sliding page, if page >= 1
+    * */
+    private void addSliderDots(int currentPage){
+        dots = new TextView[startSliderLayouts.length -1];
+        int activeColor = getResources().getColor(R.color.colorBlack);
+        int inactiveColor = getResources().getColor(R.color.colorLightGrey);
 
+        //clearing all dots
+        linearLayout.removeAllViews();
+        for(int i =0; i < dots.length; i++){
+            dots[i] = new TextView(this);
+            dots[i].setText(Html.fromHtml("&#8226"));
+            dots[i].setTextSize(32);
+            if(i == currentPage){
+                dots[i].setTextColor(activeColor);
+            }else{
+                dots[i].setTextColor(inactiveColor);
+            }
+            linearLayout.addView(dots[i]);
 
+        }
+    }
 
+    /*
+    * let the user to type in their name, and saves it using shared preference
+    * */
     private void confirmUserName(){
         editText = findViewById(R.id.et_type_name);
         userNameConfirm = findViewById(R.id.img_btn_name_confirm);
@@ -179,12 +185,20 @@ public class StartActivity extends AppCompatActivity{
         });
     }
 
+    /*
+    * initializes the view pager letting the user to select topics
+    * */
     private void showTopicsViewPager(){
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.topics_fragment_placeholder, TopicFragment.newInstance(topics, photos));
         fragmentTransaction.commit();
     }
 
+    /*
+    * when the user clicks start button, call to the remote data source will be made.
+    * This call will fetch RSS urls based on user selected topics.
+    * after fetching, the user will be navigated to MainTabActivity.
+    * */
     private void navigateToMainTabActivity(){
         final Button button = findViewById(R.id.btn_next);
         button.setOnClickListener(new View.OnClickListener() {
@@ -208,6 +222,39 @@ public class StartActivity extends AppCompatActivity{
                 startActivity(intent);
             }
         });
+    }
+
+
+    //variables for the timer
+    private Timer timer;
+    private int page = 0;
+
+    public void pageSwitcher(int seconds) {
+        timer = new Timer(); // At this line a new Thread will be created
+        timer.scheduleAtFixedRate(new RemindTask(), 0, seconds * 1000);
+    }
+
+    class RemindTask extends TimerTask {
+
+        @Override
+        public void run() {
+            // As the TimerTask run on a seprate thread from UI thread we have
+            // to call runOnUiThread to do work on UI thread.
+            runOnUiThread(new Runnable() {
+                public void run() {
+
+                    if (page > 1) {
+                        timer.cancel();
+                        // Showing a toast for just testing purpose
+                        Toast.makeText(getApplicationContext(), "Timer stoped",
+                                Toast.LENGTH_LONG).show();
+                    } else {
+                        viewPager.setCurrentItem(page++);
+                    }
+                }
+            });
+
+        }
     }
 }
 

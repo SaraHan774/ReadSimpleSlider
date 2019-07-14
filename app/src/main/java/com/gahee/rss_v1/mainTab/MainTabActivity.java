@@ -1,9 +1,12 @@
 package com.gahee.rss_v1.mainTab;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -26,6 +29,9 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 
+import static com.gahee.rss_v1.helpers.Constants.SHARED_PREF_USER_NAME;
+import static com.gahee.rss_v1.helpers.Constants.USER_NAME_KEY;
+
 
 public class MainTabActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
@@ -34,6 +40,7 @@ public class MainTabActivity extends AppCompatActivity
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private ArrayList<ArrayList<Article>> arrayLists = new ArrayList<>();
+    private TextView userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,12 +80,21 @@ public class MainTabActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
+        //get user name
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF_USER_NAME, MODE_PRIVATE);
+        String userNameString = sharedPreferences.getString(USER_NAME_KEY, "User Name");
+
+        //set user name in the header of the navigation drawer
+        View headerView = navigationView.getHeaderView(0);
+        userName = (TextView) headerView.findViewById(R.id.tv_nav_user_name);
+        userName.setText(userNameString);
     }
 
 

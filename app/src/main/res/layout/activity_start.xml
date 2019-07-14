@@ -13,6 +13,8 @@
         >
     </androidx.viewpager.widget.ViewPager>
 
+    <!--linear layout for the dots-->
+
     <LinearLayout
         android:id="@+id/linear_layout_start"
         android:orientation="horizontal"

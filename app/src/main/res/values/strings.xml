@@ -15,6 +15,7 @@
     <string name="menu_send">Send</string>
 
     <!--Welcome & Starting screen Strings -->
+    <string name="explanation">Slide\n\nYour\n\nTaste</string>
     <string name="ask_name">What is your name?</string>
     <string name="type_name">Please type in your name below</string>
     <string name="name_error">Please type in your name</string>
