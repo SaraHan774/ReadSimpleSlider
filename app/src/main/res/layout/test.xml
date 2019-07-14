@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 <LinearLayout
@@ -38,6 +39,27 @@
         >
     </WebView>
 </androidx.core.widget.NestedScrollView>
+
+
+    <com.wajahatkarim3.clapfab.ClapFAB
+        android:id="@+id/clapFAB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        app:cf_count_circle_color="@color/colorAccent"
+        app:cf_count_text_color="@color/white_color"
+        app:cf_default_icon="@drawable/ic_star_border_black_24dp"
+        app:cf_default_icon_color="@color/colorAccent"
+        app:cf_dots_1_color="@android:color/holo_green_dark"
+        app:cf_dots_2_color="@color/colorAccent"
+        app:cf_filled_icon="@drawable/ic_star_black_24dp"
+        app:cf_filled_icon_color="@color/colorAccent"
+        app:cf_max_clap_count="100"
+        app:cf_clap_count="1"
+        app:cf_format_clap_count="true"
+        app:cf_long_press_enabled="true"
+        app:cf_long_press_clap_interval="100"/>
 
 </LinearLayout>
 

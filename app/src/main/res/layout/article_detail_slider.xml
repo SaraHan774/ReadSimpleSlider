@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".mainTab.ArticleDetailActivity">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nested_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="600dp">
+        <WebView
+            android:id="@+id/article_detail_web_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+        </WebView>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.wajahatkarim3.clapfab.ClapFAB
+        android:id="@+id/clapFAB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:cf_count_circle_color="@color/myColorChicNavy"
+        app:cf_count_text_color="@color/white_color"
+        app:cf_default_icon="@drawable/ic_star_border_black_24dp"
+        app:cf_default_icon_color="@color/myColorYoungAqua"
+        app:cf_dots_1_color="@color/myColorChicNavy"
+        app:cf_dots_2_color="@color/colorAccent"
+        app:cf_filled_icon="@drawable/ic_star_black_24dp"
+        app:cf_filled_icon_color="@color/myColorYoungAqua"
+        app:cf_max_clap_count="100"
+        app:cf_clap_count="1"
+        app:cf_format_clap_count="true"
+        app:cf_long_press_enabled="true"
+        app:cf_long_press_clap_interval="100"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/share_button"
+        android:layout_below="@id/nested_scroll_view"
+        android:layout_marginTop="33dp"
+        android:layout_marginStart="132dp"
+        android:src="@drawable/ic_menu_share"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/open_in_web_button"
+        android:layout_toRightOf="@id/share_button"
+        android:layout_below="@id/nested_scroll_view"
+        android:layout_marginTop="33dp"
+        android:layout_marginStart="30dp"
+        android:src="@drawable/ic_earth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

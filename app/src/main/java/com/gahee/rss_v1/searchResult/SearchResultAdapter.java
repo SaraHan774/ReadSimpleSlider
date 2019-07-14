@@ -20,7 +20,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
 
 
     private Context context;
-    ArrayList<Article> searchResultsList;
+    private ArrayList<Article> searchResultsList;
 
     public SearchResultAdapter(Context context, ArrayList<Article> searchResultsList){
         this.context = context;

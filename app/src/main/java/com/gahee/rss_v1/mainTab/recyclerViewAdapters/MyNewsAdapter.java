@@ -8,15 +8,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.gahee.rss_v1.CNN.model.Article;
 import com.gahee.rss_v1.R;
-import com.gahee.rss_v1.mainTab.mainFragments.FlippedFragment;
 import com.gahee.rss_v1.mainTab.pagerAdapters.SliderPagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,18 +52,6 @@ public class MyNewsAdapter extends RecyclerView.Adapter<MyNewsAdapter.MyNewsView
         PagerAdapter pagerAdapter = new SliderPagerAdapter(context, arrayLists.get(position));
         holder.viewPager.setAdapter(pagerAdapter);
 
-        //if view holder was double clicked,
-        //change the view holder to a bigger one (with the web view)
-        //and parse the article URI to that web view
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentManager fragmentManager = ((AppCompatActivity) context).getSupportFragmentManager();
-                FlippedFragment flippedFragment = FlippedFragment.newInstance();
-                flippedFragment.setData(arrayLists.get(position));
-
-            }
-        });
     }
 
     @Override

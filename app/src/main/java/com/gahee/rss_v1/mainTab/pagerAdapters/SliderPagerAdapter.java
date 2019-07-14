@@ -16,8 +16,13 @@ import androidx.viewpager.widget.PagerAdapter;
 import com.bumptech.glide.Glide;
 import com.gahee.rss_v1.CNN.model.Article;
 import com.gahee.rss_v1.R;
+import com.gahee.rss_v1.TestActivity;
+import com.gahee.rss_v1.mainTab.ArticleDetailActivity;
 
 import java.util.ArrayList;
+
+import static com.gahee.rss_v1.helpers.Constants.ADAPTER_POSITION;
+import static com.gahee.rss_v1.helpers.Constants.ARTICLES;
 
 public class SliderPagerAdapter extends PagerAdapter {
 
@@ -62,6 +67,15 @@ public class SliderPagerAdapter extends PagerAdapter {
 
         //set the description of the article
         TextView tv_article_description = view.findViewById(R.id.tv_article_desc_inner_slider);
+        tv_article_description.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ArticleDetailActivity.class);
+                intent.putParcelableArrayListExtra(ARTICLES, arrayList);
+                intent.putExtra(ADAPTER_POSITION, position);
+                context.startActivity(intent);
+            }
+        });
         tv_article_description.setText(arrayList.get(position).getArticleDescription());
 
         //set the thumbnail of the article

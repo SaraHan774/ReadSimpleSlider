@@ -1,5 +1,6 @@
 package com.gahee.rss_v1;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gahee.rss_v1.unsplash.UnsplashUtils;
+import com.wajahatkarim3.clapfab.ClapFAB;
 
 
 public class TestActivity extends AppCompatActivity {
@@ -37,6 +39,15 @@ public class TestActivity extends AppCompatActivity {
 
         webView.loadUrl("https://edition.cnn.com/videos/weather/2019/07/05/daily-weather-forecast-severe-storms-weekend-weather-heat-rain.cnn");
 
+        ClapFAB clapFAB = (ClapFAB) findViewById(R.id.clapFAB);
+        clapFAB.setClapListener(new ClapFAB.OnClapListener() {
+            @Override
+            public void onFabClapped(@NonNull ClapFAB clapFab, int count, boolean isMaxReached) {
+                // count is the current count of the clapping
+                // isMaxReached is true when button has already reached the maximum count
+                // and is not being clapped anymore. Otherwise its false
+            }
+        });
     }
 
 
