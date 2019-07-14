@@ -58,9 +58,9 @@ public class RepositoryRoom {
         new InsertTopicStringAsync(daos).execute(topicStrings);
     }
 
-//    public LiveData<List<TopicStrings>> loadTopicStrings(){
-//        return new LoadTopicStringsAsync(daos).doInBackground();
-//    }
+    public LiveData<List<TopicStrings>> loadTopicStrings(){
+        return new LoadTopicStringsAsync(daos).doInBackground();
+    }
 
     public static class InsertAsync extends AsyncTask<NewsEntities, Void, Void>{
         private Daos daos;
@@ -145,17 +145,17 @@ public class RepositoryRoom {
         }
     }
 
-//    public static class LoadTopicStringsAsync extends AsyncTask<Void, Void, LiveData<List<TopicStrings>>>{
-//        private Daos daos;
-//
-//        public LoadTopicStringsAsync(Daos daos){
-//            this.daos = daos;
-//        }
-//        @Override
-//        protected LiveData<List<TopicStrings>> doInBackground(Void... voids) {
-//            return daos.loadTopicStrings();
-//        }
-//    }
+    public static class LoadTopicStringsAsync extends AsyncTask<Void, Void, LiveData<List<TopicStrings>>>{
+        private Daos daos;
+
+        public LoadTopicStringsAsync(Daos daos){
+            this.daos = daos;
+        }
+        @Override
+        protected LiveData<List<TopicStrings>> doInBackground(Void... voids) {
+            return daos.loadTopicStrings();
+        }
+    }
 
 
 }

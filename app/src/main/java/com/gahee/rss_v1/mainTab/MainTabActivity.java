@@ -24,10 +24,14 @@ import com.gahee.rss_v1.CNN.model.Article;
 import com.gahee.rss_v1.R;
 import com.gahee.rss_v1.mainTab.pagerAdapters.MainFragmentPagerAdapter;
 import com.gahee.rss_v1.remoteDataSource.ViewModelRemote;
+import com.gahee.rss_v1.roomDatabase.TopicStrings;
+import com.gahee.rss_v1.roomDatabase.ViewModelRoom;
+import com.gahee.rss_v1.startApp.StartActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.gahee.rss_v1.helpers.Constants.SHARED_PREF_USER_NAME;
 import static com.gahee.rss_v1.helpers.Constants.USER_NAME_KEY;
@@ -41,23 +45,23 @@ public class MainTabActivity extends AppCompatActivity
     private TabLayout tabLayout;
     private ArrayList<ArrayList<Article>> arrayLists = new ArrayList<>();
     private TextView userName;
+    private NavigationView navigationView;
+    private ViewModelRoom viewModelRoom;
+    private ViewModelRemote viewModelRemote;
+    private List<TopicStrings> topicStrings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tab_and_navigate_activity);
-//query the topics list to the database and call fetchDataBasedOnUserSelection(topicString) method.
-        //and hand over the map data? or something that gets returned from the query
-        //into the Fragment Pager Adapter - to display it on the my news tab
-        //FragmentPagerAdapter -> recycler view adapter -> view holder handling the data
-                        //inside the cardview -> another ViewPager -> Adapter -> handling the data
 
         //connect adapter to the view pager
         viewPager = findViewById(R.id.main_news_view_pager);
         tabLayout = findViewById(R.id.tabs);
 
-        ViewModel viewModel = ViewModelProviders.of(this).get(ViewModelRemote.class);
-        ((ViewModelRemote) viewModel).getMutableLiveData().observe(this, new Observer<ArrayList<ArrayList<Article>>>() {
+        //observing the article data fetched from the remote data source
+        viewModelRemote = ViewModelProviders.of(this).get(ViewModelRemote.class);
+        viewModelRemote.getMutableLiveData().observe(this, new Observer<ArrayList<ArrayList<Article>>>() {
             @Override
             public void onChanged(ArrayList<ArrayList<Article>> arrayLists) {
 
@@ -79,7 +83,7 @@ public class MainTabActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.nav_toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -87,27 +91,41 @@ public class MainTabActivity extends AppCompatActivity
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
+
+
         //get user name
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF_USER_NAME, MODE_PRIVATE);
-        String userNameString = sharedPreferences.getString(USER_NAME_KEY, "User Name");
+        String userNameString = sharedPreferences.getString(USER_NAME_KEY, getResources().getString(R.string.user_name_default));
 
         //set user name in the header of the navigation drawer
         View headerView = navigationView.getHeaderView(0);
         userName = (TextView) headerView.findViewById(R.id.tv_nav_user_name);
         userName.setText(userNameString);
+
+        //observing the topic string list from the database
+        viewModelRoom = ViewModelProviders.of(this).get(ViewModelRoom.class);
+        viewModelRoom.getTopicStrings().observe(this, new Observer<List<TopicStrings>>() {
+            @Override
+            public void onChanged(List<TopicStrings> topicStrings) {
+                MainTabActivity.this.topicStrings = topicStrings;
+                Log.d(TAG, "topic strings observed : " + topicStrings);
+
+                //adding menu on the fly
+                addMenuItemInNavDrawer();
+
+            }
+        });
     }
 
 
     @Override
     protected void onStart() {
         super.onStart();
-        Log.d(TAG, "onstart");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d(TAG, "onresume");
     }
 
 
@@ -147,8 +165,20 @@ public class MainTabActivity extends AppCompatActivity
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
         return false;
     } //deal with navigation using recycler view
+
+    //generating menu items dynamically
+    private void addMenuItemInNavDrawer(){
+        Menu menu = navigationView.getMenu();
+        Menu subMenu = menu.addSubMenu("TOPICS");
+
+            for(int i =0 ; i < topicStrings.size(); i++){
+            subMenu.add(topicStrings.get(i).getTopicString());
+        }
+        navigationView.invalidate();
+    }
 
 
 }

@@ -39,5 +39,7 @@
     <string name="tab_favorites">FAVORITES</string>
     <string name="search">SEARCH\nRESULT</string>
 
+    <string name="user_name_default">User</string>
+
 
 </resources>

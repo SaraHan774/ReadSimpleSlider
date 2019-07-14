@@ -23,14 +23,6 @@
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_navigation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="200dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp" />
 
     </com.google.android.material.navigation.NavigationView>
 
