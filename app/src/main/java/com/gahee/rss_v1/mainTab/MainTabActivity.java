@@ -44,6 +44,7 @@ import java.util.List;
 
 import static com.gahee.rss_v1.helpers.Constants.LOAD_IMAGE;
 import static com.gahee.rss_v1.helpers.Constants.SHARED_PREF_USER_NAME;
+import static com.gahee.rss_v1.helpers.Constants.SHARED_PREF_USER_PIC;
 import static com.gahee.rss_v1.helpers.Constants.USER_NAME_KEY;
 
 
@@ -61,6 +62,7 @@ public class MainTabActivity extends AppCompatActivity
     private List<TopicStrings> topicStrings;
     private ImageView profilePhoto;
     private View headerView;
+    private Uri userPhoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -195,6 +197,9 @@ public class MainTabActivity extends AppCompatActivity
 
     private void enableProfilePhotoUpdate(){
         profilePhoto = headerView.findViewById(R.id.img_nav_user_photo);
+        if(userPhoto != null){
+            profilePhoto.setImageURI(userPhoto);
+        }
         profilePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -212,8 +217,8 @@ public class MainTabActivity extends AppCompatActivity
         super.onActivityResult(requestCode, resultCode, data);
         Log.d(TAG, "on activity result : " + requestCode + ", " + resultCode + ", " + data);
         if(requestCode == LOAD_IMAGE && resultCode == RESULT_OK && data != null){
-            Uri selectedImage = data.getData();
-            profilePhoto.setImageURI(selectedImage);
+            userPhoto = data.getData();
+            profilePhoto.setImageURI(userPhoto);
         }
     }
 }

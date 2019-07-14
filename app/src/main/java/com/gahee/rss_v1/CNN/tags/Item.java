@@ -27,6 +27,9 @@ public class Item implements Serializable {
     @Element(name = "thumbnail", required = false)
     private Thumbnail thumbnail;
 
+    @Element(name = "group", required = false)
+    private Group group;
+
 
     public Item(){
 
@@ -68,6 +71,10 @@ public class Item implements Serializable {
         return thumbnail;
     }
 
+    public Group getGroup() {
+        return group;
+    }
+
     @Root(name = "thumbnail", strict = false)
     public static class Thumbnail{
 
@@ -78,4 +85,6 @@ public class Item implements Serializable {
             return url;
         }
     }
+
+
 }

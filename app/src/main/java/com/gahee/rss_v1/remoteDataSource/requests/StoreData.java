@@ -58,7 +58,9 @@ public class StoreData {
 
                 if (item.getThumbnail() != null) {
                     media = response.body().getChannel().getItem().get(i).getThumbnail().getUrl();
-                } else {
+                } else if(item.getGroup() != null){
+                    media = response.body().getChannel().getItem().get(i).getGroup().getContent().get(0).getUrl();
+                }else{
                     media = "";
                 }
                 //remove html tag from articles description content
