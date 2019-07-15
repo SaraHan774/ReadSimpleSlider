@@ -2,6 +2,7 @@ package com.gahee.rss_v1.mainTab.pagerAdapters;
 
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,11 +10,18 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import androidx.annotation.NonNull;
-import androidx.browser.customtabs.CustomTabsIntent;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.gahee.rss_v1.CNN.model.Article;
 import com.gahee.rss_v1.R;
+import com.gahee.rss_v1.mainTab.CountViewModel;
+import com.gahee.rss_v1.roomDatabase.FavEntities;
+import com.gahee.rss_v1.roomDatabase.RepositoryRoom;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.wajahatkarim3.clapfab.ClapFAB;
 
@@ -21,15 +29,20 @@ import java.util.ArrayList;
 
 public class DetailPagerAdapter extends PagerAdapter {
 
+    private static final String TAG = "DetailPagerAdapter";
+
     private LayoutInflater layoutInflater;
     private Context context;
     private ArrayList<Article> articles;
     private int adapterPosition;
+    private FavEntities favEntities;
+    private RepositoryRoom repositoryRoom;
 
     public DetailPagerAdapter(Context context, ArrayList<Article> articles, int adapterPosition){
         this.context =context;
         this.articles = articles;
         this.adapterPosition = adapterPosition;
+
     }
 
     @Override
@@ -47,13 +60,14 @@ public class DetailPagerAdapter extends PagerAdapter {
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, final int position) {
+        Log.d(TAG, "instantiateItem");
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.article_detail_slider, container, false);
 
         String link = articles.get(position).getArticleLink();
 
         loadWebView(view, position, link);
-        loadClapButton(view);
+        loadClapButton(view, position);
         loadShareButton(view, link);
         loadOpenInBrowserButton(view);
 
@@ -62,8 +76,10 @@ public class DetailPagerAdapter extends PagerAdapter {
     }
 
 
+
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+        Log.d(TAG, "destroyItem");
         View view = (View) object;
         container.removeView(view);
     }
@@ -77,22 +93,32 @@ public class DetailPagerAdapter extends PagerAdapter {
         webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         webView.loadUrl(link);
 
-
     }
 
-    private void loadClapButton(View view){
+    private int [] finalCount = new int [100];
+    private CountViewModel countViewModel;
 
+    private void loadClapButton(View view, final int position){
+
+        repositoryRoom = new RepositoryRoom(context);
         //save article info to the database and display it in the my favorites section
+        final String articleTitle = articles.get(position).getArticleTitle();
+        final String link = articles.get(position).getArticleLink();
+        final String media = articles.get(position).getMedia();
+        final String pubDate = articles.get(position).getPubDate();
+        final String articleDesc = articles.get(position).getArticleDescription();
 
         ClapFAB clapFAB = (ClapFAB) view.findViewById(R.id.clapFAB);
         clapFAB.setClapListener(new ClapFAB.OnClapListener() {
             @Override
             public void onFabClapped(@NonNull ClapFAB clapFab, int count, boolean isMaxReached) {
-                // count is the current count of the clapping
-                // isMaxReached is true when button has already reached the maximum count
-                // and is not being clapped anymore. Otherwise its false
+                repositoryRoom.insertMyFav(new FavEntities(count, articleTitle, link,
+                        media, pubDate, articleDesc));
+                repositoryRoom.updateMyFavTable(count, articleTitle);
             }
+
         });
+
     }
 
     private void loadShareButton(View view, String link){
@@ -125,5 +151,8 @@ public class DetailPagerAdapter extends PagerAdapter {
             return true;
         }
     }
+
+
+
 
 }

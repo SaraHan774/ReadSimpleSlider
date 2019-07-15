@@ -1,23 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="216dp">
+    android:layout_height="wrap_content">
 
     <!--this is a view holder which will display user selected articles from the database-->
 
     <ImageView
         android:id="@+id/main_fav_vh_img"
         android:layout_margin="8dp"
-        android:layout_width="200dp"
-        android:layout_height="200dp" />
+        android:layout_width="160dp"
+        android:layout_height="120dp" />
 
     <TextView
-        android:id="@+id/tv_main_fav"
-        android:layout_marginStart="216dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/sample_text_medium"
+        android:id="@+id/tv_fav_article_title"
+        android:textStyle="bold"
+        android:text="@string/sample_text_short"
+        android:textSize="@dimen/text_size_small"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/main_fav_vh_img"
+        />
+
+    <TextView
+        android:id="@+id/tv_fav_article_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:layout_toRightOf="@+id/main_fav_vh_img"
+        android:layout_below="@+id/tv_fav_article_title"
+        android:text="@string/sample_text_medium" />
+
+    <TextView
+        android:id="@+id/tv_fav_count"
+        android:text="@string/counts"
+        android:textSize="@dimen/text_size_small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_below="@id/main_fav_vh_img"/>
 
 
 </RelativeLayout>

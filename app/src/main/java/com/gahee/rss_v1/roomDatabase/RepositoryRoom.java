@@ -27,7 +27,6 @@ public class RepositoryRoom {
     public LiveData<List<FavEntities>> getMyFavoriteNews(){
         return favoriteNews;
     }
-
     public LiveData<List<TopicStrings>> getTopicStrings() {
         return topicStrings;
     }
@@ -60,6 +59,11 @@ public class RepositoryRoom {
 
     public LiveData<List<TopicStrings>> loadTopicStrings(){
         return new LoadTopicStringsAsync(daos).doInBackground();
+    }
+
+    //update my favorites table by comparing the count number
+    public void updateMyFavTable(int count, String articleTopic){
+        new UpdateCountAsync(daos, articleTopic).execute(count);
     }
 
     public static class InsertAsync extends AsyncTask<NewsEntities, Void, Void>{
@@ -158,4 +162,19 @@ public class RepositoryRoom {
     }
 
 
+    public static class UpdateCountAsync extends AsyncTask<Integer, Void, Void>{
+        private Daos daos;
+        private String articleTitle;
+
+        public UpdateCountAsync(Daos daos, String articleTopic) {
+            this.daos = daos;
+            this.articleTitle = articleTopic;
+        }
+
+        @Override
+        protected Void doInBackground(Integer... integers) {
+            daos.updateMyFavTable(integers[0], articleTitle);
+            return null;
+        }
+    }
 }

@@ -6,6 +6,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -26,10 +27,13 @@ public interface Daos {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertMyFavorite(FavEntities favEntities);
 
+    @Query("UPDATE myFavoritesTable SET count = :count WHERE articleTitle = :articleTitle")
+    void updateMyFavTable(int count, String articleTitle);
+
     @Query("DELETE FROM myFavoritesTable WHERE articleTitle = :articleTitle")
     void deleteMyFavoriteByTitle(String articleTitle);
 
-    @Query("SELECT * FROM myFavoritesTable ORDER BY pubDate")
+    @Query("SELECT * FROM myFavoritesTable ORDER BY count DESC")
     LiveData<List<FavEntities>> getMyFavoriteArticles();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

@@ -10,16 +10,23 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.gahee.rss_v1.R;
+import com.gahee.rss_v1.roomDatabase.FavEntities;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MyFavoritesAdapter extends RecyclerView.Adapter<MyFavoritesAdapter.MyFavoritesViewHolder> {
     //this rv adapter will be set to fragment_my_favorites.xml
 
-    Context context;
+    private Context context;
+    private List<FavEntities> favEntities;
     //get the data from the database
 
-    public MyFavoritesAdapter(Context context){
+    public MyFavoritesAdapter(Context context, List<FavEntities> favEntities){
         this.context = context;
+        this.favEntities = favEntities;
     }
 
     @NonNull
@@ -32,24 +39,34 @@ public class MyFavoritesAdapter extends RecyclerView.Adapter<MyFavoritesAdapter.
     @Override
     public void onBindViewHolder(@NonNull MyFavoritesViewHolder holder, int position) {
 
-        //holder.articlePhoto - set the image from the database
-        //holder.topicTitle  -  set the title from the database
+        holder.articleTitle.setText(favEntities.get(position).getArticleTitle());
+        holder.articleDesc.setText(favEntities.get(position).getArticleDescription());
+        holder.starCounts.append(String.valueOf(favEntities.get(position).getCount()));
 
+        Glide.with(context)
+                .load(favEntities.get(position).getThumbnail())
+                .centerCrop()
+                .placeholder(R.drawable.android)
+                .into(holder.articlePhoto);
     }
 
     @Override
     public int getItemCount() { //get the length of of the list from the database
-        return 1;
+        return favEntities.size();
     }
 
     public class MyFavoritesViewHolder extends RecyclerView.ViewHolder{
         TextView articleTitle;
+        TextView articleDesc;
+        TextView starCounts;
         ImageView articlePhoto;
 
 
         public MyFavoritesViewHolder(@NonNull View itemView) {
             super(itemView);
-            articleTitle = itemView.findViewById(R.id.tv_main_fav);
+            articleTitle = itemView.findViewById(R.id.tv_fav_article_title);
+            articleDesc = itemView.findViewById(R.id.tv_fav_article_desc);
+            starCounts = itemView.findViewById(R.id.tv_fav_count);
             articlePhoto = itemView.findViewById(R.id.main_fav_vh_img);
         }
     }
