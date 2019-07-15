@@ -42,7 +42,6 @@ public class ArticleDetailActivity extends AppCompatActivity {
         viewPager.setAdapter(pagerAdapter);
         viewPager.setCurrentItem(adapterPosition);
 
-
     }
 
     @Override

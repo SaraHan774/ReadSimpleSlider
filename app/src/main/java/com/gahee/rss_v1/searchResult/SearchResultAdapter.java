@@ -1,6 +1,8 @@
 package com.gahee.rss_v1.searchResult;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,12 +44,35 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
         holder.articleTitle.setText(searchResultsList.get(position).getArticleTitle());
         holder.articleDescription.setText(searchResultsList.get(position).getArticleDescription());
 
+        if(searchResultsList.get(position).getArticleDescription() != null){
+            holder.articleDescription.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    openUrlInBrowser(position);
+                }
+            });
+        }else if(searchResultsList.get(position).getArticleTitle() != null){
+            holder.articleTitle.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    openUrlInBrowser(position);
+                }
+            });
+        }
+
         Glide.with(context).load(searchResultsList.get(position)
                 .getMedia())
                 .centerCrop()
                 .placeholder(R.drawable.android)
                 .into(holder.articlePhoto);
 
+    }
+
+    private void openUrlInBrowser(int position){
+        String url = searchResultsList.get(position).getArticleLink();
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(url));
+        context.startActivity(intent);
     }
 
     @Override

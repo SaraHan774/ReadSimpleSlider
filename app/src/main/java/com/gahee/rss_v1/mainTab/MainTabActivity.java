@@ -79,7 +79,7 @@ public class MainTabActivity extends AppCompatActivity
         viewModelRemote.getMutableLiveData().observe(this, new Observer<ArrayList<ArrayList<Article>>>() {
             @Override
             public void onChanged(ArrayList<ArrayList<Article>> arrayLists) {
-
+                Log.d(TAG, "on changed - arrrr arrrr " + arrayLists);
                 MainTabActivity.this.arrayLists = arrayLists;
                 //get the data from ViewModelRemote
                 PagerAdapter adapter = new MainFragmentPagerAdapter(
@@ -87,9 +87,10 @@ public class MainTabActivity extends AppCompatActivity
                         MainTabActivity.this,
                         arrayLists
                 );
+                adapter.notifyDataSetChanged();
+
                 viewPager.setAdapter(adapter);
                 tabLayout.setupWithViewPager(viewPager);
-
             }
         });
 

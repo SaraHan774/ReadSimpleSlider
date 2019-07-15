@@ -1,6 +1,7 @@
 package com.gahee.rss_v1.mainTab.pagerAdapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,15 +35,11 @@ public class DetailPagerAdapter extends PagerAdapter {
     private LayoutInflater layoutInflater;
     private Context context;
     private ArrayList<Article> articles;
-    private int adapterPosition;
-    private FavEntities favEntities;
     private RepositoryRoom repositoryRoom;
 
     public DetailPagerAdapter(Context context, ArrayList<Article> articles, int adapterPosition){
         this.context =context;
         this.articles = articles;
-        this.adapterPosition = adapterPosition;
-
     }
 
     @Override
@@ -65,11 +62,12 @@ public class DetailPagerAdapter extends PagerAdapter {
         View view = layoutInflater.inflate(R.layout.article_detail_slider, container, false);
 
         String link = articles.get(position).getArticleLink();
+        String articleTitle = articles.get(position).getArticleTitle();
 
-        loadWebView(view, position, link);
+        loadWebView(view, link);
         loadClapButton(view, position);
-        loadShareButton(view, link);
-        loadOpenInBrowserButton(view);
+        loadShareButton(view, link, articleTitle);
+        loadOpenInBrowserButton(view, link);
 
         container.addView(view);
         return view;
@@ -84,7 +82,7 @@ public class DetailPagerAdapter extends PagerAdapter {
         container.removeView(view);
     }
 
-    private void loadWebView(View view, int position, String link){
+    private void loadWebView(View view, String link){
 
         WebView webView = view.findViewById(R.id.article_detail_web_view);
         webView.setWebViewClient(new MyBrowser());
@@ -95,8 +93,6 @@ public class DetailPagerAdapter extends PagerAdapter {
 
     }
 
-    private int [] finalCount = new int [100];
-    private CountViewModel countViewModel;
 
     private void loadClapButton(View view, final int position){
 
@@ -112,8 +108,11 @@ public class DetailPagerAdapter extends PagerAdapter {
         clapFAB.setClapListener(new ClapFAB.OnClapListener() {
             @Override
             public void onFabClapped(@NonNull ClapFAB clapFab, int count, boolean isMaxReached) {
+                //insert whenever the star button is clicked
                 repositoryRoom.insertMyFav(new FavEntities(count, articleTitle, link,
                         media, pubDate, articleDesc));
+
+                //to avoid storing duplicate articles by only updating the "star count" column
                 repositoryRoom.updateMyFavTable(count, articleTitle);
             }
 
@@ -121,27 +120,40 @@ public class DetailPagerAdapter extends PagerAdapter {
 
     }
 
-    private void loadShareButton(View view, String link){
+    private void loadShareButton(View view, final String link, final String articleTitle){
 
-        FloatingActionButton shareButton = view.findViewById(R.id.share_button);
+        final FloatingActionButton shareButton = view.findViewById(R.id.share_button);
         shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //share the link
+                shareUrlLink(link, articleTitle);
             }
         });
     }
 
-    private void loadOpenInBrowserButton(View view){
+    private void loadOpenInBrowserButton(View view, final String link){
 
         FloatingActionButton browserButton = view.findViewById(R.id.open_in_web_button);
         browserButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //open link in user selected browser
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(link));
+                context.startActivity(intent);
             }
         });
     }
+
+
+    private void shareUrlLink(String link, String articleTitle){
+            Intent share = new Intent(android.content.Intent.ACTION_SEND);
+            share.setType("text/plain");
+            share.putExtra(Intent.EXTRA_SUBJECT, articleTitle);
+            share.putExtra(Intent.EXTRA_TEXT, link);
+            context.startActivity(Intent.createChooser(share, "Share Article link!"));
+    }
+
 
 
     private class MyBrowser extends WebViewClient {

@@ -53,7 +53,7 @@ public class StoreData {
             if(item != null) {
                 articleTitle = item.getTitle();
                 articleLink = item.getLink();
-                pubDate = item.getPubdate();
+                pubDate = item.getPubDate();
 
                 if (item.getThumbnail() != null) {
                     media = response.body().getChannel().getItem().get(i).getThumbnail().getUrl();
@@ -67,7 +67,7 @@ public class StoreData {
                     articleDescription = response.body().getChannel().getItem().get(i).getDescription();
                     cleanArticleDescription = Html.fromHtml(articleDescription).toString().replace((char) 65532, (char) 32).trim();
                 } else {
-                    cleanArticleDescription = "";
+                    cleanArticleDescription = "check out the site for content";
                 }
 
 //                Log.d(TAG, "Topic title : " + topicTitle + "\n"

@@ -21,8 +21,8 @@ public class Item implements Serializable {
     @Element(name = "description", required = false)
     private String description;
 
-    @Element(name = "pubdate", required = false)
-    private String pubdate;
+    @Element(name = "pubDate", required = false)
+    private String pubDate;
 
     @Element(name = "thumbnail", required = false)
     private Thumbnail thumbnail;
@@ -59,12 +59,12 @@ public class Item implements Serializable {
         this.description = description;
     }
 
-    public String getPubdate() {
-        return pubdate;
+    public String getPubDate() {
+        return pubDate;
     }
 
-    public void setPubdate(String pubdate) {
-        this.pubdate = pubdate;
+    public void setPubDate(String pubDate) {
+        this.pubDate = pubDate;
     }
 
     public Thumbnail getThumbnail() {

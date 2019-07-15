@@ -1,6 +1,8 @@
 package com.gahee.rss_v1.mainTab.recyclerViewAdapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +16,6 @@ import com.bumptech.glide.Glide;
 import com.gahee.rss_v1.R;
 import com.gahee.rss_v1.roomDatabase.FavEntities;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MyFavoritesAdapter extends RecyclerView.Adapter<MyFavoritesAdapter.MyFavoritesViewHolder> {
@@ -37,11 +38,21 @@ public class MyFavoritesAdapter extends RecyclerView.Adapter<MyFavoritesAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyFavoritesViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyFavoritesViewHolder holder, final int position) {
 
         holder.articleTitle.setText(favEntities.get(position).getArticleTitle());
+
+        holder.articleTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(favEntities.get(position).getArticleLink()));
+                context.startActivity(intent);
+            }
+        });
+
         holder.articleDesc.setText(favEntities.get(position).getArticleDescription());
-        holder.starCounts.append(String.valueOf(favEntities.get(position).getCount()));
+        holder.starCountNumber.setText(String.valueOf(favEntities.get(position).getCount()));
 
         Glide.with(context)
                 .load(favEntities.get(position).getThumbnail())
@@ -58,7 +69,8 @@ public class MyFavoritesAdapter extends RecyclerView.Adapter<MyFavoritesAdapter.
     public class MyFavoritesViewHolder extends RecyclerView.ViewHolder{
         TextView articleTitle;
         TextView articleDesc;
-        TextView starCounts;
+        TextView starCountNumber;
+        ImageView star;
         ImageView articlePhoto;
 
 
@@ -66,7 +78,8 @@ public class MyFavoritesAdapter extends RecyclerView.Adapter<MyFavoritesAdapter.
             super(itemView);
             articleTitle = itemView.findViewById(R.id.tv_fav_article_title);
             articleDesc = itemView.findViewById(R.id.tv_fav_article_desc);
-            starCounts = itemView.findViewById(R.id.tv_fav_count);
+            star = itemView.findViewById(R.id.star_fav_count);
+            starCountNumber = itemView.findViewById(R.id.tv_fav_count_number);
             articlePhoto = itemView.findViewById(R.id.main_fav_vh_img);
         }
     }

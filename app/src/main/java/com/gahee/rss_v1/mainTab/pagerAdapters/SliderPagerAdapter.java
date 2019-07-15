@@ -3,6 +3,7 @@ package com.gahee.rss_v1.mainTab.pagerAdapters;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.gahee.rss_v1.CNN.model.Article;
 import com.gahee.rss_v1.R;
 import com.gahee.rss_v1.TestActivity;
 import com.gahee.rss_v1.mainTab.ArticleDetailActivity;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 
@@ -77,6 +79,12 @@ public class SliderPagerAdapter extends PagerAdapter {
             }
         });
         tv_article_description.setText(arrayList.get(position).getArticleDescription());
+
+        //set pub date
+        TextView tv_pub_date = view.findViewById(R.id.tv_article_pub_date_inner_slider);
+        tv_pub_date.setText(arrayList.get(position).getPubDate());
+        Log.d("pubdate", "article pub date : " + arrayList.get(position).getPubDate());
+
 
         //set the thumbnail of the article
         ImageView imageView = view.findViewById(R.id.img_inner_slider);

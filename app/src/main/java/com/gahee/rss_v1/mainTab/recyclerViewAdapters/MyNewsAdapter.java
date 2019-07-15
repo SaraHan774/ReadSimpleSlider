@@ -51,11 +51,11 @@ public class MyNewsAdapter extends RecyclerView.Adapter<MyNewsAdapter.MyNewsView
         //해당 position 의 기사가 들어있는 array list 하나를 넘겨준다.
         PagerAdapter pagerAdapter = new SliderPagerAdapter(context, arrayLists.get(position));
         holder.viewPager.setAdapter(pagerAdapter);
-
     }
 
     @Override
     public int getItemCount() {
+        Log.d(TAG, "get item count : arraylist.size()" + arrayLists.size());
         return arrayLists.size();
     }
 
