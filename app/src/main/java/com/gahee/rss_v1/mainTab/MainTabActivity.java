@@ -48,7 +48,11 @@ import com.google.firebase.FirebaseOptions;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static com.gahee.rss_v1.helpers.Constants.LOAD_IMAGE;
 import static com.gahee.rss_v1.helpers.Constants.SEARCH_RESULT_INTENT;
@@ -196,22 +200,15 @@ public class MainTabActivity extends AppCompatActivity
                 //make an array list to store search results
                 if(searchResultList != null){
                     Log.d(TAG, "search list cleared ");
+                    //clear the list before another search
                     searchResultList.clear();
                 }
-                //clear the list before another search
-                for(int i =0; i < auxiliaryListForSearch.size(); i++){
-                    if(auxiliaryListForSearch.get(i).getArticleTitle() != null &&
-                            auxiliaryListForSearch.get(i).getArticleTitle().contains(query)){
-                        searchResultList.add(auxiliaryListForSearch.get(i));
+                checkThroughArticles(query);
 
-                    } else if(auxiliaryListForSearch.get(i).getArticleDescription() != null &&
-                            auxiliaryListForSearch.get(i).getArticleDescription().contains(query)) {
-                        searchResultList.add(auxiliaryListForSearch.get(i));
-                    }
-                }
                 if(searchResultList == null){
                     Toast.makeText(MainTabActivity.this, R.string.no_search_result, Toast.LENGTH_SHORT).show();
                 }else{
+                    checkDuplicates();
                     Intent intent = new Intent(MainTabActivity.this, SearchResultActivity.class);
                     intent.putParcelableArrayListExtra(SEARCH_RESULT_INTENT, searchResultList);
                     intent.setAction(Intent.ACTION_SEARCH);
@@ -228,6 +225,31 @@ public class MainTabActivity extends AppCompatActivity
         });
 
         return true;
+    }
+
+    synchronized private void checkThroughArticles(String query){
+        for(int i =0; i < auxiliaryListForSearch.size(); i++){
+            if(auxiliaryListForSearch.get(i).getArticleTitle() != null &&
+                    auxiliaryListForSearch.get(i).getArticleTitle().contains(query)){
+                searchResultList.add(auxiliaryListForSearch.get(i));
+
+            } else if(auxiliaryListForSearch.get(i).getArticleDescription() != null &&
+                    auxiliaryListForSearch.get(i).getArticleDescription().contains(query)) {
+                searchResultList.add(auxiliaryListForSearch.get(i));
+            }
+        }
+    }
+
+    synchronized private void checkDuplicates(){
+        Set<Article> setOfArticles= new HashSet<>(searchResultList);
+        ArrayList<Article> toRemove = new ArrayList<>();
+
+        for(Article article : setOfArticles){
+            if(Collections.frequency(searchResultList, article) > 1){
+                toRemove.add(article);
+            }
+        }
+        searchResultList.removeAll(toRemove);
     }
 
     @Override
