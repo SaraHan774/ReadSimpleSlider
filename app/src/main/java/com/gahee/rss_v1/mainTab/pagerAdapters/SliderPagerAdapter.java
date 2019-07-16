@@ -65,10 +65,7 @@ public class SliderPagerAdapter extends PagerAdapter {
         //set the title of the article
         TextView tv_article_title = view.findViewById(R.id.tv_article_title_inner_slider);
         tv_article_title.setText(arrayList.get(position).getArticleTitle());
-
-        //set the description of the article
-        TextView tv_article_description = view.findViewById(R.id.tv_article_desc_inner_slider);
-        tv_article_description.setOnClickListener(new View.OnClickListener() {
+        tv_article_title.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, ArticleDetailActivity.class);
@@ -77,6 +74,10 @@ public class SliderPagerAdapter extends PagerAdapter {
                 context.startActivity(intent);
             }
         });
+
+        //set the description of the article
+        TextView tv_article_description = view.findViewById(R.id.tv_article_desc_inner_slider);
+
         tv_article_description.setText(arrayList.get(position).getArticleDescription());
 
         //set pub date

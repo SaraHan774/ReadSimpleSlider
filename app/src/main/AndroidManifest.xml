@@ -7,23 +7,41 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
+        android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".topicSelection.TopicSelectionActivity">
-        </activity>
+        <receiver android:name=".widget.NewsWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.gahee.rss_v1.helpers.Constants.UPDATE_WIDGET_INFO"/>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/news_widget_info" />
+        </receiver>
+
+        <service android:name=".widget.MyRemoteViewsService"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS"
+            />
+
+
+        <activity
+            android:name=".topicSelection.TopicSelectionActivity"
+            android:label="@string/add_or_delete" />
         <activity
             android:name=".mainTab.ArticleDetailActivity"
-            android:theme="@style/NewsOverviewTheme"/>
+            android:theme="@style/NewsOverviewTheme" />
         <activity android:name=".searchResult.SearchResultActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
@@ -45,6 +63,17 @@
         <activity
             android:name=".mainTab.MainTabActivity"
             android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="rss_v1"
+                    android:scheme="gahee" />
+            </intent-filter>
+
             <meta-data
                 android:name="android.app.default_searchable"
                 android:value=".SearchResultActivity" />

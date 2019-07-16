@@ -1,12 +1,20 @@
 package com.gahee.rss_v1.roomDatabase;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
+import com.gahee.rss_v1.widget.NewsWidget;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ExecutionException;
+
+import static com.gahee.rss_v1.helpers.Constants.UPDATE_WIDGET_INFO;
 
 public class RepositoryRoom {
 
@@ -39,8 +47,8 @@ public class RepositoryRoom {
         return new LoadAsync(daos).doInBackground();
     }
 
-    public void insertMyFav(FavEntities favEntities){
-        new InsertMyFavAsync(daos).execute(favEntities);
+    public void insertMyFav(FavEntities favEntities, Context context){
+        new InsertMyFavAsync(daos, context).execute(favEntities);
     }
 
     public void deleteByTopic(String topic){
@@ -68,6 +76,19 @@ public class RepositoryRoom {
 
     public void deleteFromTopicStringsList(String topicString){
         new DeleteFromTopicStringListAsync(daos).execute(topicString);
+    }
+
+    //this method is for widget
+    public List<FavEntities> getMyFavorites(){
+        List<FavEntities> favEntities = new ArrayList<>();
+        try {
+         favEntities = new FetchMyFavoritesAsync(daos).execute().get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return favEntities;
     }
 
 
@@ -103,15 +124,25 @@ public class RepositoryRoom {
 
     public static class InsertMyFavAsync extends AsyncTask<FavEntities, Void, Void>{
         private Daos daos;
+        private Context context;
 
-        InsertMyFavAsync(Daos daos){
+        InsertMyFavAsync(Daos daos, Context context){
             this.daos = daos;
+            this.context = context;
         }
 
         @Override
         protected Void doInBackground(FavEntities... favEntities) {
             daos.insertMyFavorite(favEntities[0]);
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            Intent intent = new Intent(context, NewsWidget.class);
+            intent.setAction(UPDATE_WIDGET_INFO);
+            context.sendBroadcast(intent);
         }
     }
 
@@ -196,6 +227,24 @@ public class RepositoryRoom {
         protected Void doInBackground(String... strings) {
             daos.deleteFromTopicStringList(strings[0]);
             return null;
+        }
+    }
+
+    public static class FetchMyFavoritesAsync extends AsyncTask<Void, Void, List<FavEntities>>{
+        private Daos daos;
+
+        public FetchMyFavoritesAsync(Daos daos){
+            this.daos = daos;
+        }
+
+        @Override
+        protected List<FavEntities> doInBackground(Void... voids) {
+            return daos.getMyFavorite();
+        }
+
+        @Override
+        protected void onPostExecute(List<FavEntities> favEntities) {
+            super.onPostExecute(favEntities);
         }
     }
 }

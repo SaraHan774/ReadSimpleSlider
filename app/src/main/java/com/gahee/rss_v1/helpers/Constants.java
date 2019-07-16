@@ -38,4 +38,8 @@ public class Constants {
     //for links that gets passed over to ArticleDetailActivity
     public static final String ARTICLES = "articles_array_list";
     public static final String ADAPTER_POSITION = "link";
+
+    //for invoking widget update
+    public static final String UPDATE_WIDGET_INFO = "update_widget";
+    public static final String FILLIN_INTENT_EXTRA = "fill in intent";
 }

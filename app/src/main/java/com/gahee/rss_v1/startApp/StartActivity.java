@@ -238,12 +238,8 @@ public class StartActivity extends AppCompatActivity{
             // to call runOnUiThread to do work on UI thread.
             runOnUiThread(new Runnable() {
                 public void run() {
-
                     if (page > 1) {
                         timer.cancel();
-                        // Showing a toast for just testing purpose
-                        Toast.makeText(getApplicationContext(), "Timer stoped",
-                                Toast.LENGTH_LONG).show();
                     } else {
                         viewPager.setCurrentItem(page++);
                     }

@@ -1,6 +1,7 @@
 package com.gahee.rss_v1.roomDatabase;
 
 import android.app.Application;
+import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -27,9 +28,9 @@ public class ViewModelRoom extends AndroidViewModel {
         return repositoryRoom.getMyFavoriteNews();
     }
 
-    public void insertMyFavorite(FavEntities favEntities){
+    public void insertMyFavorite(FavEntities favEntities, Context context){
         Log.d(TAG, "inserting my favorite article ");
-        repositoryRoom.insertMyFav(favEntities);
+        repositoryRoom.insertMyFav(favEntities, context);
     }
 
     public void deleteMyFavorite(String articleTitle){

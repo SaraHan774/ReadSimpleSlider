@@ -51,7 +51,13 @@
     <string name="share_top_five">Share Your Top 5 Articles!</string>
     <string name="share_title">These are my TOP 5 articles!</string>
 
-<!--content descriptions-->
+    <string name="add_or_delete">Add/Delete Topics</string>
+
+    <!--widget-->
+    <string name="widget_title">Favorite Articles</string>
+    <string name="widget_img_desc">@null</string>
+
+    <!--content descriptions-->
     <!--splash activity-->
     <string name="splash_screen_content_desc">@null</string>
     <string name="activity_start_content_desc">@null</string>
@@ -122,4 +128,6 @@
 
     <!--action bar-->
     <string name="action_bar_search_desc">search button</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 </resources>

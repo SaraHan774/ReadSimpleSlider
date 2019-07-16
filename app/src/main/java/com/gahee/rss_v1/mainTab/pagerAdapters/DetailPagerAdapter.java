@@ -109,7 +109,7 @@ public class DetailPagerAdapter extends PagerAdapter {
             public void onFabClapped(@NonNull ClapFAB clapFab, int count, boolean isMaxReached) {
                 //insert whenever the star button is clicked
                 repositoryRoom.insertMyFav(new FavEntities(count, articleTitle, link,
-                        media, pubDate, articleDesc));
+                        media, pubDate, articleDesc), context);
 
                 //to avoid storing duplicate articles by only updating the "star count" column
                 repositoryRoom.updateMyFavTable(count, articleTitle);
