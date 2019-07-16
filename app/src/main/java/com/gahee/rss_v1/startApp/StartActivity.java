@@ -139,7 +139,7 @@ public class StartActivity extends AppCompatActivity{
         linearLayout.removeAllViews();
         for(int i =0; i < dots.length; i++){
             dots[i] = new TextView(this);
-            dots[i].setText(Html.fromHtml("&#8226"));
+            dots[i].setText(Html.fromHtml(getString(R.string.slider_dots_code)));
             dots[i].setTextSize(32);
             if(i == currentPage){
                 dots[i].setTextColor(activeColor);

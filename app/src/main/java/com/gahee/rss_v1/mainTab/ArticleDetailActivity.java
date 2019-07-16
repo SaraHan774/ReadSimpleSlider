@@ -36,12 +36,12 @@ public class ArticleDetailActivity extends AppCompatActivity {
         viewPager.setCurrentItem(adapterPosition);
 
         //remove the default activity title
-        this.setTitle("");
+        this.setTitle(R.string.remove_dialog_title_empty_string);
 
 
     }
 
-
+//below are for debugging purposes
     @Override
     protected void onStart() {
         super.onStart();

@@ -45,11 +45,7 @@ public class MyRemoteViewsFactory implements RemoteViewsService.RemoteViewsFacto
 
     @Override
     public int getCount() {
-        if(favEntitiesList != null){
-            return favEntitiesList.size();
-        }else{
-            return 0;
-        }
+        return favEntitiesList != null ? favEntitiesList.size() : 0;
     }
 
     @Override

@@ -29,7 +29,7 @@ public class SearchResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search_result);
 
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Search Results");
+        actionBar.setTitle(getString(R.string.search_result_appbar_title));
 
         articleSearchResults = getIntent().getExtras().getParcelableArrayList(SEARCH_RESULT_INTENT);
 
@@ -45,7 +45,7 @@ public class SearchResultActivity extends AppCompatActivity {
             searchResultAdapter.notifyDataSetChanged(); //just in case
             rv_searchResults.setAdapter(searchResultAdapter);
         }else{
-            Toast.makeText(this, "No Search Result!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.search_result_fail), Toast.LENGTH_SHORT).show();
         }
 
     }

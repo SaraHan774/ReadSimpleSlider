@@ -65,12 +65,12 @@ public class TopicSelectionAdapter extends RecyclerView.Adapter<TopicSelectionAd
                     Log.d(TAG, "already in ? :  " + alreadyInserted + " | " + topics[position]);
                     if(topics[position].equals(alreadyInserted)){
                         repositoryRoom.deleteFromTopicStringsList(topics[position]);
-                        Toast.makeText(context, "Deleted From Your Feed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, R.string.topic_deleted, Toast.LENGTH_SHORT).show();
                         break;
                     }
                     else{
                         repositoryRoom.insertTopicString(new TopicStrings(topics[position]));
-                        Toast.makeText(context, "Newly Inserted to Your Feed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, R.string.topic_inserted, Toast.LENGTH_SHORT).show();
                     }
                 }
             }

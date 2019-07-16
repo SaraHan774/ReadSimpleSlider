@@ -133,4 +133,12 @@
 
     <!--ad mob app id-->
     <string name="my_ad_mob_app_id">ca-app-pub-7888773492514289~5928993307</string>
+    <string name="search_result_fail">No Search Result!</string>
+    <string name="search_result_appbar_title">Search Results</string>
+    <string name="slider_dots_code"><![CDATA[&#8226]]></string>
+    <string name="added_to_user_selections">Added to user selections</string>
+    <string name="topic_deleted">Deleted From Your Feed</string>
+    <string name="topic_inserted">Newly Inserted to Your Feed</string>
+    <string name="remove_dialog_title_empty_string" />
+    <string name="no_search_result">No Search Result!</string>
 </resources>

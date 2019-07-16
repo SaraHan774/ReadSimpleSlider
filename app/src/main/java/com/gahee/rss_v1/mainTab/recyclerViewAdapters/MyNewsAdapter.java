@@ -50,7 +50,6 @@ public class MyNewsAdapter extends RecyclerView.Adapter<MyNewsAdapter.MyNewsView
         Matcher matcher = pattern.matcher(s);
         String sub = "";
         while(matcher.find()) {
-//            int start = matcher.start();
             int end = matcher.end();
             sub = s.substring(end);
         }

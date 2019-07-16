@@ -99,8 +99,8 @@ public class MyFavoritesFragment extends Fragment {
                     firebaseLogEvent(linkToShare);
 
                     //sharing format
-                    String shareContentStars = "MY STARS : " + starCount;
-                    String shareContentArticleLink = " - ARTICLE LINK : " + linkToShare + "\n\n";
+                    String shareContentStars = String.format("MY STARS : %d", starCount);
+                    String shareContentArticleLink = String.format(" - ARTICLE LINK : %s\n\n", linkToShare);
 
                     stringBuilder.append(shareContentStars)
                             .append(shareContentArticleLink);

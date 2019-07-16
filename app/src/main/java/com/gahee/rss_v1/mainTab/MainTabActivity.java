@@ -209,7 +209,7 @@ public class MainTabActivity extends AppCompatActivity
                     }
                 }
                 if(searchResultList == null){
-                    Toast.makeText(MainTabActivity.this, "No Search Result!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainTabActivity.this, R.string.no_search_result, Toast.LENGTH_SHORT).show();
                 }else{
                     Intent intent = new Intent(MainTabActivity.this, SearchResultActivity.class);
                     intent.putParcelableArrayListExtra(SEARCH_RESULT_INTENT, searchResultList);

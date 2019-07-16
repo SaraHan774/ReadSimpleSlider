@@ -67,7 +67,7 @@ public class StoreData {
                     articleDescription = response.body().getChannel().getItem().get(i).getDescription();
                     cleanArticleDescription = Html.fromHtml(articleDescription).toString().replace((char) 65532, (char) 32).trim();
                 } else {
-                    cleanArticleDescription = "check out the site for content";
+                    cleanArticleDescription = " ";
                 }
 
 //                Log.d(TAG, "Topic title : " + topicTitle + "\n"

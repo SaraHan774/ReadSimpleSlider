@@ -31,14 +31,6 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-
-
-        //put animations on the image views of splash screen here
-
-        //check if the user is new to this app
-
-        //if already a user of this app, then navigate to MainTabActivity
-
         viewModelRoom = ViewModelProviders.of(this).get(ViewModelRoom.class);
 
         CheckIfNew checkIfNew = new CheckIfNew(this);

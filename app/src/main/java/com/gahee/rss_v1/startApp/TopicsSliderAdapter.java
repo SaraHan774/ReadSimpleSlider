@@ -62,7 +62,7 @@ public class TopicsSliderAdapter extends PagerAdapter {
             public void onClick(View view) {
                 repositoryRoom.insertTopicString(new TopicStrings(topics[position]));
                 //save topic information to the database
-                Toast.makeText(context, "Added to user selections", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, R.string.added_to_user_selections, Toast.LENGTH_SHORT).show();
             }
         });
 

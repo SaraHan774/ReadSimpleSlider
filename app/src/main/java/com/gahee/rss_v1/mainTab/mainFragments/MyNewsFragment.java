@@ -79,19 +79,4 @@ public class MyNewsFragment extends Fragment {
 
 
 
-
-    //    private void getArticleTopics(){
-//        if(arrayLists != null){
-//            for(int i = 0; i < arrayLists.size(); i++){
-//                Log.d(TAG, "get article topics...." + arrayLists.get(i).size());
-//                String topicTitle = arrayLists.get(i).get(0).getTopicTitle();
-//                articleTopics.add(topicTitle);
-//                Log.d(TAG, "topic titles : " + topicTitle);
-//            }
-//        }else{
-//            articleTopics.add(null);
-//        }
-//        Log.d(TAG, "storing article topics in a different list ... article topics : " + articleTopics);
-//    }
-
 }
