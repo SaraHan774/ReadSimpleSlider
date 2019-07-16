@@ -5,8 +5,8 @@ import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.gahee.rss_v1.CNN.tags.Rss;
-import com.gahee.rss_v1.CNN.model.Article;
+import com.gahee.rss_v1.news.tags.Rss;
+import com.gahee.rss_v1.news.model.Article;
 import com.gahee.rss_v1.remoteDataSource.requests.FetchArticles;
 import com.gahee.rss_v1.remoteDataSource.requests.StoreData;
 
@@ -20,7 +20,7 @@ public class RepositoryRemote {
     private MutableLiveData<List<ArrayList<Article>>> listMutableLiveData = new MutableLiveData<>();
     private List<ArrayList<Article>> list = new ArrayList<>();
     private ArrayList<Article> articleArrayList = new ArrayList<>();
-    private FetchArticles fetchArticles = new FetchArticles();
+    private static FetchArticles fetchArticles = new FetchArticles();
 
     private static final String TAG = "RepositoryRemote";
 
@@ -52,7 +52,7 @@ public class RepositoryRemote {
         return StoreData.getInstance().getListForSearch() ;
     }
 
-    class FetchArticleAsync extends AsyncTask<String, Void, Void>{
+    static class FetchArticleAsync extends AsyncTask<String, Void, Void>{
         @Override
         protected Void doInBackground(String... strings) {
             Log.d(TAG, "fetch data async running ... / strings[0] : " + strings[0]);

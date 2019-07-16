@@ -1,11 +1,12 @@
 package com.gahee.rss_v1.remoteDataSource.requests;
 
-import android.print.PrinterId;
 import android.util.Log;
 
-import com.gahee.rss_v1.CNN.CnnAPI;
-import com.gahee.rss_v1.CNN.tags.Rss;
+import com.gahee.rss_v1.news.CnnAPI;
+import com.gahee.rss_v1.news.tags.Rss;
 import com.gahee.rss_v1.helpers.LinearSearch;
+
+import org.jetbrains.annotations.NotNull;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -103,7 +104,7 @@ public class FetchArticles {
     public static void fetchArticleBasedOnUserSelection(Call<Rss> call){
         call.enqueue(new Callback<Rss>() {
             @Override
-            public void onResponse(Call<Rss> call, Response<Rss> response) {
+            public void onResponse(@NotNull Call<Rss> call, @NotNull Response<Rss> response) {
                 if(response.body() != null){
                     Log.d(TAG, "fetching article from the web ... onResponse : " + response.body());
                     storeData.storeArticlesIntoArrayList(call, response);
@@ -111,7 +112,7 @@ public class FetchArticles {
             }
 
             @Override
-            public void onFailure(Call<Rss> call, Throwable t) {
+            public void onFailure(@NotNull Call<Rss> call, @NotNull Throwable t) {
                     Log.d(TAG, "onFailure : failed to fetch data from the web ! " + t.getMessage());
             }
         });

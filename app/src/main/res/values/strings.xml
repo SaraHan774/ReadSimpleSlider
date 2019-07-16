@@ -130,4 +130,7 @@
     <string name="action_bar_search_desc">search button</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
+
+    <!--ad mob app id-->
+    <string name="my_ad_mob_app_id">ca-app-pub-7888773492514289~5928993307</string>
 </resources>

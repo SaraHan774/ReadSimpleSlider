@@ -1,6 +1,5 @@
 package com.gahee.rss_v1.mainTab.mainFragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,13 +14,14 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.gahee.rss_v1.CNN.model.Article;
+import com.gahee.rss_v1.news.model.Article;
 import com.gahee.rss_v1.R;
 import com.gahee.rss_v1.mainTab.recyclerViewAdapters.MyNewsAdapter;
 import com.gahee.rss_v1.remoteDataSource.ViewModelRemote;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class MyNewsFragment extends Fragment {
 
@@ -58,7 +58,7 @@ public class MyNewsFragment extends Fragment {
         setUpRecyclerView(view);
 
         ViewModelRemote viewModelRemote = ViewModelProviders.of(this).get(ViewModelRemote.class);
-        viewModelRemote.getMutableLiveData().observe(getActivity(), new Observer<ArrayList<ArrayList<Article>>>() {
+        viewModelRemote.getMutableLiveData().observe(Objects.requireNonNull(getActivity()), new Observer<ArrayList<ArrayList<Article>>>() {
             @Override
             public void onChanged(ArrayList<ArrayList<Article>> arrayLists) {
                 //fix the constructor of the adapter later

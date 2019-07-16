@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.gahee.rss_v1.CNN.model.Article;
+import com.gahee.rss_v1.news.model.Article;
 import com.gahee.rss_v1.R;
 
 import java.util.ArrayList;

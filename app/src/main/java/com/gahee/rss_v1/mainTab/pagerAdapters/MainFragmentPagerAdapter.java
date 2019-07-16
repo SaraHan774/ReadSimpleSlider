@@ -21,7 +21,6 @@ public class MainFragmentPagerAdapter extends FragmentPagerAdapter {
     private String[] tabTitles = {"News", "Favorites"};
     private Fragment [] fragments = {new MyNewsFragment(), new MyFavoritesFragment()};
 
-
     public MainFragmentPagerAdapter(FragmentManager fm, Context context) {
         super(fm);
         this.context = context;

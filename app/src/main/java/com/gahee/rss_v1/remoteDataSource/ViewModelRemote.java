@@ -3,7 +3,7 @@ package com.gahee.rss_v1.remoteDataSource;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.gahee.rss_v1.CNN.model.Article;
+import com.gahee.rss_v1.news.model.Article;
 
 import java.util.ArrayList;
 import java.util.List;

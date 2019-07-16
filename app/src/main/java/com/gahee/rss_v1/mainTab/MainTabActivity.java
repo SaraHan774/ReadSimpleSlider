@@ -27,7 +27,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.gahee.rss_v1.CNN.model.Article;
+import com.gahee.rss_v1.news.model.Article;
 import com.gahee.rss_v1.R;
 import com.gahee.rss_v1.mainTab.pagerAdapters.MainFragmentPagerAdapter;
 import com.gahee.rss_v1.remoteDataSource.ViewModelRemote;
@@ -35,8 +35,15 @@ import com.gahee.rss_v1.roomDatabase.TopicStrings;
 import com.gahee.rss_v1.roomDatabase.ViewModelRoom;
 import com.gahee.rss_v1.searchResult.SearchResultActivity;
 import com.gahee.rss_v1.topicSelection.TopicSelectionActivity;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -46,7 +53,6 @@ import java.util.List;
 import static com.gahee.rss_v1.helpers.Constants.LOAD_IMAGE;
 import static com.gahee.rss_v1.helpers.Constants.SEARCH_RESULT_INTENT;
 import static com.gahee.rss_v1.helpers.Constants.SHARED_PREF_USER_NAME;
-import static com.gahee.rss_v1.helpers.Constants.SHARED_PREF_USER_PIC;
 import static com.gahee.rss_v1.helpers.Constants.USER_NAME_KEY;
 
 
@@ -66,11 +72,21 @@ public class MainTabActivity extends AppCompatActivity
     private ImageView profilePhoto;
     private View headerView;
     private Uri userPhoto;
+    private AdView mAdView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tab_and_navigate_activity);
+
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            Log.d(TAG, "initialization complete for ad mob");
+            }
+        });
+
 
         Log.d(TAG, "on create () ");
         //connect adapter to the view pager
@@ -108,8 +124,6 @@ public class MainTabActivity extends AppCompatActivity
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
-
-
         //get user name
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF_USER_NAME, MODE_PRIVATE);
         String userNameString = sharedPreferences.getString(USER_NAME_KEY, getResources().getString(R.string.user_name_default));
@@ -131,8 +145,13 @@ public class MainTabActivity extends AppCompatActivity
 
             }
         });
-
+        //enabling update profile photo function
         enableProfilePhotoUpdate();
+
+        //setting up ad view
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
 
@@ -213,9 +232,12 @@ public class MainTabActivity extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(@NotNull MenuItem item) {
          int id = item.getItemId();
-      if (id == R.id.action_settings) {
-            return true;
-        }
+          if (id == R.id.action_settings) {
+              Intent intent = new Intent(this, TopicSelectionActivity.class);
+              startActivity(intent);
+              finish();
+                return true;
+            }
         return super.onOptionsItemSelected(item);
     }
 
@@ -226,6 +248,7 @@ public class MainTabActivity extends AppCompatActivity
         if(item == R.id.nav_tools) {
             Intent intent = new Intent(this, TopicSelectionActivity.class);
             startActivity(intent);
+            finish();
         }
         return false;
     }

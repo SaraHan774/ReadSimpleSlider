@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.gahee.rss_v1.CNN.model.Article;
+import com.gahee.rss_v1.news.model.Article;
 import com.gahee.rss_v1.R;
 import com.gahee.rss_v1.mainTab.pagerAdapters.SliderPagerAdapter;
 import java.util.ArrayList;

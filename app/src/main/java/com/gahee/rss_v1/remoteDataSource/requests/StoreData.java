@@ -5,9 +5,9 @@ import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.gahee.rss_v1.CNN.tags.Item;
-import com.gahee.rss_v1.CNN.tags.Rss;
-import com.gahee.rss_v1.CNN.model.Article;
+import com.gahee.rss_v1.news.tags.Item;
+import com.gahee.rss_v1.news.tags.Rss;
+import com.gahee.rss_v1.news.model.Article;
 
 import java.util.ArrayList;
 

@@ -19,6 +19,7 @@ import com.gahee.rss_v1.mainTab.recyclerViewAdapters.MyFavoritesAdapter;
 import com.gahee.rss_v1.roomDatabase.FavEntities;
 import com.gahee.rss_v1.roomDatabase.ViewModelRoom;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.List;
 import java.util.Objects;
@@ -33,6 +34,7 @@ public class MyFavoritesFragment extends Fragment {
     private ViewModelRoom viewModelRoom;
     private FloatingActionButton shareFAB;
     private List<FavEntities> favEntities;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
 
     public MyFavoritesFragment(){
@@ -43,7 +45,7 @@ public class MyFavoritesFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(Objects.requireNonNull(getContext()));
     }
 
     @Nullable
@@ -94,6 +96,8 @@ public class MyFavoritesFragment extends Fragment {
                     String linkToShare = favEntities.get(i).getArticleLink();
                     int starCount = favEntities.get(i).getCount();
 
+                    firebaseLogEvent(linkToShare);
+
                     //sharing format
                     String shareContentStars = "MY STARS : " + starCount;
                     String shareContentArticleLink = " - ARTICLE LINK : " + linkToShare + "\n\n";
@@ -114,9 +118,10 @@ public class MyFavoritesFragment extends Fragment {
         Objects.requireNonNull(getContext()).startActivity(Intent.createChooser(share, getString(R.string.share_top_five)));
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-
+    private void firebaseLogEvent(String link){
+        Bundle params = new Bundle();
+        params.putString(FirebaseAnalytics.Param.ITEM_NAME, link);
+        mFirebaseAnalytics.logEvent("share_articles", params);
     }
 
 

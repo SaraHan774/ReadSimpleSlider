@@ -1,6 +1,6 @@
 package com.gahee.rss_v1.remoteDataSource.requests;
 
-import com.gahee.rss_v1.CNN.CnnAPI;
+import com.gahee.rss_v1.news.CnnAPI;
 import com.gahee.rss_v1.helpers.Constants;
 
 import retrofit2.Retrofit;

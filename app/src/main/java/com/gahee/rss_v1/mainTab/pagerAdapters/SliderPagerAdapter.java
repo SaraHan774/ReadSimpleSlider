@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.bumptech.glide.Glide;
-import com.gahee.rss_v1.CNN.model.Article;
+import com.gahee.rss_v1.news.model.Article;
 import com.gahee.rss_v1.R;
 import com.gahee.rss_v1.mainTab.ArticleDetailActivity;
 

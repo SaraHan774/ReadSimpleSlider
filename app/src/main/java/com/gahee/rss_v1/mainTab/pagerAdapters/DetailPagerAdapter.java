@@ -13,11 +13,12 @@ import android.webkit.WebViewClient;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
-import com.gahee.rss_v1.CNN.model.Article;
+import com.gahee.rss_v1.news.model.Article;
 import com.gahee.rss_v1.R;
 import com.gahee.rss_v1.roomDatabase.FavEntities;
 import com.gahee.rss_v1.roomDatabase.RepositoryRoom;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.wajahatkarim3.clapfab.ClapFAB;
 
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ public class DetailPagerAdapter extends PagerAdapter {
     private Context context;
     private ArrayList<Article> articles;
     private RepositoryRoom repositoryRoom;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     public DetailPagerAdapter(Context context, ArrayList<Article> articles){
         this.context =context;

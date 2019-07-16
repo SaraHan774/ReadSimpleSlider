@@ -81,6 +81,10 @@
         <activity
             android:name=".startApp.StartActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="@string/my_ad_mob_app_id"/>
     </application>
 
 </manifest>
