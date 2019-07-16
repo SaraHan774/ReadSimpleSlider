@@ -187,7 +187,7 @@ public class MainTabActivity extends AppCompatActivity
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
 
-        SearchView searchView = (SearchView) menu.findItem(R.id.news_search_icon).getActionView();
+        final SearchView searchView = (SearchView) menu.findItem(R.id.news_search_icon).getActionView();
         searchView.setFocusable(false);
         searchView.setQueryHint(getResources().getString(R.string.search_hint));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -200,11 +200,12 @@ public class MainTabActivity extends AppCompatActivity
                 }
                 //clear the list before another search
                 for(int i =0; i < auxiliaryListForSearch.size(); i++){
-                    if(auxiliaryListForSearch.get(i).getTopicTitle().contains(query)){
-                        //send the article data into another recycler view which contains card view for the search results
+                    if(auxiliaryListForSearch.get(i).getArticleTitle() != null &&
+                            auxiliaryListForSearch.get(i).getArticleTitle().contains(query)){
                         searchResultList.add(auxiliaryListForSearch.get(i));
-                    }else if(auxiliaryListForSearch.get(i).getArticleDescription().contains(query)){
-                        //send the article data ...
+
+                    } else if(auxiliaryListForSearch.get(i).getArticleDescription() != null &&
+                            auxiliaryListForSearch.get(i).getArticleDescription().contains(query)) {
                         searchResultList.add(auxiliaryListForSearch.get(i));
                     }
                 }
