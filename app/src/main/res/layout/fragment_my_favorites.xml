@@ -11,6 +11,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/my_favorites_recycler_view"
+        android:focusable="true"
         android:layout_margin="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
@@ -19,6 +20,7 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_my_fav_tab"
+        android:contentDescription="@string/my_fav_fab_share_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"

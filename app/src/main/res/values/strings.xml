@@ -23,9 +23,11 @@
 
     <string name="ask_interest">What is your interest?</string>
     <string name="find_topics">Slide right to find your interest!</string>
-    <string name="generate_feed">generating feed from your selections ...</string>
+    <string name="generate_feed">generating feed from your selections &#8230;</string>
+
     <string name="ask_ready">Are you ready to slide?</string>
     <string name="ready">READY!</string>
+    <string name="start">START</string>
 
     <string name="sample_text_short">SAMPLE TEXT</string>
     <string name="sample_text_medium">
@@ -38,7 +40,7 @@
     <string name="tab_my_news">MY NEWS</string>
     <string name="tab_favorites">FAVORITES</string>
     <string name="search">SEARCH\nRESULT</string>
-
+    <string name="slash_for_page">/</string>
     <string name="user_name_default">User</string>
 
     <string name="search_hint">Search for a keyword</string>
@@ -46,5 +48,78 @@
 
     <string name="nav_drawer_topic">Add/Delete Topics</string>
 
+    <string name="share_top_five">Share Your Top 5 Articles!</string>
+    <string name="share_title">These are my TOP 5 articles!</string>
 
+<!--content descriptions-->
+    <!--splash activity-->
+    <string name="splash_screen_content_desc">@null</string>
+    <string name="activity_start_content_desc">@null</string>
+
+    <!--article detail activity-->
+    <string name="article_detail_webview_desc">webView</string>
+    <string name="article_detail_like_desc">button, like</string>
+    <string name="article_detail_share_desc">button, share</string>
+    <string name="article_detail_browser_desc">button, open in browser</string>
+
+    <!--my favorites fragment-->
+    <string name="my_fav_fab_share_desc">button, share top 5 articles</string>
+    <!--my favorites recyclerView view holder-->
+    <string name="my_fav_image_desc">my favorite article image</string>
+    <string name="my_fav_article_title_desc">my favorite article title</string>
+    <string name="my_fav_article_description">my favorite article description</string>
+    <string name="my_fav_star_desc">@null</string>
+    <string name="my_fav_star_count_desc">user given number of stars</string>
+
+    <!--topic fragment-->
+    <string name="topics_fragment_desc">pager, choose topics</string>
+
+    <!--main news slider-->
+    <string name="main_news_image_desc">article image</string>
+    <string name="main_news_view_desc">@null</string>
+    <string name="main_news_page_num_desc">current page</string>
+    <string name="main_news_page_total_num_desc">total page</string>
+    <string name="main_news_article_pub_date_desc">article publish date</string>
+    <string name="main_news_article_title_desc">article title</string>
+    <string name="main_news_article_description">article description</string>
+    <!--main news recyclerView view holder-->
+    <string name="main_rv_news_topic_desc">topic title</string>
+
+    <!--navigation drawer-->
+    <string name="nav_user_photo_desc">user profile photo</string>
+    <string name="nav_user_name_desc">user name</string>
+    <string name="nav_desc_null">@null</string>
+
+    <!--read simple slider start layout-->
+    <string name="app_start_desc">slide your taste!</string>
+
+    <!--search activity recyclerView view holder-->
+    <string name="search_image_desc">search result image</string>
+    <string name="search_view_desc">@null</string>
+    <string name="search_result_title_desc">search result title</string>
+    <string name="search_result_content_desc">search result content</string>
+
+    <!--start slider interest-->
+    <string name="slide_interest_desc">slide through below pager to find your interest</string>
+    <string name="slide_interest_desc_null">@null</string>
+    <!--start slider name-->
+    <string name="slide_name_img_desc">button, click to confirm your name</string>
+    <string name="slide_name_et_desc">text input, type in your name</string>
+    <string name="slide_name_desc_null">@null</string>
+    <!--start slider wait-->
+    <string name="start_wait_desc_null">@null</string>
+    <string name="start_wait_button">button, click to start</string>
+
+    <!--topic selection activity-->
+    <string name="topic_selection_img_desc">topic image</string>
+    <string name="topic_selection_tv_desc">topic text</string>
+
+    <!--topics slider-->
+    <string name="topics_slider_img_desc">topic image</string>
+    <string name="topics_slider_desc_null">@null</string>
+    <string name="topics_slider_tv_desc">topic text</string>
+    <string name="topics_slider_confirm_button">button, click to add to your topics</string>
+
+    <!--action bar-->
+    <string name="action_bar_search_desc">search button</string>
 </resources>

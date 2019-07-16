@@ -7,13 +7,17 @@
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/topics_view_pager"
+        android:focusable="true"
+        android:contentDescription="@string/topics_fragment_desc"
         android:layout_marginTop="32dp"
         android:clipToPadding="false"
         android:paddingLeft="80dp"
         android:paddingRight="80dp"
         android:paddingTop="80dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingStart="80dp"
+        android:paddingEnd="80dp">
 
     </androidx.viewpager.widget.ViewPager>
 

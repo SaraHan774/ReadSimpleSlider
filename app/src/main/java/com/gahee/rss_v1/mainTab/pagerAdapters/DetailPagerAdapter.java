@@ -1,6 +1,5 @@
 package com.gahee.rss_v1.mainTab.pagerAdapters;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -12,16 +11,10 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.gahee.rss_v1.CNN.model.Article;
 import com.gahee.rss_v1.R;
-import com.gahee.rss_v1.mainTab.CountViewModel;
 import com.gahee.rss_v1.roomDatabase.FavEntities;
 import com.gahee.rss_v1.roomDatabase.RepositoryRoom;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -60,11 +53,15 @@ public class DetailPagerAdapter extends PagerAdapter {
     public Object instantiateItem(@NonNull ViewGroup container, final int position) {
         Log.d(TAG, "instantiateItem");
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = layoutInflater.inflate(R.layout.article_detail_slider, container, false);
+        View view = null;
+        if (layoutInflater != null) {
+            view = layoutInflater.inflate(R.layout.article_detail_slider, container, false);
+        }
 
         String link = articles.get(position).getArticleLink();
         String articleTitle = articles.get(position).getArticleTitle();
 
+        assert view != null;
         loadWebView(view, link);
         loadClapButton(view, position);
         loadShareButton(view, link, articleTitle);
@@ -88,7 +85,8 @@ public class DetailPagerAdapter extends PagerAdapter {
         WebView webView = view.findViewById(R.id.article_detail_web_view);
         webView.setWebViewClient(new MyBrowser());
         webView.getSettings().setLoadsImagesAutomatically(true);
-        webView.getSettings().setJavaScriptEnabled(true);
+//        webView.getSettings().setJavaScriptEnabled(true);
+//        Warning:(84, 9) Using `setJavaScriptEnabled` can introduce XSS vulnerabilities into your application, review carefully.
         webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
         webView.loadUrl(link);
 
@@ -105,7 +103,7 @@ public class DetailPagerAdapter extends PagerAdapter {
         final String pubDate = articles.get(position).getPubDate();
         final String articleDesc = articles.get(position).getArticleDescription();
 
-        ClapFAB clapFAB = (ClapFAB) view.findViewById(R.id.clapFAB);
+        ClapFAB clapFAB = view.findViewById(R.id.clapFAB);
         clapFAB.setClapListener(new ClapFAB.OnClapListener() {
             @Override
             public void onFabClapped(@NonNull ClapFAB clapFab, int count, boolean isMaxReached) {

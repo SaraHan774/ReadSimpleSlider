@@ -36,7 +36,6 @@ public class Constants {
     public static final String SEARCH_RESULT_INTENT = "search_result";
 
     //for links that gets passed over to ArticleDetailActivity
-    public static final String LINK = "link";
     public static final String ARTICLES = "articles_array_list";
     public static final String ADAPTER_POSITION = "link";
 }

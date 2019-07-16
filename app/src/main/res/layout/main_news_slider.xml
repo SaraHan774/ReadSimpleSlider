@@ -1,48 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
     <ImageView
         android:id="@+id/img_inner_slider"
+        android:contentDescription="@string/main_news_image_desc"
         android:scaleType="centerCrop"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
     <View
         android:layout_width="match_parent"
+        android:contentDescription="@string/main_news_view_desc"
         android:layout_height="match_parent"
         android:background="@drawable/scrim_gradient_news"
         />
 
     <TextView
         android:id="@+id/tv_article_page_number_current"
+        android:contentDescription="@string/main_news_page_num_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:textColor="@color/colorWhite"
-        android:text="00"
         android:textSize="@dimen/text_size_xx_small"
         android:layout_alignEnd="@id/tv_article_page_number"
         />
 
     <TextView
         android:id="@+id/tv_article_page_number"
+        android:contentDescription="@string/main_news_view_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:layout_marginEnd="4dp"
         android:textColor="@color/colorWhite"
-        android:text="/"
+        android:text="@string/slash_for_page"
         android:textSize="@dimen/text_size_xx_small"
         android:layout_alignEnd="@+id/tv_article_page_number_total"
         />
     <TextView
         android:id="@+id/tv_article_page_number_total"
+        android:contentDescription="@string/main_news_page_total_num_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
@@ -50,12 +52,12 @@
         android:layout_marginEnd="16dp"
         android:textColor="@color/colorWhite"
         android:layout_alignParentEnd="true"
-        android:text="30"
         android:textSize="@dimen/text_size_xx_small"
         />
 
     <TextView
         android:id="@+id/tv_article_pub_date_inner_slider"
+        android:contentDescription="@string/main_news_article_pub_date_desc"
         android:background="@drawable/scrim_gradient_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -64,13 +66,14 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
-        android:text="SAMPLE TEXT"
+        android:text="@string/sample_text_short"
         android:textSize="@dimen/text_size_x_small"
         android:textStyle="italic"
         android:textColor="@color/myColorLightBeige" />
 
     <TextView
         android:id="@+id/tv_article_title_inner_slider"
+        android:contentDescription="@string/main_news_article_title_desc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -85,6 +88,7 @@
 
     <TextView
         android:id="@+id/tv_article_desc_inner_slider"
+        android:contentDescription="@string/main_news_article_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/img_inner_slider"
@@ -92,7 +96,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:text="SAMPLE TEXT"
+        android:text="@string/sample_text_short"
         android:textSize="@dimen/text_size_small"
         android:textColor="@color/colorWhite" />
 

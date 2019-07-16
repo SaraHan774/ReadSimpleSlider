@@ -17,6 +17,8 @@ import com.gahee.rss_v1.R;
 import com.gahee.rss_v1.mainTab.pagerAdapters.SliderPagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class MyNewsAdapter extends RecyclerView.Adapter<MyNewsAdapter.MyNewsViewHolder> {
@@ -43,12 +45,27 @@ public class MyNewsAdapter extends RecyclerView.Adapter<MyNewsAdapter.MyNewsView
         return new MyNewsViewHolder(newsView);
     }
 
+    private String stringCleaner(String s){
+        Pattern pattern = Pattern.compile("CNN.com - RSS Channel - ");
+        Matcher matcher = pattern.matcher(s);
+        String sub = "";
+        while(matcher.find()) {
+//            int start = matcher.start();
+            int end = matcher.end();
+            sub = s.substring(end);
+        }
+        return sub;
+    }
+
 
     @Override
     public void onBindViewHolder(@NonNull final MyNewsViewHolder holder, final int position) {
         String topicTitle = arrayLists.get(position).get(0).getTopicTitle();
-        String [] topicTitles = topicTitle.split("\\s+");
-        holder.topicTitle.setText(topicTitles[topicTitles.length - 1]);
+        String cleanTitle = stringCleaner(topicTitle);
+        if(cleanTitle.equals("")){
+            cleanTitle = topicTitle;
+        }
+        holder.topicTitle.setText(cleanTitle);
         //initialize view pager -> set contents into the view pager
         //해당 position 의 기사가 들어있는 array list 하나를 넘겨준다.
         PagerAdapter pagerAdapter = new SliderPagerAdapter(context, arrayLists.get(position));
@@ -62,8 +79,8 @@ public class MyNewsAdapter extends RecyclerView.Adapter<MyNewsAdapter.MyNewsView
     }
 
     public class MyNewsViewHolder extends RecyclerView.ViewHolder{
-        TextView topicTitle;
-        ViewPager viewPager;
+        private TextView topicTitle;
+        private ViewPager viewPager;
 
         public MyNewsViewHolder(@NonNull View itemView) {
             super(itemView);

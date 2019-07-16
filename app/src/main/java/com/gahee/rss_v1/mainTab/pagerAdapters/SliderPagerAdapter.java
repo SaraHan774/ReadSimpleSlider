@@ -2,10 +2,8 @@ package com.gahee.rss_v1.mainTab.pagerAdapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -17,9 +15,7 @@ import androidx.viewpager.widget.PagerAdapter;
 import com.bumptech.glide.Glide;
 import com.gahee.rss_v1.CNN.model.Article;
 import com.gahee.rss_v1.R;
-import com.gahee.rss_v1.TestActivity;
 import com.gahee.rss_v1.mainTab.ArticleDetailActivity;
-import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 
@@ -55,7 +51,10 @@ public class SliderPagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, final int position) {
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = layoutInflater.inflate(R.layout.main_news_slider, container, false);
+        View view = null;
+        if (layoutInflater != null) {
+            view = layoutInflater.inflate(R.layout.main_news_slider, container, false);
+        }
 
         //set the page number
         TextView tv_article_page_current = view.findViewById(R.id.tv_article_page_number_current);

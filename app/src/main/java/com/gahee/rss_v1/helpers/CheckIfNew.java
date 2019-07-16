@@ -1,15 +1,15 @@
-package com.gahee.rss_v1;
+package com.gahee.rss_v1.helpers;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
 public class CheckIfNew {
 
-    SharedPreferences preferences;
-    SharedPreferences.Editor editor;
-    Context context;
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
+    private Context context;
 
-    int PRIVATE_MODE = 0;
+    private int PRIVATE_MODE = 0;
 
     private static final String PREF_NAME = "welcome";
     private static final String IS_FIRST_TIME_LAUNCH = "isFirstTimeLaunch";

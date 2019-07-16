@@ -6,9 +6,8 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
-import com.gahee.rss_v1.CheckIfNew;
+import com.gahee.rss_v1.helpers.CheckIfNew;
 import com.gahee.rss_v1.R;
 import com.gahee.rss_v1.mainTab.MainTabActivity;
 import com.gahee.rss_v1.remoteDataSource.RepositoryRemote;
@@ -20,14 +19,19 @@ import java.util.List;
 
 public class SplashActivity extends AppCompatActivity {
 
+    private static final String TAG = "SplashActivity";
+
     private ViewModelRoom viewModelRoom;
     private List<TopicStrings> topicStrings = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme_NoActionBar);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+
 
         //put animations on the image views of splash screen here
 
@@ -59,14 +63,8 @@ public class SplashActivity extends AppCompatActivity {
                 }
             });
         }
-
-
- //gone from the back stack
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
 
-    }
+
 }

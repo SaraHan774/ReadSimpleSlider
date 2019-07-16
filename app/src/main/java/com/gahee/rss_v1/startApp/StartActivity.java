@@ -6,7 +6,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -20,7 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.gahee.rss_v1.CheckIfNew;
+import com.gahee.rss_v1.helpers.CheckIfNew;
 import com.gahee.rss_v1.R;
 import com.gahee.rss_v1.helpers.PhotoUtils;
 import com.gahee.rss_v1.mainTab.MainTabActivity;
@@ -108,9 +107,6 @@ public class StartActivity extends AppCompatActivity{
         @Override
         public void onPageSelected(int currentPosition) {
 
-            if(currentPosition == 0){
-                //set the timer
-            }else{
                 addSliderDots(currentPosition - 1);
                 switch (currentPosition){
                     case 1:
@@ -123,8 +119,6 @@ public class StartActivity extends AppCompatActivity{
                         navigateToMainTabActivity();
                         break;
                 }
-            }
-
         }
 
         @Override
@@ -221,6 +215,7 @@ public class StartActivity extends AppCompatActivity{
                 checkIfNew.setIsFirstTimeLaunch(false);
                 Intent intent = new Intent(StartActivity.this, MainTabActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }

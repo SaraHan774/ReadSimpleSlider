@@ -16,12 +16,14 @@
 
     <ImageView
         android:id="@+id/image_view_topics"
+        android:contentDescription="@string/topics_slider_img_desc"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:scaleType="centerCrop"
          />
 
     <View
+        android:contentDescription="@string/topics_slider_desc_null"
         android:id="@+id/scrim_gradient_topics"
         android:layout_width="match_parent"
         android:layout_height="200dp"
@@ -30,7 +32,8 @@
 
     <TextView
         android:id="@+id/tv_topics_name"
-        android:text="SAMPLE TEXT"
+        android:contentDescription="@string/topics_slider_tv_desc"
+        android:text="@string/sample_text_short"
         android:textSize="@dimen/text_size_small"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -41,6 +44,8 @@
 
         <ImageButton
             android:id="@+id/img_btn_topic_confirm"
+            android:contentDescription="@string/topics_slider_confirm_button"
+            android:focusable="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"

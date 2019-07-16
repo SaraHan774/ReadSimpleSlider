@@ -2,19 +2,15 @@ package com.gahee.rss_v1.mainTab;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.LightingColorFilter;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,8 +22,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.PagerAdapter;
@@ -36,7 +30,6 @@ import androidx.viewpager.widget.ViewPager;
 import com.gahee.rss_v1.CNN.model.Article;
 import com.gahee.rss_v1.R;
 import com.gahee.rss_v1.mainTab.pagerAdapters.MainFragmentPagerAdapter;
-import com.gahee.rss_v1.remoteDataSource.RepositoryRemote;
 import com.gahee.rss_v1.remoteDataSource.ViewModelRemote;
 import com.gahee.rss_v1.roomDatabase.TopicStrings;
 import com.gahee.rss_v1.roomDatabase.ViewModelRoom;
@@ -44,6 +37,8 @@ import com.gahee.rss_v1.searchResult.SearchResultActivity;
 import com.gahee.rss_v1.topicSelection.TopicSelectionActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -121,7 +116,7 @@ public class MainTabActivity extends AppCompatActivity
 
         //set user name in the header of the navigation drawer
         headerView = navigationView.getHeaderView(0);
-        userName = (TextView) headerView.findViewById(R.id.tv_nav_user_name);
+        userName = headerView.findViewById(R.id.tv_nav_user_name);
         userName.append(userNameString);
 
         //observing the topic string list from the database
@@ -216,17 +211,11 @@ public class MainTabActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+    public boolean onOptionsItemSelected(@NotNull MenuItem item) {
+         int id = item.getItemId();
+      if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

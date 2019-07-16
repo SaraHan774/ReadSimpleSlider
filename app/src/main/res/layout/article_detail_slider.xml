@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="600dp">
         <WebView
+            android:focusable="true"
             android:id="@+id/article_detail_web_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -20,6 +21,8 @@
 
     <com.wajahatkarim3.clapfab.ClapFAB
         android:id="@+id/clapFAB"
+        android:focusable="true"
+        android:contentDescription="@string/article_detail_like_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -39,6 +42,7 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/share_button"
+        android:contentDescription="@string/article_detail_share_desc"
         android:layout_below="@id/nested_scroll_view"
         android:layout_marginTop="33dp"
         android:layout_marginStart="132dp"
@@ -48,12 +52,13 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/open_in_web_button"
-        android:layout_toRightOf="@id/share_button"
+        android:contentDescription="@string/article_detail_browser_desc"
         android:layout_below="@id/nested_scroll_view"
         android:layout_marginTop="33dp"
         android:layout_marginStart="30dp"
         android:src="@drawable/ic_earth"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/share_button" />
 
 </RelativeLayout>

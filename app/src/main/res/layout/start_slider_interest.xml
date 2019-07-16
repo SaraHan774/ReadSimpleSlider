@@ -5,6 +5,7 @@
 
 
     <TextView
+        android:contentDescription="@string/slide_interest_desc_null"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/ask_interest"
@@ -14,6 +15,7 @@
         />
 
     <TextView
+        android:contentDescription="@string/slide_interest_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/find_topics"
@@ -23,6 +25,7 @@
 
     <FrameLayout
         android:id="@+id/topics_fragment_placeholder"
+        android:focusable="true"
         android:layout_margin="16dp"
         android:layout_gravity="center_horizontal"
         android:layout_width="match_parent"

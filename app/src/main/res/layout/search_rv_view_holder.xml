@@ -22,10 +22,12 @@
 
             <ImageView
                 android:id="@+id/search_result_image_view"
+                android:contentDescription="@string/search_image_desc"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
 
             <View
+                android:contentDescription="@string/search_view_desc"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/scrim_gradient_news"
@@ -34,6 +36,7 @@
 
             <TextView
                 android:id="@+id/search_result_article_title"
+                android:contentDescription="@string/search_result_title_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
@@ -47,6 +50,7 @@
 
             <TextView
                 android:id="@+id/search_result_article_desc"
+                android:contentDescription="@string/search_result_content_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@id/search_result_image_view"
@@ -54,7 +58,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
-                android:text="SAMPLE TEXT"
+                android:text="@string/sample_text_short"
                 android:textSize="@dimen/text_size_small"
                 android:textStyle="bold"
                 android:textColor="@color/colorWhite" />

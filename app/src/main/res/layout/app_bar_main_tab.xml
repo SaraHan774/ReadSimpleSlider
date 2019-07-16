@@ -19,6 +19,7 @@
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
+            android:focusable="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimary" />
@@ -28,6 +29,7 @@
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/main_news_view_pager"
+        android:focusable="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
