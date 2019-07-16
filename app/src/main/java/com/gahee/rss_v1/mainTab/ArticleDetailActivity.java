@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.app.Dialog;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,6 +31,7 @@ public class ArticleDetailActivity extends AppCompatActivity {
     private static final String TAG = "ArticleDetailActivity";
     private RepositoryRoom repositoryRoom = new RepositoryRoom(this);
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,12 +40,17 @@ public class ArticleDetailActivity extends AppCompatActivity {
         final ArrayList<Article> articles = getIntent().getParcelableArrayListExtra(ARTICLES);
         int adapterPosition = getIntent().getExtras().getInt(ADAPTER_POSITION);
 
+
         final ViewPager viewPager = findViewById(R.id.article_detail_view_pager);
-        final PagerAdapter pagerAdapter = new DetailPagerAdapter(this, articles, adapterPosition);
+        final PagerAdapter pagerAdapter = new DetailPagerAdapter(this, articles);
         viewPager.setAdapter(pagerAdapter);
         viewPager.setCurrentItem(adapterPosition);
 
+        //remove the default activity title
+        this.setTitle("");
+
     }
+
 
     @Override
     protected void onStart() {

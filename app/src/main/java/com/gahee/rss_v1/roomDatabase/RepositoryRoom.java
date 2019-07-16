@@ -66,6 +66,13 @@ public class RepositoryRoom {
         new UpdateCountAsync(daos, articleTopic).execute(count);
     }
 
+    public void deleteFromTopicStringsList(String topicString){
+        new DeleteFromTopicStringListAsync(daos).execute(topicString);
+    }
+
+
+
+    // AsyncTasks for database query
     public static class InsertAsync extends AsyncTask<NewsEntities, Void, Void>{
         private Daos daos;
 
@@ -174,6 +181,20 @@ public class RepositoryRoom {
         @Override
         protected Void doInBackground(Integer... integers) {
             daos.updateMyFavTable(integers[0], articleTitle);
+            return null;
+        }
+    }
+
+    public static class DeleteFromTopicStringListAsync extends AsyncTask<String, Void, Void>{
+        private Daos daos;
+
+        public DeleteFromTopicStringListAsync(Daos daos){
+            this.daos = daos;
+        }
+
+        @Override
+        protected Void doInBackground(String... strings) {
+            daos.deleteFromTopicStringList(strings[0]);
             return null;
         }
     }

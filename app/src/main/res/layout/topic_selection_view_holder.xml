@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:card_view="http://schemas.android.com/tools">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/topic_selection_card_view"
+        android:elevation="4dp"
+        android:layout_margin="16dp"
+        card_view:cardCornerRadius="30dp"
+        card_view:cardUseCompatPadding="true"
+        android:layout_width="200dp"
+        android:layout_height="200dp">
+
+        <ImageView
+            android:id="@+id/img_topic_selection"
+            android:scaleType="centerCrop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/tv_topic_selection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/colorHalfTransparent"
+            android:textColor="@color/colorWhite"
+            android:padding="8dp"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_size_small"
+            android:text="@string/sample_text_short"/>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

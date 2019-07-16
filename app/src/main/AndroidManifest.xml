@@ -15,9 +15,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".mainTab.ArticleDetailActivity"
-            android:theme="@style/NewsOverviewTheme">
+        <activity android:name=".topicSelection.TopicSelectionActivity">
         </activity>
+        <activity
+            android:name=".mainTab.ArticleDetailActivity"
+            android:theme="@style/NewsOverviewTheme"></activity>
         <activity android:name=".searchResult.SearchResultActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
@@ -45,7 +47,7 @@
         </activity>
         <activity
             android:name=".TestActivity"
-            android:theme="@style/NewsOverviewTheme"></activity>
+            android:theme="@style/NewsOverviewTheme" />
         <activity
             android:name=".startApp.StartActivity"
             android:theme="@style/AppTheme.NoActionBar" />

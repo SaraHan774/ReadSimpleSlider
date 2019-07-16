@@ -89,8 +89,7 @@ public class SliderPagerAdapter extends PagerAdapter {
         //set the thumbnail of the article
         ImageView imageView = view.findViewById(R.id.img_inner_slider);
         Glide.with(context).load(arrayList.get(position).getMedia())
-                .placeholder(R.drawable.android)
-                .centerCrop()
+                .placeholder(R.drawable.default_pic)
                 .into(imageView);
 
         container.addView(view);

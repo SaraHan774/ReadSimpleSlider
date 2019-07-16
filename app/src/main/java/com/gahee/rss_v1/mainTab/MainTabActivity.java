@@ -2,6 +2,7 @@ package com.gahee.rss_v1.mainTab;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.LightingColorFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import androidx.appcompat.widget.SearchView;
 import android.widget.TextView;
@@ -31,10 +33,12 @@ import androidx.viewpager.widget.ViewPager;
 import com.gahee.rss_v1.CNN.model.Article;
 import com.gahee.rss_v1.R;
 import com.gahee.rss_v1.mainTab.pagerAdapters.MainFragmentPagerAdapter;
+import com.gahee.rss_v1.remoteDataSource.RepositoryRemote;
 import com.gahee.rss_v1.remoteDataSource.ViewModelRemote;
 import com.gahee.rss_v1.roomDatabase.TopicStrings;
 import com.gahee.rss_v1.roomDatabase.ViewModelRoom;
 import com.gahee.rss_v1.searchResult.SearchResultActivity;
+import com.gahee.rss_v1.topicSelection.TopicSelectionActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
@@ -70,30 +74,20 @@ public class MainTabActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tab_and_navigate_activity);
 
+        Log.d(TAG, "on create () ");
         //connect adapter to the view pager
         viewPager = findViewById(R.id.main_news_view_pager);
         tabLayout = findViewById(R.id.tabs);
 
-        //observing the article data fetched from the remote data source
+        PagerAdapter adapter = new MainFragmentPagerAdapter(
+                getSupportFragmentManager(),
+                MainTabActivity.this
+        );
+
+        viewPager.setAdapter(adapter);
+        tabLayout.setupWithViewPager(viewPager);
+
         viewModelRemote = ViewModelProviders.of(this).get(ViewModelRemote.class);
-        viewModelRemote.getMutableLiveData().observe(this, new Observer<ArrayList<ArrayList<Article>>>() {
-            @Override
-            public void onChanged(ArrayList<ArrayList<Article>> arrayLists) {
-                Log.d(TAG, "on changed - arrrr arrrr " + arrayLists);
-                MainTabActivity.this.arrayLists = arrayLists;
-                //get the data from ViewModelRemote
-                PagerAdapter adapter = new MainFragmentPagerAdapter(
-                        getSupportFragmentManager(),
-                        MainTabActivity.this,
-                        arrayLists
-                );
-                adapter.notifyDataSetChanged();
-
-                viewPager.setAdapter(adapter);
-                tabLayout.setupWithViewPager(viewPager);
-            }
-        });
-
         viewModelRemote.getMutableLiveDataForSearch().observe(this, new Observer<ArrayList<Article>>() {
             @Override
             public void onChanged(ArrayList<Article> articles) {
@@ -134,7 +128,7 @@ public class MainTabActivity extends AppCompatActivity
                 MainTabActivity.this.topicStrings = topicStrings;
                 Log.d(TAG, "topic strings observed : " + topicStrings);
                 //adding menu on the fly
-                addMenuItemInNavDrawer();
+                addMenuItemInNavDrawer(topicStrings);
 
             }
         });
@@ -146,11 +140,13 @@ public class MainTabActivity extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart();
+        Log.d(TAG, "on start () ");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        Log.d(TAG, "on resume () ");
     }
 
 
@@ -165,8 +161,8 @@ public class MainTabActivity extends AppCompatActivity
         }
     }
 
+    //list to store search results
     private ArrayList<Article> searchResultList = new ArrayList<>();
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -233,12 +229,16 @@ public class MainTabActivity extends AppCompatActivity
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-
+        int item = menuItem.getItemId();
+        if(item == R.id.nav_tools) {
+            Intent intent = new Intent(this, TopicSelectionActivity.class);
+            startActivity(intent);
+        }
         return false;
-    } //deal with navigation using recycler view
+    }
 
     //generating menu items dynamically
-    private void addMenuItemInNavDrawer(){
+    private void addMenuItemInNavDrawer(List<TopicStrings> topicStrings){
         Menu menu = navigationView.getMenu();
         Menu subMenu = menu.addSubMenu("TOPICS");
 

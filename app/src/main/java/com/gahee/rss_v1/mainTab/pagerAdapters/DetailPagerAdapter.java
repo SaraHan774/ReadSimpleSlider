@@ -1,5 +1,6 @@
 package com.gahee.rss_v1.mainTab.pagerAdapters;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -37,7 +38,7 @@ public class DetailPagerAdapter extends PagerAdapter {
     private ArrayList<Article> articles;
     private RepositoryRoom repositoryRoom;
 
-    public DetailPagerAdapter(Context context, ArrayList<Article> articles, int adapterPosition){
+    public DetailPagerAdapter(Context context, ArrayList<Article> articles){
         this.context =context;
         this.articles = articles;
     }

@@ -39,6 +39,9 @@ public interface Daos {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertTopicString(TopicStrings topicStrings);
 
+    @Query("DELETE FROM topicStringsTable WHERE topicString = :topicString")
+    void deleteFromTopicStringList(String topicString);
+
     @Query("SELECT * FROM topicStringsTable")
     LiveData<List<TopicStrings>> loadTopicStrings();
 
