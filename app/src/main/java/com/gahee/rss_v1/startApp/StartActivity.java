@@ -93,6 +93,7 @@ public class StartActivity extends AppCompatActivity{
             }
         });
 
+        checkIfNew = new CheckIfNew(this);
     }
 
 
@@ -204,7 +205,6 @@ public class StartActivity extends AppCompatActivity{
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO : this seems very inefficient
                 button.setText(getResources().getString(R.string.ready));
                 if(RepositoryRemote.getInstance().getList() != null){
                     RepositoryRemote.getInstance().getList().clear();
@@ -212,12 +212,13 @@ public class StartActivity extends AppCompatActivity{
                 for(int i = 0; i < topicStrings.size(); i++){
                     RepositoryRemote.getInstance().requestDataAsync(topicStrings.get(i).getTopicString());
                 }
-//                            how to transit from start activity to main tab activity ?
                 try {
-                    Thread.sleep(1500);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                //set first time launch to false only if the user selected any topics
+                checkIfNew.setIsFirstTimeLaunch(false);
                 Intent intent = new Intent(StartActivity.this, MainTabActivity.class);
                 startActivity(intent);
             }

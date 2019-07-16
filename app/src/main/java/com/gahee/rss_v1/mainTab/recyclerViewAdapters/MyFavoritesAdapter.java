@@ -42,7 +42,7 @@ public class MyFavoritesAdapter extends RecyclerView.Adapter<MyFavoritesAdapter.
 
         holder.articleTitle.setText(favEntities.get(position).getArticleTitle());
 
-        holder.articleTitle.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -59,6 +59,7 @@ public class MyFavoritesAdapter extends RecyclerView.Adapter<MyFavoritesAdapter.
                 .centerCrop()
                 .placeholder(R.drawable.android)
                 .into(holder.articlePhoto);
+
     }
 
     @Override
