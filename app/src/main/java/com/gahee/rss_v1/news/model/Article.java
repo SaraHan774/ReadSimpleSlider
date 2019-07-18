@@ -28,49 +28,26 @@ public class Article implements Parcelable {
         return topicTitle;
     }
 
-    public void setTopicTitle(String topicTitle) {
-        this.topicTitle = topicTitle;
-    }
-
     public String getArticleTitle() {
         return articleTitle;
-    }
-
-    public void setArticleTitle(String articleTitle) {
-        this.articleTitle = articleTitle;
     }
 
     public String getArticleLink() {
         return articleLink;
     }
 
-    public void setArticleLink(String articleLink) {
-        this.articleLink = articleLink;
-    }
-
     public String getPubDate() {
         return pubDate;
-    }
-
-    public void setPubDate(String pubDate) {
-        this.pubDate = pubDate;
     }
 
     public String getMedia() {
         return media;
     }
 
-    public void setMedia(String media) {
-        this.media = media;
-    }
-
     public String getArticleDescription() {
         return articleDescription;
     }
 
-    public void setArticleDescription(String articleDescription) {
-        this.articleDescription = articleDescription;
-    }
 
     @Override
     public int describeContents() {

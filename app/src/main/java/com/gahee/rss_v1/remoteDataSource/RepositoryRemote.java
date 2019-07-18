@@ -11,16 +11,10 @@ import com.gahee.rss_v1.remoteDataSource.requests.FetchArticles;
 import com.gahee.rss_v1.remoteDataSource.requests.StoreData;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 
 public class RepositoryRemote {
-
-    private MutableLiveData<List<ArrayList<Article>>> listMutableLiveData = new MutableLiveData<>();
-    private List<ArrayList<Article>> list = new ArrayList<>();
-    private ArrayList<Article> articleArrayList = new ArrayList<>();
-    private static final FetchArticles fetchArticles = new FetchArticles();
 
     private static final String TAG = "RepositoryRemote";
 

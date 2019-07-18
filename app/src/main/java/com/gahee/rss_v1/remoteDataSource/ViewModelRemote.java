@@ -11,9 +11,6 @@ import java.util.List;
 public class ViewModelRemote extends ViewModel {
 
     private final RepositoryRemote repositoryRemote;
-    private MutableLiveData<List<ArrayList<Article>>> mutableLiveData = new MutableLiveData<>();
-    private ArrayList<Article> articles = new ArrayList<>();
-    private ArrayList<ArrayList<Article>> list = new ArrayList<>();
 
     public ViewModelRemote(){
         repositoryRemote = RepositoryRemote.getInstance();
