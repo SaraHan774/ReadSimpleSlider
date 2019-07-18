@@ -20,7 +20,7 @@ public class RepositoryRemote {
     private MutableLiveData<List<ArrayList<Article>>> listMutableLiveData = new MutableLiveData<>();
     private List<ArrayList<Article>> list = new ArrayList<>();
     private ArrayList<Article> articleArrayList = new ArrayList<>();
-    private static FetchArticles fetchArticles = new FetchArticles();
+    private static final FetchArticles fetchArticles = new FetchArticles();
 
     private static final String TAG = "RepositoryRemote";
 
@@ -57,7 +57,7 @@ public class RepositoryRemote {
         protected Void doInBackground(String... strings) {
             Log.d(TAG, "fetch data async running ... / strings[0] : " + strings[0]);
             Call<Rss> call = FetchArticles.decideWhatToCall(strings[0]);
-            fetchArticles.fetchArticleBasedOnUserSelection(call);
+            FetchArticles.fetchArticleBasedOnUserSelection(call);
             return null;
         }
     }

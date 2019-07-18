@@ -5,17 +5,15 @@ import android.content.SharedPreferences;
 
 public class CheckIfNew {
 
-    private SharedPreferences preferences;
-    private SharedPreferences.Editor editor;
-    private Context context;
-
-    private int PRIVATE_MODE = 0;
+    private final SharedPreferences preferences;
+    private final SharedPreferences.Editor editor;
 
     private static final String PREF_NAME = "welcome";
     private static final String IS_FIRST_TIME_LAUNCH = "isFirstTimeLaunch";
 
     public CheckIfNew(Context context){
-        this.context = context;
+        Context context1 = context;
+        int PRIVATE_MODE = 0;
         preferences = context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
         editor = preferences.edit();
     }

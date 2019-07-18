@@ -20,11 +20,10 @@ import com.gahee.rss_v1.roomDatabase.TopicStrings;
 public class TopicsSliderAdapter extends PagerAdapter {
 
 
-    private LayoutInflater layoutInflater;
-    private Context context;
-    private String [] topics;
-    private int [] photos;
-    private RepositoryRoom repositoryRoom;
+    private final Context context;
+    private final String [] topics;
+    private final int [] photos;
+    private final RepositoryRoom repositoryRoom;
 
     public TopicsSliderAdapter(String [] topics, int [] photos, Context context){
         this.topics = topics;
@@ -47,7 +46,7 @@ public class TopicsSliderAdapter extends PagerAdapter {
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, final int position) {
-        layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.topics_slider, container, false);
 
         TextView textView = view.findViewById(R.id.tv_topics_name);

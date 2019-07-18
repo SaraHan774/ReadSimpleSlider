@@ -25,8 +25,8 @@ public class MyNewsAdapter extends RecyclerView.Adapter<MyNewsAdapter.MyNewsView
 //this rv adapter will be set to fragment_main_news.xml
     private static final String TAG = "MyNewsAdapter";
 
-    private Context context;
-    private List<ArrayList<Article>> arrayLists;
+    private final Context context;
+    private final List<ArrayList<Article>> arrayLists;
     //fetch necessary data from the news page
 
     public MyNewsAdapter(Context context, List<ArrayList<Article>> arrayLists){
@@ -35,12 +35,10 @@ public class MyNewsAdapter extends RecyclerView.Adapter<MyNewsAdapter.MyNewsView
         this.arrayLists = arrayLists;
     }
 
-    private View newsView;
-
     @NonNull
     @Override
     public MyNewsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        newsView = LayoutInflater.from(context).inflate(R.layout.main_rv_view_holder, parent, false);
+        View newsView = LayoutInflater.from(context).inflate(R.layout.main_rv_view_holder, parent, false);
         Log.d(TAG, "view group : " + parent);
         return new MyNewsViewHolder(newsView);
     }
@@ -78,8 +76,8 @@ public class MyNewsAdapter extends RecyclerView.Adapter<MyNewsAdapter.MyNewsView
     }
 
     public class MyNewsViewHolder extends RecyclerView.ViewHolder{
-        private TextView topicTitle;
-        private ViewPager viewPager;
+        private final TextView topicTitle;
+        private final ViewPager viewPager;
 
         public MyNewsViewHolder(@NonNull View itemView) {
             super(itemView);

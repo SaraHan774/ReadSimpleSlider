@@ -25,9 +25,8 @@ import static com.gahee.rss_v1.helpers.Constants.ARTICLES;
 public class SliderPagerAdapter extends PagerAdapter {
 
 
-    private LayoutInflater layoutInflater;
-    private Context context;
-    private ArrayList<Article> arrayList;
+    private final Context context;
+    private final ArrayList<Article> arrayList;
 
 
     public SliderPagerAdapter(Context context, ArrayList<Article> arrayLists){
@@ -50,7 +49,7 @@ public class SliderPagerAdapter extends PagerAdapter {
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, final int position) {
-        layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = null;
         if (layoutInflater != null) {
             view = layoutInflater.inflate(R.layout.main_news_slider, container, false);

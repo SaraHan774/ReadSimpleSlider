@@ -21,7 +21,6 @@ public class SplashActivity extends AppCompatActivity {
 
     private static final String TAG = "SplashActivity";
 
-    private ViewModelRoom viewModelRoom;
     private List<TopicStrings> topicStrings = new ArrayList<>();
 
 
@@ -31,7 +30,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        viewModelRoom = ViewModelProviders.of(this).get(ViewModelRoom.class);
+        ViewModelRoom viewModelRoom = ViewModelProviders.of(this).get(ViewModelRoom.class);
 
         CheckIfNew checkIfNew = new CheckIfNew(this);
         boolean isFirstTimeLaunch = checkIfNew.getIsFirstTimeLaunch();

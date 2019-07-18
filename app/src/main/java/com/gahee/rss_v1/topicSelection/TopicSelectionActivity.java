@@ -1,6 +1,5 @@
 package com.gahee.rss_v1.topicSelection;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -16,7 +15,6 @@ import com.gahee.rss_v1.mainTab.MainTabActivity;
 import com.gahee.rss_v1.remoteDataSource.RepositoryRemote;
 import com.gahee.rss_v1.roomDatabase.TopicStrings;
 import com.gahee.rss_v1.roomDatabase.ViewModelRoom;
-import com.gahee.rss_v1.startApp.StartActivity;
 
 import java.util.List;
 
@@ -26,7 +24,6 @@ public class TopicSelectionActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private TopicSelectionAdapter topicSelectionAdapter;
-    private ViewModelRoom viewModelRoom;
     private List<TopicStrings> topicStrings;
 
     @Override
@@ -41,7 +38,7 @@ public class TopicSelectionActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
 
         //view model from the database which observes strings of selected topics
-        viewModelRoom = ViewModelProviders.of(this).get(ViewModelRoom.class);
+        ViewModelRoom viewModelRoom = ViewModelProviders.of(this).get(ViewModelRoom.class);
         viewModelRoom.getTopicStrings().observe(this, new Observer<List<TopicStrings>>() {
             @Override
             public void onChanged(List<TopicStrings> topicStrings) {

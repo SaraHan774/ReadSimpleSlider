@@ -14,22 +14,22 @@ public class NewsEntities {
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "topic")
-    public String topic;
+    public final String topic;
 
     @ColumnInfo(name = "articleTitle")
-    public String articleTitle;
+    public final String articleTitle;
 
     @ColumnInfo(name = "articleLink")
-    public String articleLink;
+    public final String articleLink;
 
     @ColumnInfo(name = "thumbnail")
-    public String thumbnail;
+    public final String thumbnail;
 
     @ColumnInfo(name = "pubDate")
-    public String pubDate;
+    public final String pubDate;
 
     @ColumnInfo(name = "articleDescription")
-    public String articleDescription;
+    public final String articleDescription;
 
     public NewsEntities(@NonNull String topic, String articleTitle, String articleLink, String thumbnail, String pubDate, String articleDescription) {
         this.topic = topic;

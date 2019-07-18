@@ -21,8 +21,8 @@ import java.util.ArrayList;
 public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapter.SearchViewHolder> {
 
 
-    private Context context;
-    private ArrayList<Article> searchResultsList;
+    private final Context context;
+    private final ArrayList<Article> searchResultsList;
 
     public SearchResultAdapter(Context context, ArrayList<Article> searchResultsList){
         this.context = context;
@@ -72,7 +72,9 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
         String url = searchResultsList.get(position).getArticleLink();
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(Uri.parse(url));
-        context.startActivity(intent);
+        if(intent.resolveActivity(context.getPackageManager()) != null){
+            context.startActivity(intent);
+        }
     }
 
     @Override
@@ -82,9 +84,9 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
 
     public class SearchViewHolder extends RecyclerView.ViewHolder{
 
-        TextView articleTitle;
-        TextView articleDescription;
-        ImageView articlePhoto;
+        final TextView articleTitle;
+        final TextView articleDescription;
+        final ImageView articlePhoto;
 
         public SearchViewHolder(@NonNull View itemView) {
             super(itemView);

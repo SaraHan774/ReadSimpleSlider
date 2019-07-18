@@ -17,6 +17,7 @@
 
     <TextView
         android:id="@+id/tv_type_name"
+        android:labelFor="@id/et_type_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -29,7 +30,6 @@
         android:id="@+id/et_type_name"
         android:contentDescription="@string/slide_name_et_desc"
         android:autofillHints="@string/ask_name"
-        android:labelFor="@id/tv_type_name"
         android:focusable="true"
         android:layout_width="320dp"
         android:layout_height="wrap_content"

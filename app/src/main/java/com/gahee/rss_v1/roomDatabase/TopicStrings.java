@@ -11,7 +11,7 @@ public class TopicStrings {
     @ColumnInfo
     @PrimaryKey
     @NonNull
-    public String topicString;
+    public final String topicString;
 
     public TopicStrings(@NonNull String topicString) {
         this.topicString = topicString;

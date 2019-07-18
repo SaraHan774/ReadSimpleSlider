@@ -1,7 +1,6 @@
 package com.gahee.rss_v1.topicSelection;
 
 import android.content.Context;
-import android.opengl.GLDebugHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,23 +18,21 @@ import com.gahee.rss_v1.helpers.PhotoUtils;
 import com.gahee.rss_v1.roomDatabase.RepositoryRoom;
 import com.gahee.rss_v1.roomDatabase.TopicStrings;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TopicSelectionAdapter extends RecyclerView.Adapter<TopicSelectionAdapter.TopicSelectionViewHolder>{
 
     private static final String TAG = "TopicSelectionAdapter";
-    private Context context;
-    private List<TopicStrings> topicStringsList;
-    private PhotoUtils photoUtils;
-    private String [] topics;
-    private int [] photos;
-    private RepositoryRoom repositoryRoom;
+    private final Context context;
+    private final List<TopicStrings> topicStringsList;
+    private final String [] topics;
+    private final int [] photos;
+    private final RepositoryRoom repositoryRoom;
 
     public TopicSelectionAdapter(Context context, List<TopicStrings> topicStringsList) {
         this.context = context;
         this.topicStringsList = topicStringsList;
-        photoUtils = new PhotoUtils();
+        PhotoUtils photoUtils = new PhotoUtils();
         topics = photoUtils.getTopicsOfPhotos();
         photos = photoUtils.getPhotos();
         repositoryRoom = new RepositoryRoom(this.context);
@@ -86,8 +83,8 @@ public class TopicSelectionAdapter extends RecyclerView.Adapter<TopicSelectionAd
 
     public static class TopicSelectionViewHolder extends RecyclerView.ViewHolder{
 
-        ImageView imageView; //implement touch selector - 이미 선택된 토픽들은 약간 투명한 검정색으로 뜨도록
-        TextView textView;
+        final ImageView imageView; //implement touch selector - 이미 선택된 토픽들은 약간 투명한 검정색으로 뜨도록
+        final TextView textView;
 
         public TopicSelectionViewHolder(@NonNull View itemView) {
             super(itemView);

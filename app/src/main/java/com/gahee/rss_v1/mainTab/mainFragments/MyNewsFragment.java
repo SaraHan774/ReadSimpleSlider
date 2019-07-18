@@ -27,7 +27,6 @@ public class MyNewsFragment extends Fragment {
 
     private static final String TAG = MyNewsFragment.class.getSimpleName();
     private RecyclerView myNewsRecyclerView;
-    private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter adapter;
     private List<ArrayList<Article>> arrayLists = new ArrayList<>();
     private ArrayList<String> articleTopics = new ArrayList<>();
@@ -47,8 +46,7 @@ public class MyNewsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //defines the xml file for the fragment
-        View view = inflater.inflate(R.layout.fragment_main_news, container, false);
-        return view;
+        return inflater.inflate(R.layout.fragment_main_news, container, false);
     }
 
 
@@ -72,7 +70,7 @@ public class MyNewsFragment extends Fragment {
 
     private void setUpRecyclerView(View view){
         myNewsRecyclerView = view.findViewById(R.id.main_news_recycler_view);
-        layoutManager = new LinearLayoutManager(getActivity());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         myNewsRecyclerView.setLayoutManager(layoutManager);
         myNewsRecyclerView.setHasFixedSize(true);
     }

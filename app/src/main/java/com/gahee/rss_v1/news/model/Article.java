@@ -89,7 +89,7 @@ public class Article implements Parcelable {
 
     }
 
-    protected Article(Parcel in) {
+    private Article(Parcel in) {
 
         topicTitle = in.readString();
         articleTitle = in.readString();

@@ -1,5 +1,6 @@
 package com.gahee.rss_v1.roomDatabase;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -11,7 +12,6 @@ import com.gahee.rss_v1.widget.NewsWidget;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutionException;
 
 import static com.gahee.rss_v1.helpers.Constants.UPDATE_WIDGET_INFO;
@@ -19,9 +19,9 @@ import static com.gahee.rss_v1.helpers.Constants.UPDATE_WIDGET_INFO;
 public class RepositoryRoom {
 
     private static final String TAG = RepositoryRoom.class.getSimpleName();
-    private Daos daos;
-    private LiveData<List<FavEntities>> favoriteNews;
-    private LiveData<List<TopicStrings>> topicStrings;
+    private final Daos daos;
+    private final LiveData<List<FavEntities>> favoriteNews;
+    private final LiveData<List<TopicStrings>> topicStrings;
     private static FavEntities favEntities;
     private static NewsEntities newsEntities;
 
@@ -95,7 +95,7 @@ public class RepositoryRoom {
 
     // AsyncTasks for database query
     public static class InsertAsync extends AsyncTask<NewsEntities, Void, Void>{
-        private Daos daos;
+        private final Daos daos;
 
         InsertAsync(Daos daos){
             this.daos = daos;
@@ -109,7 +109,7 @@ public class RepositoryRoom {
     }
 
     public static class DeleteByTopicAsync extends AsyncTask<String, Void, Void>{
-        private Daos daos;
+        private final Daos daos;
 
         DeleteByTopicAsync(Daos daos){
             this.daos =daos;
@@ -123,8 +123,9 @@ public class RepositoryRoom {
     }
 
     public static class InsertMyFavAsync extends AsyncTask<FavEntities, Void, Void>{
-        private Daos daos;
-        private Context context;
+        private final Daos daos;
+        @SuppressLint("StaticFieldLeak")
+        private final Context context;
 
         InsertMyFavAsync(Daos daos, Context context){
             this.daos = daos;
@@ -147,7 +148,7 @@ public class RepositoryRoom {
     }
 
     public static class DeleteByArticleTitleAsync extends AsyncTask<String, Void, Void>{
-        private Daos daos;
+        private final Daos daos;
 
         DeleteByArticleTitleAsync(Daos daos){
             this.daos = daos;
@@ -161,7 +162,7 @@ public class RepositoryRoom {
     }
 
     public static class LoadAsync extends AsyncTask<String, Void, List<NewsEntities>>{
-        private Daos daos;
+        private final Daos daos;
 
         LoadAsync(Daos daos){
             this.daos = daos;
@@ -174,7 +175,7 @@ public class RepositoryRoom {
     }
 
     public static class InsertTopicStringAsync extends AsyncTask<TopicStrings, Void, Void>{
-        private Daos daos;
+        private final Daos daos;
 
         public InsertTopicStringAsync(Daos daos){
             this.daos = daos;
@@ -188,7 +189,7 @@ public class RepositoryRoom {
     }
 
     public static class LoadTopicStringsAsync extends AsyncTask<Void, Void, LiveData<List<TopicStrings>>>{
-        private Daos daos;
+        private final Daos daos;
 
         public LoadTopicStringsAsync(Daos daos){
             this.daos = daos;
@@ -201,8 +202,8 @@ public class RepositoryRoom {
 
 
     public static class UpdateCountAsync extends AsyncTask<Integer, Void, Void>{
-        private Daos daos;
-        private String articleTitle;
+        private final Daos daos;
+        private final String articleTitle;
 
         public UpdateCountAsync(Daos daos, String articleTopic) {
             this.daos = daos;
@@ -217,7 +218,7 @@ public class RepositoryRoom {
     }
 
     public static class DeleteFromTopicStringListAsync extends AsyncTask<String, Void, Void>{
-        private Daos daos;
+        private final Daos daos;
 
         public DeleteFromTopicStringListAsync(Daos daos){
             this.daos = daos;
@@ -231,7 +232,7 @@ public class RepositoryRoom {
     }
 
     public static class FetchMyFavoritesAsync extends AsyncTask<Void, Void, List<FavEntities>>{
-        private Daos daos;
+        private final Daos daos;
 
         public FetchMyFavoritesAsync(Daos daos){
             this.daos = daos;

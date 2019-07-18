@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ViewModelRemote extends ViewModel {
 
-    private RepositoryRemote repositoryRemote;
+    private final RepositoryRemote repositoryRemote;
     private MutableLiveData<List<ArrayList<Article>>> mutableLiveData = new MutableLiveData<>();
     private ArrayList<Article> articles = new ArrayList<>();
     private ArrayList<ArrayList<Article>> list = new ArrayList<>();

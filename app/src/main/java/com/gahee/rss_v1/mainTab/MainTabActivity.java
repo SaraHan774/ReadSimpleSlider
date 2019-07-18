@@ -42,13 +42,10 @@ import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -64,19 +61,13 @@ public class MainTabActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
 
     private static final String TAG = MainTabActivity.class.getSimpleName();
-    private ViewPager viewPager;
-    private TabLayout tabLayout;
     private ArrayList<ArrayList<Article>> arrayLists = new ArrayList<>();
     private ArrayList<Article> auxiliaryListForSearch = new ArrayList<>();
-    private TextView userName;
     private NavigationView navigationView;
-    private ViewModelRoom viewModelRoom;
-    private ViewModelRemote viewModelRemote;
     private List<TopicStrings> topicStrings;
     private ImageView profilePhoto;
     private View headerView;
     private Uri userPhoto;
-    private AdView mAdView;
 
 
     @Override
@@ -94,18 +85,17 @@ public class MainTabActivity extends AppCompatActivity
 
         Log.d(TAG, "on create () ");
         //connect adapter to the view pager
-        viewPager = findViewById(R.id.main_news_view_pager);
-        tabLayout = findViewById(R.id.tabs);
+        ViewPager viewPager = findViewById(R.id.main_news_view_pager);
+        TabLayout tabLayout = findViewById(R.id.tabs);
 
         PagerAdapter adapter = new MainFragmentPagerAdapter(
-                getSupportFragmentManager(),
-                MainTabActivity.this
+                getSupportFragmentManager()
         );
 
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
 
-        viewModelRemote = ViewModelProviders.of(this).get(ViewModelRemote.class);
+        ViewModelRemote viewModelRemote = ViewModelProviders.of(this).get(ViewModelRemote.class);
         viewModelRemote.getMutableLiveDataForSearch().observe(this, new Observer<ArrayList<Article>>() {
             @Override
             public void onChanged(ArrayList<Article> articles) {
@@ -134,11 +124,11 @@ public class MainTabActivity extends AppCompatActivity
 
         //set user name in the header of the navigation drawer
         headerView = navigationView.getHeaderView(0);
-        userName = headerView.findViewById(R.id.tv_nav_user_name);
+        TextView userName = headerView.findViewById(R.id.tv_nav_user_name);
         userName.append(userNameString);
 
         //observing the topic string list from the database
-        viewModelRoom = ViewModelProviders.of(this).get(ViewModelRoom.class);
+        ViewModelRoom viewModelRoom = ViewModelProviders.of(this).get(ViewModelRoom.class);
         viewModelRoom.getTopicStrings().observe(this, new Observer<List<TopicStrings>>() {
             @Override
             public void onChanged(List<TopicStrings> topicStrings) {
@@ -153,7 +143,7 @@ public class MainTabActivity extends AppCompatActivity
         enableProfilePhotoUpdate();
 
         //setting up ad view
-        mAdView = findViewById(R.id.adView);
+        AdView mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
     }
@@ -184,7 +174,7 @@ public class MainTabActivity extends AppCompatActivity
     }
 
     //list to store search results
-    private ArrayList<Article> searchResultList = new ArrayList<>();
+    private final ArrayList<Article> searchResultList = new ArrayList<>();
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -13,14 +13,13 @@ import java.util.List;
 public class ViewModelRoom extends AndroidViewModel {
 
     private static final String TAG = ViewModelRoom.class.getSimpleName();
-    private RepositoryRoom repositoryRoom;
-    private LiveData<List<FavEntities>> favoriteNews;
+    private final RepositoryRoom repositoryRoom;
 
     public ViewModelRoom(@NonNull Application application) {
         super(application);
         Log.d(TAG, "view model constructor running");
         repositoryRoom = new RepositoryRoom(application);
-        favoriteNews = repositoryRoom.getMyFavoriteNews();
+        LiveData<List<FavEntities>> favoriteNews = repositoryRoom.getMyFavoriteNews();
     }
 
     public LiveData<List<FavEntities>> getFavoriteNews(){

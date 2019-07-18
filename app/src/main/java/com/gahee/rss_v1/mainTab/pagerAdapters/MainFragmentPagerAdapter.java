@@ -16,14 +16,11 @@ import com.gahee.rss_v1.mainTab.mainFragments.MyNewsFragment;
 
 public class MainFragmentPagerAdapter extends FragmentPagerAdapter {
     private static final String TAG = MainFragmentPagerAdapter.class.getSimpleName();
-    private final int PAGE_NUM = 2;
-    private Context context;
-    private String[] tabTitles = {"News", "Favorites"};
-    private Fragment [] fragments = {new MyNewsFragment(), new MyFavoritesFragment()};
+    private final String[] tabTitles = {"News", "Favorites"};
+    private final Fragment [] fragments = {new MyNewsFragment(), new MyFavoritesFragment()};
 
-    public MainFragmentPagerAdapter(FragmentManager fm, Context context) {
+    public MainFragmentPagerAdapter(FragmentManager fm) {
         super(fm);
-        this.context = context;
     }
 
     @NonNull
@@ -51,7 +48,7 @@ public class MainFragmentPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return PAGE_NUM;
+        return 2;
     }
 
     @Nullable

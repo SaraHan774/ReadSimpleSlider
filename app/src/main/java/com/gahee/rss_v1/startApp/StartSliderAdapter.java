@@ -1,7 +1,6 @@
 package com.gahee.rss_v1.startApp;
 
 import android.content.Context;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +10,9 @@ import androidx.viewpager.widget.PagerAdapter;
 
 public class StartSliderAdapter extends PagerAdapter {
 
-    Context context;
+    final Context context;
     LayoutInflater layoutInflater;
-    int [] startSliderLayouts;
+    final int [] startSliderLayouts;
 
 
     public StartSliderAdapter(Context context, int[] layouts) {

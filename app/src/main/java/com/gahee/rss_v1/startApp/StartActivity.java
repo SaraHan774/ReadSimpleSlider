@@ -41,7 +41,6 @@ public class StartActivity extends AppCompatActivity{
 
     private ViewPager viewPager;
     private LinearLayout linearLayout;
-    private TextView[] dots;
     private int[] startSliderLayouts;
     private CheckIfNew checkIfNew;
 
@@ -51,7 +50,6 @@ public class StartActivity extends AppCompatActivity{
 
     //fetching this list from the database
     private List<TopicStrings> topicStrings = new ArrayList<>();
-    private ViewModelRoom viewModelRoom;
 
     //first page views
     EditText editText;
@@ -83,7 +81,7 @@ public class StartActivity extends AppCompatActivity{
         topics = photoUtils.getTopicsOfPhotos();
         photos = photoUtils.getPhotos();
 
-        viewModelRoom = ViewModelProviders.of(this).get(ViewModelRoom.class);
+        ViewModelRoom viewModelRoom = ViewModelProviders.of(this).get(ViewModelRoom.class);
         viewModelRoom.getTopicStrings().observe(this, new Observer<List<TopicStrings>>() {
             @Override
             public void onChanged(List<TopicStrings> topicStrings) {
@@ -97,7 +95,7 @@ public class StartActivity extends AppCompatActivity{
 
 
 
-    ViewPager.OnPageChangeListener listener = new ViewPager.OnPageChangeListener() {
+    final ViewPager.OnPageChangeListener listener = new ViewPager.OnPageChangeListener() {
 
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -131,13 +129,13 @@ public class StartActivity extends AppCompatActivity{
     * adds dots to the bottom of the sliding page, if page >= 1
     * */
     private void addSliderDots(int currentPage){
-        dots = new TextView[startSliderLayouts.length -1];
+        TextView[] dots = new TextView[startSliderLayouts.length - 1];
         int activeColor = getResources().getColor(R.color.colorBlack);
         int inactiveColor = getResources().getColor(R.color.colorLightGrey);
 
         //clearing all dots
         linearLayout.removeAllViews();
-        for(int i =0; i < dots.length; i++){
+        for(int i = 0; i < dots.length; i++){
             dots[i] = new TextView(this);
             dots[i].setText(Html.fromHtml(getString(R.string.slider_dots_code)));
             dots[i].setTextSize(32);

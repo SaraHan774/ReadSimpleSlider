@@ -2,11 +2,9 @@ package com.gahee.rss_v1.helpers;
 
 import com.gahee.rss_v1.R;
 
-import java.util.Arrays;
-
 public class PhotoUtils{
 
-    private String [] Topics
+    private final String [] Topics
             = {
             "Top Stories", "World", "Africa", "Americas", "Asia",
             "Europe", "Middle East", "U.S.", "Money", "Technology",
@@ -14,7 +12,7 @@ public class PhotoUtils{
             "Golf", "Motorsport", "Tennis", "Travel", "Most Recent"
     };
 
-    private int [] Photos = {
+    private final int [] Photos = {
             R.drawable.top_stories, R.drawable.world, R.drawable.africa,
             R.drawable.americas, R.drawable.asia, R.drawable.europe, R.drawable.middle_east,
             R.drawable.us, R.drawable.money, R.drawable.technology, R.drawable.science,

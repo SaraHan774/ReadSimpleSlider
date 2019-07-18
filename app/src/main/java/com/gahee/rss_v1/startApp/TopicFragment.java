@@ -1,7 +1,6 @@
 package com.gahee.rss_v1.startApp;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,7 +16,7 @@ import android.widget.ImageView;
 
 import com.gahee.rss_v1.R;
 
-import java.util.ArrayList;
+import org.jetbrains.annotations.NotNull;
 
 
 public class TopicFragment extends Fragment{
@@ -98,7 +97,7 @@ public class TopicFragment extends Fragment{
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_topic, container, false);

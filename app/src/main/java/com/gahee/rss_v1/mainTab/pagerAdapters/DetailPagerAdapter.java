@@ -27,9 +27,8 @@ public class DetailPagerAdapter extends PagerAdapter {
 
     private static final String TAG = "DetailPagerAdapter";
 
-    private LayoutInflater layoutInflater;
-    private Context context;
-    private ArrayList<Article> articles;
+    private final Context context;
+    private final ArrayList<Article> articles;
     private RepositoryRoom repositoryRoom;
     private FirebaseAnalytics mFirebaseAnalytics;
 
@@ -54,7 +53,7 @@ public class DetailPagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, final int position) {
         Log.d(TAG, "instantiateItem");
-        layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = null;
         if (layoutInflater != null) {
             view = layoutInflater.inflate(R.layout.article_detail_slider, container, false);

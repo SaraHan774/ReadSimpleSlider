@@ -10,24 +10,24 @@ public class FavEntities {
 
 
     @ColumnInfo(name = "count")
-    public int count;
+    public final int count;
 
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "articleTitle")
-    private String articleTitle;
+    private final String articleTitle;
 
     @ColumnInfo(name = "articleLink")
-    public String articleLink;
+    public final String articleLink;
 
     @ColumnInfo(name = "thumbnail")
-    public String thumbnail;
+    public final String thumbnail;
 
     @ColumnInfo(name = "pubDate")
-    public String pubDate;
+    public final String pubDate;
 
     @ColumnInfo(name = "articleDescription")
-    public String articleDescription;
+    public final String articleDescription;
 
     public FavEntities(@NonNull int count, String articleTitle, String articleLink, String thumbnail, String pubDate, String articleDescription) {
         this.count = count;

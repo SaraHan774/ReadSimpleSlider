@@ -18,9 +18,9 @@ import static com.gahee.rss_v1.helpers.Constants.*;
 public class FetchArticles {
 
     private static final String TAG = FetchArticles.class.getSimpleName();
-    private static StoreData storeData = StoreData.getInstance();
+    private static final StoreData storeData = StoreData.getInstance();
 
-    private static String []  Topics
+    private static final String []  Topics
             = {
             "Top Stories", "World", "Africa", "Americas", "Asia",
             "Europe", "Middle East", "U.S.", "Money", "Technology",

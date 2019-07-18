@@ -21,8 +21,8 @@ import java.util.List;
 public class MyFavoritesAdapter extends RecyclerView.Adapter<MyFavoritesAdapter.MyFavoritesViewHolder> {
     //this rv adapter will be set to fragment_my_favorites.xml
 
-    private Context context;
-    private List<FavEntities> favEntities;
+    private final Context context;
+    private final List<FavEntities> favEntities;
     //get the data from the database
 
     public MyFavoritesAdapter(Context context, List<FavEntities> favEntities){
@@ -68,11 +68,11 @@ public class MyFavoritesAdapter extends RecyclerView.Adapter<MyFavoritesAdapter.
     }
 
     public class MyFavoritesViewHolder extends RecyclerView.ViewHolder{
-        TextView articleTitle;
-        TextView articleDesc;
-        TextView starCountNumber;
-        ImageView star;
-        ImageView articlePhoto;
+        final TextView articleTitle;
+        final TextView articleDesc;
+        final TextView starCountNumber;
+        final ImageView star;
+        final ImageView articlePhoto;
 
 
         public MyFavoritesViewHolder(@NonNull View itemView) {

@@ -18,9 +18,8 @@ public class StoreData {
 
     private static final String TAG = "StoreData";
 
-    private MutableLiveData<ArrayList<ArrayList<Article>>> listMutableLiveData = new MutableLiveData<>();
-    private ArrayList<ArrayList<Article>> listOfArticlesSortedByTopics = new ArrayList<>();
-    private Article articles;
+    private final MutableLiveData<ArrayList<ArrayList<Article>>> listMutableLiveData = new MutableLiveData<>();
+    private final ArrayList<ArrayList<Article>> listOfArticlesSortedByTopics = new ArrayList<>();
 
     private static StoreData instance;
 
@@ -46,6 +45,7 @@ public class StoreData {
             articleArrayList.clear();
         }
 
+        assert response.body() != null;
         for(int i = 0; i< response.body().getChannel().getItem().size(); i++){
             Item item = response.body().getChannel().getItem().get(i);
             topicTitle = response.body().getChannel().getTitle();
@@ -76,7 +76,7 @@ public class StoreData {
 //                        + "media: " + media + "\n"
 //                        + "articles description  : " + cleanArticleDescription + "\n\n");
             }
-            articles = new Article(topicTitle, articleTitle, articleLink, pubDate, media, cleanArticleDescription);
+            Article articles = new Article(topicTitle, articleTitle, articleLink, pubDate, media, cleanArticleDescription);
             articleArrayList.add(articles);
             auxiliaryListForSearch.add(articles);
         }
@@ -101,8 +101,8 @@ public class StoreData {
 
 
     //these are made for search.
-    private MutableLiveData<ArrayList<Article>> listForSearch = new MutableLiveData<>();
-    private ArrayList<Article> auxiliaryListForSearch = new ArrayList<>();
+    private final MutableLiveData<ArrayList<Article>> listForSearch = new MutableLiveData<>();
+    private final ArrayList<Article> auxiliaryListForSearch = new ArrayList<>();
 
     public MutableLiveData<ArrayList<Article>> getListForSearch(){
         listForSearch.setValue(auxiliaryListForSearch);

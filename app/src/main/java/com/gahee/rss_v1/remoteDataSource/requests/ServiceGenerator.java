@@ -13,14 +13,14 @@ import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
  */
 public class ServiceGenerator {
 
-    private static Retrofit.Builder retrofitBuilder =
+    private static final Retrofit.Builder retrofitBuilder =
             new Retrofit.Builder()
                     .baseUrl(Constants.BASE_URL)
                     .addConverterFactory(SimpleXmlConverterFactory.create());
 
-    private static Retrofit retrofit = retrofitBuilder.build();
+    private static final Retrofit retrofit = retrofitBuilder.build();
 
-    private static CnnAPI cnnAPI = retrofit.create(CnnAPI.class);
+    private static final CnnAPI cnnAPI = retrofit.create(CnnAPI.class);
 
     public static CnnAPI getCnnAPI(){
         return cnnAPI;

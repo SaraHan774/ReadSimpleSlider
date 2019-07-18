@@ -22,6 +22,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 public class MyFavoritesFragment extends Fragment {
@@ -29,9 +30,7 @@ public class MyFavoritesFragment extends Fragment {
     // either dynamically or via XML layout inflation.
 
     private RecyclerView myFavoritesRecyclerView;
-    private RecyclerView.LayoutManager layoutManager;
     private RecyclerView.Adapter adapter;
-    private ViewModelRoom viewModelRoom;
     private FloatingActionButton shareFAB;
     private List<FavEntities> favEntities;
     private FirebaseAnalytics mFirebaseAnalytics;
@@ -55,10 +54,10 @@ public class MyFavoritesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_my_favorites, container, false);
 
         myFavoritesRecyclerView = view.findViewById(R.id.my_favorites_recycler_view);
-        layoutManager = new LinearLayoutManager(getActivity());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         myFavoritesRecyclerView.setLayoutManager(layoutManager);
 
-        viewModelRoom = ViewModelProviders.of(this).get(ViewModelRoom.class);
+        ViewModelRoom viewModelRoom = ViewModelProviders.of(this).get(ViewModelRoom.class);
         viewModelRoom.getFavoriteNews().observe(this, new Observer<List<FavEntities>>() {
             @Override
             public void onChanged(List<FavEntities> favEntities) {
@@ -79,7 +78,7 @@ public class MyFavoritesFragment extends Fragment {
     }
 
 
-    private StringBuilder stringBuilder = new StringBuilder();
+    private final StringBuilder stringBuilder = new StringBuilder();
     private void setShareButton(){
 
         shareFAB.setOnClickListener(new View.OnClickListener() {
@@ -99,8 +98,8 @@ public class MyFavoritesFragment extends Fragment {
                     firebaseLogEvent(linkToShare);
 
                     //sharing format
-                    String shareContentStars = String.format("MY STARS : %d", starCount);
-                    String shareContentArticleLink = String.format(" - ARTICLE LINK : %s\n\n", linkToShare);
+                    String shareContentStars = String.format(Locale.US, "MY STARS : %d", starCount);
+                    String shareContentArticleLink = String.format(Locale.US, " - ARTICLE LINK : %s\n\n", linkToShare);
 
                     stringBuilder.append(shareContentStars)
                             .append(shareContentArticleLink);

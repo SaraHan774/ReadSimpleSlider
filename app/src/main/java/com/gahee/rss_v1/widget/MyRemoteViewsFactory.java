@@ -2,7 +2,6 @@ package com.gahee.rss_v1.widget;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
@@ -15,15 +14,14 @@ import static com.gahee.rss_v1.helpers.Constants.FILLIN_INTENT_EXTRA;
 
 public class MyRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
-    private Context context;
-    private Intent intent;
-    private RepositoryRoom repositoryRoom;
+    private final Context context;
+    private final RepositoryRoom repositoryRoom;
     private List<FavEntities> favEntitiesList;
 
 
     public MyRemoteViewsFactory(Context context, Intent intent){
         this.context = context;
-        this.intent = intent;
+        Intent intent1 = intent;
         repositoryRoom = new RepositoryRoom(this.context);
         favEntitiesList = repositoryRoom.getMyFavorites();
     }
