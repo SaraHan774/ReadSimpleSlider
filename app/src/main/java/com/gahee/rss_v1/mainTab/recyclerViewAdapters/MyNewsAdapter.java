@@ -45,11 +45,19 @@ public class MyNewsAdapter extends RecyclerView.Adapter<MyNewsAdapter.MyNewsView
 
     private String stringCleaner(String s){
         Pattern pattern = Pattern.compile("CNN.com - RSS Channel - ");
+        Pattern pattern1 = Pattern.compile("App ");
         Matcher matcher = pattern.matcher(s);
+
         String sub = "";
         while(matcher.find()) {
             int end = matcher.end();
             sub = s.substring(end);
+
+        }
+        Matcher matcher1 = pattern1.matcher(sub);
+        while(matcher1.find()){
+            int end = matcher1.end();
+            sub = sub.substring(end);
         }
         return sub;
     }

@@ -9,13 +9,17 @@
     <TextView
         android:id="@+id/tv_main_news_topic"
         android:contentDescription="@string/main_rv_news_topic_desc"
+        android:background="@color/colorTransparentBlack"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp"
+        android:elevation="8dp"
+        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/sample_text_short"
-        android:layout_marginStart="16dp"
-        android:textStyle="bold"
-        android:textColor="@color/colorTransparentBlack"
-        android:textSize="@dimen/text_size_small"
+        android:textStyle="italic"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/text_size_medium"
         />
 
     <androidx.cardview.widget.CardView
